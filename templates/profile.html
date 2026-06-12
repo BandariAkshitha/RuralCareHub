@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile - RuralCareHub</title>
+
+    <style>
+
+        body{
+            font-family:Arial,sans-serif;
+            background:#f4f7fb;
+            margin:0;
+        }
+
+        .header{
+            background:linear-gradient(to right,#0077cc,#00b4ff);
+            color:white;
+            text-align:center;
+            padding:20px;
+        }
+
+        .profile-box{
+            width:400px;
+            max-width:90%;
+            background:white;
+            margin:40px auto;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 0 10px rgba(0,0,0,0.2);
+        }
+
+        .profile-box h2{
+            text-align:center;
+            color:#0077cc;
+        }
+
+        .profile-item{
+            margin:15px 0;
+            font-size:18px;
+        }
+
+        .back-btn{
+            display:block;
+            text-align:center;
+            background:#0077cc;
+            color:white;
+            padding:12px;
+            border-radius:8px;
+            text-decoration:none;
+            margin-top:20px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <h1 id="title">Patient Profile</h1>
+
+    <br>
+
+    <select id="languageSelect" onchange="changeLanguage()">
+
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+        <option value="te">Telugu</option>
+
+    </select>
+
+</div>
+
+<div class="profile-box">
+
+    <h2 id="profile-title">Profile Details</h2>
+
+    <div class="profile-item">
+        👤 <b id="name-label">Name:</b> Ravi Kumar
+    </div>
+
+    <div class="profile-item">
+        🎂 <b id="age-label">Age:</b> 28
+    </div>
+
+    <div class="profile-item">
+        🩸 <b id="blood-label">Blood Group:</b> O+
+    </div>
+
+    <div class="profile-item">
+        📞 <b id="phone-label">Phone:</b> 9876543210
+    </div>
+
+    <div class="profile-item">
+        📍 <b id="address-label">Address:</b> Hyderabad
+    </div>
+
+    <a href="/patient" class="back-btn" id="back-btn">
+        Back
+    </a>
+
+</div>
+
+<script>
+
+const translations = {
+
+    en:{
+        title:"Patient Profile",
+        profile:"Profile Details",
+        name:"Name:",
+        age:"Age:",
+        blood:"Blood Group:",
+        phone:"Phone:",
+        address:"Address:",
+        back:"Back"
+    },
+
+    hi:{
+        title:"रोगी प्रोफ़ाइल",
+        profile:"प्रोफ़ाइल विवरण",
+        name:"नाम:",
+        age:"आयु:",
+        blood:"ब्लड ग्रुप:",
+        phone:"फ़ोन:",
+        address:"पता:",
+        back:"वापस"
+    },
+
+    te:{
+        title:"రోగి ప్రొఫైల్",
+        profile:"ప్రొఫైల్ వివరాలు",
+        name:"పేరు:",
+        age:"వయస్సు:",
+        blood:"రక్త గ్రూప్:",
+        phone:"ఫోన్:",
+        address:"చిరునామా:",
+        back:"వెనక్కి"
+    }
+
+};
+
+function changeLanguage(){
+
+    let lang =
+    document.getElementById("languageSelect").value;
+
+    document.getElementById("title").innerText =
+    translations[lang].title;
+
+    document.getElementById("profile-title").innerText =
+    translations[lang].profile;
+
+    document.getElementById("name-label").innerText =
+    translations[lang].name;
+
+    document.getElementById("age-label").innerText =
+    translations[lang].age;
+
+    document.getElementById("blood-label").innerText =
+    translations[lang].blood;
+
+    document.getElementById("phone-label").innerText =
+    translations[lang].phone;
+
+    document.getElementById("address-label").innerText =
+    translations[lang].address;
+
+    document.getElementById("back-btn").innerText =
+    translations[lang].back;
+
+    localStorage.setItem("language",lang);
+}
+
+window.onload = function(){
+
+    let savedLang =
+    localStorage.getItem("language") || "en";
+
+    document.getElementById("languageSelect").value =
+    savedLang;
+
+    changeLanguage();
+}
+
+</script>
+
+</body>
+</html>

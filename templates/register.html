@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>
+        Register - RuralCareHub
+    </title>
+
+    <style>
+
+        body{
+            font-family:Arial, sans-serif;
+            background:#f4f7fb;
+        }
+
+        .container{
+            width:450px;
+            margin:40px auto;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        h2{
+            text-align:center;
+            color:#0077cc;
+        }
+
+        label{
+            font-weight:bold;
+        }
+
+        input, textarea, select{
+            width:100%;
+            padding:10px;
+            margin-top:5px;
+            margin-bottom:15px;
+            border:1px solid #ccc;
+            border-radius:5px;
+            box-sizing:border-box;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:#28a745;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        button:hover{
+            background:#218838;
+        }
+
+        .back{
+            text-align:center;
+            margin-top:15px;
+        }
+
+        .back a{
+            text-decoration:none;
+            color:#0077cc;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2 id="register-title">
+        User Registration
+    </h2>
+
+    <div style="text-align:center; margin-bottom:20px;">
+
+        <select id="languageSelect"
+                onchange="changeLanguage()">
+
+            <option value="en">
+                English
+            </option>
+
+            <option value="te">
+                Telugu
+            </option>
+
+            <option value="hi">
+                Hindi
+            </option>
+
+        </select>
+
+    </div>
+
+    <form action="/register" method="POST">
+
+        <label id="name-label">
+            Full Name
+        </label>
+
+        <input type="text"
+               name="name"
+               placeholder="Enter Full Name"
+               required>
+
+        <label id="email-label">
+            Email Address
+        </label>
+
+        <input type="email"
+               name="email"
+               placeholder="Enter Email"
+               required>
+
+        <label id="phone-label">
+            Phone Number
+        </label>
+
+        <input type="tel"
+               name="phone"
+               placeholder="Enter Phone Number"
+               required>
+
+        <label id="address-label">
+            Village / Address
+        </label>
+
+        <textarea rows="3"
+                  name="address"
+                  placeholder="Enter Address"
+                  required>
+        </textarea>
+
+        <label id="password-label">
+            Password
+        </label>
+
+        <input type="password"
+               name="password"
+               placeholder="Enter Password"
+               required>
+
+        <label id="confirm-label">
+            Confirm Password
+        </label>
+
+        <input type="password"
+               name="confirm_password"
+               placeholder="Confirm Password"
+               required>
+
+        <button type="submit"
+                id="register-btn">
+
+            Register
+
+        </button>
+
+    </form>
+
+    <div class="back">
+
+        <a href="/login">
+            Back to Login
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+const translations = {
+
+    en: {
+
+        title: "User Registration",
+
+        name: "Full Name",
+
+        email: "Email Address",
+
+        phone: "Phone Number",
+
+        address: "Village / Address",
+
+        password: "Password",
+
+        confirm: "Confirm Password",
+
+        register: "Register"
+
+    },
+
+    te: {
+
+        title: "వినియోగదారు నమోదు",
+
+        name: "పూర్తి పేరు",
+
+        email: "ఈమెయిల్ చిరునామా",
+
+        phone: "ఫోన్ నంబర్",
+
+        address: "గ్రామం / చిరునామా",
+
+        password: "పాస్‌వర్డ్",
+
+        confirm: "పాస్‌వర్డ్ నిర్ధారించండి",
+
+        register: "నమోదు"
+
+    },
+
+    hi: {
+
+        title: "यूज़र पंजीकरण",
+
+        name: "पूरा नाम",
+
+        email: "ईमेल पता",
+
+        phone: "फ़ोन नंबर",
+
+        address: "गांव / पता",
+
+        password: "पासवर्ड",
+
+        confirm: "पासवर्ड पुष्टि करें",
+
+        register: "रजिस्टर"
+
+    }
+
+};
+
+function changeLanguage(){
+
+    let lang =
+    document.getElementById("languageSelect").value;
+
+    document.getElementById("register-title").innerText =
+    translations[lang].title;
+
+    document.getElementById("name-label").innerText =
+    translations[lang].name;
+
+    document.getElementById("email-label").innerText =
+    translations[lang].email;
+
+    document.getElementById("phone-label").innerText =
+    translations[lang].phone;
+
+    document.getElementById("address-label").innerText =
+    translations[lang].address;
+
+    document.getElementById("password-label").innerText =
+    translations[lang].password;
+
+    document.getElementById("confirm-label").innerText =
+    translations[lang].confirm;
+
+    document.getElementById("register-btn").innerText =
+    translations[lang].register;
+
+    localStorage.setItem("language", lang);
+}
+
+window.onload = function(){
+
+    let savedLang =
+    localStorage.getItem("language") || "en";
+
+    document.getElementById("languageSelect").value =
+    savedLang;
+
+    changeLanguage();
+}
+
+</script>
+
+</body>
+</html>

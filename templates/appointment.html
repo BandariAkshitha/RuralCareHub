@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>
+        Appointment Booking - RuralCareHub
+    </title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        body{
+            font-family:Arial, sans-serif;
+            background:#f4f7fb;
+            margin:0;
+        }
+
+        .header{
+            background:#0077cc;
+            color:white;
+            text-align:center;
+            padding:20px;
+        }
+
+        .container{
+            width:50%;
+            margin:30px auto;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        label{
+            font-weight:bold;
+        }
+
+        input, select{
+            width:100%;
+            padding:10px;
+            margin-top:5px;
+            margin-bottom:15px;
+            border:1px solid #ccc;
+            border-radius:5px;
+            box-sizing:border-box;
+        }
+
+        .btn{
+            width:100%;
+            padding:12px;
+            background:#28a745;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        .btn:hover{
+            background:#218838;
+        }
+
+        .back-btn{
+            display:block;
+            width:150px;
+            text-align:center;
+            margin:20px auto;
+            padding:10px;
+            background:#0077cc;
+            color:white;
+            text-decoration:none;
+            border-radius:5px;
+        }
+
+        @media(max-width:768px){
+
+            .container{
+                width:90%;
+                padding:20px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+    <h1 id="title">
+        Appointment Booking
+    </h1>
+
+    <br>
+
+    <select id="languageSelect"
+            onchange="changeLanguage()">
+
+        <option value="en">
+            English
+        </option>
+
+        <option value="te">
+            Telugu
+        </option>
+
+        <option value="hi">
+            Hindi
+        </option>
+
+    </select>
+
+</div>
+
+<div class="container">
+
+    <form action="/appointment"
+          method="POST">
+
+        <label id="patient-label">
+            Patient Name
+        </label>
+
+        <input type="text"
+               name="patient_name"
+               placeholder="Enter Patient Name"
+               required>
+
+        <label id="doctor-label">
+            Select Doctor
+        </label>
+
+        <select name="doctor_name"
+                required>
+
+            <option id="doc1">
+                Dr. Ravi Kumar
+            </option>
+
+            <option id="doc2">
+                Dr. Priya Sharma
+            </option>
+
+            <option id="doc3">
+                Dr. Suresh Reddy
+            </option>
+
+        </select>
+
+        <label id="date-label">
+            Appointment Date
+        </label>
+
+        <input type="date"
+               name="appointment_date"
+               required>
+
+        <label id="time-label">
+            Appointment Time
+        </label>
+
+        <input type="time"
+               name="appointment_time"
+               required>
+
+        <button type="submit"
+                class="btn"
+                id="book-btn">
+
+            Book Appointment
+
+        </button>
+
+    </form>
+
+</div>
+
+<a href="/patient"
+   class="back-btn"
+   id="back-btn">
+
+    Back
+
+</a>
+
+<script>
+
+const translations = {
+
+    en:{
+        title:"Appointment Booking",
+        patient:"Patient Name",
+        doctor:"Select Doctor",
+        date:"Appointment Date",
+        time:"Appointment Time",
+        book:"Book Appointment",
+        back:"Back",
+
+        doc1:"Dr. Ravi Kumar",
+        doc2:"Dr. Priya Sharma",
+        doc3:"Dr. Suresh Reddy"
+    },
+
+    te:{
+        title:"అపాయింట్మెంట్ బుకింగ్",
+        patient:"రోగి పేరు",
+        doctor:"డాక్టర్ ఎంచుకోండి",
+        date:"అపాయింట్మెంట్ తేదీ",
+        time:"అపాయింట్మెంట్ సమయం",
+        book:"అపాయింట్మెంట్ బుక్ చేయండి",
+        back:"వెనక్కి",
+
+        doc1:"డా. రవి కుమార్",
+        doc2:"డా. ప్రియా శర్మ",
+        doc3:"డా. సురేష్ రెడ్డి"
+    },
+
+    hi:{
+        title:"अपॉइंटमेंट बुकिंग",
+        patient:"मरीज का नाम",
+        doctor:"डॉक्टर चुनें",
+        date:"अपॉइंटमेंट तिथि",
+        time:"अपॉइंटमेंट समय",
+        book:"अपॉइंटमेंट बुक करें",
+        back:"वापस",
+
+        doc1:"डॉ. रवि कुमार",
+        doc2:"डॉ. प्रिया शर्मा",
+        doc3:"डॉ. सुरेश रेड्डी"
+    }
+};
+
+function changeLanguage(){
+
+    let lang =
+    document.getElementById("languageSelect").value;
+
+    document.getElementById("title").innerText =
+    translations[lang].title;
+
+    document.getElementById("patient-label").innerText =
+    translations[lang].patient;
+
+    document.getElementById("doctor-label").innerText =
+    translations[lang].doctor;
+
+    document.getElementById("date-label").innerText =
+    translations[lang].date;
+
+    document.getElementById("time-label").innerText =
+    translations[lang].time;
+
+    document.getElementById("book-btn").innerText =
+    translations[lang].book;
+
+    document.getElementById("back-btn").innerText =
+    translations[lang].back;
+
+    document.getElementById("doc1").innerText =
+    translations[lang].doc1;
+
+    document.getElementById("doc2").innerText =
+    translations[lang].doc2;
+
+    document.getElementById("doc3").innerText =
+    translations[lang].doc3;
+
+    localStorage.setItem("language",lang);
+}
+
+window.onload = function(){
+
+    let savedLanguage =
+    localStorage.getItem("language") || "en";
+
+    document.getElementById("languageSelect").value =
+    savedLanguage;
+
+    changeLanguage();
+}
+
+</script>
+
+</body>
+</html>

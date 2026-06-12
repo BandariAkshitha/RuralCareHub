@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Language Support - RuralCareHub</title>
+
+    <style>
+        body{
+            font-family:Arial, sans-serif;
+            background:#f4f7fb;
+            margin:0;
+        }
+
+        .header{
+            background:#0077cc;
+            color:white;
+            text-align:center;
+            padding:20px;
+        }
+
+        .container{
+            width:80%;
+            margin:40px auto;
+            text-align:center;
+        }
+
+        .card{
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        select{
+            width:250px;
+            padding:10px;
+            font-size:16px;
+            border-radius:5px;
+        }
+
+        .btn{
+            margin-top:20px;
+            padding:10px 20px;
+            background:#28a745;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
+        #message{
+            margin-top:15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1 id="title">Language Support</h1>
+</div>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Select Language</h2>
+
+        <select id="lang">
+            <option value="en">English</option>
+            <option value="te">Telugu</option>
+            <option value="hi">Hindi</option>
+        </select>
+
+        <br>
+
+        <button class="btn" onclick="setLang()">Apply Language</button>
+
+        <p id="message"></p>
+
+    </div>
+
+</div>
+
+<script>
+
+function setLang() {
+    let lang = document.getElementById("lang").value;
+    localStorage.setItem("language", lang);
+
+    let msg = {
+        en: "Language changed to English",
+        te: "భాష తెలుగు గా మార్చబడింది",
+        hi: "भाषा हिंदी में बदल दी गई है"
+    };
+
+    document.getElementById("message").innerText = msg[lang];
+    alert(msg[lang]);
+
+    applyLanguage(); // update immediately
+}
+
+// 🔥 GLOBAL FUNCTION (USED IN ALL PAGES)
+function applyLanguage() {
+
+    let lang = localStorage.getItem("language") || "en";
+
+    const t = {
+        en: {
+            title: "Language Support",
+            login: "User Login",
+            patient: "Patient Dashboard",
+            doctor: "Doctor Dashboard",
+            voice: "Voice Assistant",
+            logout: "Logout"
+        },
+        te: {
+            title: "భాషా మద్దతు",
+            login: "వినియోగదారు లాగిన్",
+            patient: "రోగి డాష్‌బోర్డ్",
+            doctor: "డాక్టర్ డాష్‌బోర్డ్",
+            voice: "వాయిస్ అసిస్టెంట్",
+            logout: "లాగౌట్"
+        },
+        hi: {
+            title: "भाषा समर्थन",
+            login: "यूजर लॉगिन",
+            patient: "मरीज डैशबोर्ड",
+            doctor: "डॉक्टर डैशबोर्ड",
+            voice: "वॉइस असिस्टेंट",
+            logout: "लॉगआउट"
+        }
+    };
+
+    let data = t[lang];
+
+    if (document.getElementById("title"))
+        document.getElementById("title").innerText = data.title;
+}
+
+// load on open
+window.onload = function() {
+    let saved = localStorage.getItem("language");
+    if (saved) document.getElementById("lang").value = saved;
+
+    applyLanguage();
+};
+</script>
+
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emergency Services - RuralCareHub</title>
+
+    <style>
+        body{
+            font-family:Arial, sans-serif;
+            background:#f4f7fb;
+            margin:0;
+        }
+
+        .header{
+            background:#d62828;
+            color:white;
+            text-align:center;
+            padding:20px;
+        }
+
+        .container{
+            width:80%;
+            margin:30px auto;
+        }
+
+        .card{
+            background:white;
+            padding:20px;
+            margin-bottom:20px;
+            border-radius:10px;
+            box-shadow:0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        h3{
+            color:#d62828;
+        }
+
+        .back-btn{
+            display:block;
+            width:150px;
+            text-align:center;
+            margin:20px auto;
+            padding:10px;
+            background:#0077cc;
+            color:white;
+            text-decoration:none;
+            border-radius:5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <h1 id="title">Emergency Services</h1>
+
+    <br>
+
+    <select id="languageSelect" onchange="changeLanguage()">
+
+        <option value="en">English</option>
+
+        <option value="hi">Hindi</option>
+
+        <option value="te">Telugu</option>
+
+    </select>
+
+</div>
+
+<div class="container">
+
+    <div class="card">
+        <h3 id="ambulance-title">🚑 Ambulance Service</h3>
+        <p>
+<span id="ambulance-number-label">
+Emergency Number:
+</span>
+108
+</p>
+    </div>
+
+    <div class="card">
+        <h3 id="hospital-title">🏥 Nearest Hospital</h3>
+        <p id="hospital-name">
+Government General Hospital
+</p>
+    </div>
+
+    <div class="card">
+        <h3 id="contact-title">📞 Emergency Contact</h3>
+        <p>
+<span id="police-label">Police:</span>
+100
+</p>
+        <p>
+<span id="fire-label">Fire Service:</span>
+101
+</p>
+    </div>
+
+</div>
+
+<a href="/patient" class="back-btn" id="back-btn">
+    Back
+</a>
+
+<script>
+
+const translations = {
+
+en:{
+title:"Emergency Services",
+
+ambulance:"🚑 Ambulance Service",
+emergencyNumber:"Emergency Number:",
+
+hospital:"🏥 Nearest Hospital",
+hospitalName:"Government General Hospital",
+
+contact:"📞 Emergency Contact",
+
+police:"Police:",
+fire:"Fire Service:",
+
+back:"Back"
+},
+
+hi:{
+title:"आपातकालीन सेवाएं",
+
+ambulance:"🚑 एम्बुलेंस सेवा",
+emergencyNumber:"आपातकालीन नंबर:",
+
+hospital:"🏥 नजदीकी अस्पताल",
+hospitalName:"सरकारी सामान्य अस्पताल",
+
+contact:"📞 आपातकालीन संपर्क",
+
+police:"पुलिस:",
+fire:"फायर सेवा:",
+
+back:"वापस"
+},
+
+te:{
+title:"అత్యవసర సేవలు",
+
+ambulance:"🚑 అంబులెన్స్ సేవ",
+emergencyNumber:"అత్యవసర నంబర్:",
+
+hospital:"🏥 సమీప ఆసుపత్రి",
+hospitalName:"ప్రభుత్వ జనరల్ ఆసుపత్రి",
+
+contact:"📞 అత్యవసర సంప్రదింపు",
+
+police:"పోలీస్:",
+fire:"అగ్నిమాపక సేవ:",
+
+back:"వెనక్కి"
+}
+
+};
+
+function changeLanguage(){
+
+let lang =
+document.getElementById("languageSelect").value;
+
+document.getElementById("title").innerText =
+translations[lang].title;
+
+document.getElementById("ambulance-title").innerText =
+translations[lang].ambulance;
+
+document.getElementById("ambulance-number-label").innerText =
+translations[lang].emergencyNumber;
+
+document.getElementById("hospital-title").innerText =
+translations[lang].hospital;
+
+document.getElementById("hospital-name").innerText =
+translations[lang].hospitalName;
+
+document.getElementById("contact-title").innerText =
+translations[lang].contact;
+
+document.getElementById("police-label").innerText =
+translations[lang].police;
+
+document.getElementById("fire-label").innerText =
+translations[lang].fire;
+
+document.getElementById("back-btn").innerText =
+translations[lang].back;
+
+localStorage.setItem("language",lang);
+}
+
+window.onload = function(){
+
+let savedLang =
+localStorage.getItem("language") || "en";
+
+document.getElementById("languageSelect").value =
+savedLang;
+
+changeLanguage();
+
+}
+
+</script>
+
+</body>
+</html>

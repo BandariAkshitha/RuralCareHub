@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Directory - RuralCareHub</title>
+
+    <style>
+        body{
+            font-family:Arial, sans-serif;
+            background:#f4f7fb;
+            margin:0;
+        }
+
+        .header{
+            background:#0077cc;
+            color:white;
+            text-align:center;
+            padding:20px;
+        }
+
+        .container{
+            width:80%;
+            margin:30px auto;
+        }
+
+        .doctor-card{
+            background:white;
+            padding:20px;
+            margin-bottom:20px;
+            border-radius:10px;
+            box-shadow:0 3px 8px rgba(0,0,0,0.1);
+        }
+
+        h3{
+            color:#0077cc;
+        }
+
+        .back-btn{
+            display:block;
+            width:150px;
+            text-align:center;
+            margin:20px auto;
+            padding:10px;
+            background:#0077cc;
+            color:white;
+            text-decoration:none;
+            border-radius:5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <h1 id="title">Doctor Directory</h1>
+
+    <br>
+
+    <select id="languageSelect" onchange="changeLanguage()">
+
+        <option value="en">English</option>
+
+        <option value="hi">Hindi</option>
+
+        <option value="te">Telugu</option>
+
+    </select>
+
+</div>
+
+<div class="container">
+
+    <div class="doctor-card">
+        <h3 id="doc1-name">Dr. Ravi Kumar</h3>
+        <p id="doc1-specialization">General Physician</p>
+        <p id="city1">Hyderabad</p>
+    </div>
+
+    <div class="doctor-card">
+        <h3 id="doc2-name">Dr. Priya Sharma</h3>
+        <p id="doc2-specialization">Cardiologist</p>
+        <p id="city2">Hyderabad</p>
+    </div>
+
+    <div class="doctor-card">
+        <h3 id="doc3-name">Dr. Suresh Reddy</h3>
+        <p id="doc3-specialization">Pediatrician</p>
+        <p id="city3">Hyderabad</p>
+    </div>
+
+</div>
+
+<a href="/patient" class="back-btn" id="back-btn">Back</a>
+<script>
+
+const translations = {
+
+    en:{
+    title:"Doctor Directory",
+
+    doc1:"General Physician",
+
+    doc2:"Cardiologist",
+
+    doc3:"Pediatrician",
+
+    doc1name:"Dr. Ravi Kumar",
+
+    doc2name:"Dr. Priya Sharma",
+
+    doc3name:"Dr. Suresh Reddy",
+
+    city:"Hyderabad",
+
+    back:"Back"
+},
+
+    hi:{
+        title:"डॉक्टर निर्देशिका",
+
+        doc1:"सामान्य चिकित्सक",
+
+        doc2:"हृदय रोग विशेषज्ञ",
+
+        doc3:"बाल रोग विशेषज्ञ",
+
+        city:"हैदराबाद",
+
+        back:"वापस"
+    },
+
+    te:{
+        title:"డాక్టర్ డైరెక్టరీ",
+
+        doc1:"సాధారణ వైద్యుడు",
+
+        doc2:"హృదయ నిపుణుడు",
+
+        doc3:"శిశు వైద్యుడు",
+
+        city:"హైదరాబాద్",
+
+        back:"వెనక్కి"
+    }
+};
+
+function changeLanguage(){
+
+    let lang =
+    document.getElementById("languageSelect").value;
+
+    document.getElementById("title").innerText =
+    translations[lang].title;
+
+    document.getElementById("doc1-specialization").innerText =
+    translations[lang].doc1;
+
+    document.getElementById("doc2-specialization").innerText =
+    translations[lang].doc2;
+
+    document.getElementById("doc3-specialization").innerText =
+    translations[lang].doc3;
+
+    document.getElementById("city1").innerText =
+    translations[lang].city;
+
+    document.getElementById("city2").innerText =
+    translations[lang].city;
+
+    document.getElementById("city3").innerText =
+    translations[lang].city;
+
+    document.getElementById("back-btn").innerText =
+    translations[lang].back;
+
+    localStorage.setItem("language",lang);
+}
+
+window.onload = function(){
+
+    let savedLang =
+    localStorage.getItem("language") || "en";
+
+    document.getElementById("languageSelect").value =
+    savedLang;
+
+    changeLanguage();
+}
+
+
+</script>
+
+</body>
+</html>

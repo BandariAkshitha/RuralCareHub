@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RuralCareHub</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#eef5fb;
+
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.header{
+    background:linear-gradient(to right,#0056b3,#0077b6);
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.logo{
+    width:140px;
+    height:140px;
+    border-radius:50%;
+}
+
+.header h1{
+    margin:10px 0 5px;
+    font-size:40px;
+}
+
+.header p{
+    margin:0;
+    font-size:18px;
+}
+
+.login-box{
+    width:400px;
+    max-width:90%;
+    background:white;
+    margin:40px auto;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0px 0px 15px rgba(0,0,0,0.2);
+}
+
+.login-box h2{
+    text-align:center;
+    color:#0056b3;
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    box-sizing:border-box;
+    font-size:16px;
+}
+
+.btn-login{
+    width:100%;
+    padding:12px;
+    background:#0056d6;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.btn-login:hover{
+    background:#0045aa;
+}
+
+.or{
+    text-align:center;
+    margin:20px 0;
+    color:gray;
+}
+
+.btn-signup{
+    width:100%;
+    padding:12px;
+    background:#28a745;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.btn-signup:hover{
+    background:#218838;
+}
+
+.footer{
+    background:#0056b3;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:40px;
+}
+@media(max-width:768px){
+
+    .header h1{
+        font-size:30px;
+    }
+
+    .header p{
+        font-size:15px;
+    }
+
+    .logo{
+        width:120px;
+        height:120px;
+    }
+
+    .login-box{
+        width:90%;
+        padding:20px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <img src="{{ url_for('static', filename='logo.jpeg') }}"
+         alt="RuralCareHub Logo"
+         class="logo">
+
+    <h1 id="title">RuralCareHub</h1>
+
+    <p id="subtitle">Connecting Communities to Health</p>
+    <br>
+
+<select id="language-selector">
+
+    <option value="en">English</option>
+
+    <option value="hi">Hindi</option>
+
+    <option value="te">Telugu</option>
+
+</select>
+
+</div>
+
+<div class="login-box">
+
+    <h2>User Login</h2>
+
+    <form action="/login" method="POST">
+
+        <label id="email-label">Email Address</label>
+        <input type="email"
+               name="email"
+               placeholder="Enter your email"
+               required>
+
+        <label id="password-label">Password</label>
+        <input type="password"
+               name="password"
+               placeholder="Enter your password"
+               required>
+
+        <button type="submit"
+        class="btn-login"
+        id="login-btn">
+        Login
+        </button>
+
+    </form>
+
+    <div class="or">OR</div>
+
+    <a href="/register">
+        <button class="btn-signup" id="signup-btn">
+    Sign Up
+</button>
+    </a>
+
+</div>
+
+<div class="footer">
+
+    <p>Emergency Number: 108</p>
+
+    <p>Email: support@ruralcarehub.com</p>
+
+    <p>© 2026 RuralCareHub. All Rights Reserved.</p>
+
+</div>
+<script>
+
+const translations = {
+
+    en: {
+        title: "RuralCareHub",
+        subtitle: "Connecting Communities to Health",
+        login: "Login",
+        email: "Email Address",
+        password: "Password",
+        signup: "Sign Up"
+    },
+
+    hi: {
+        title: "रूरलकेयरहब",
+        subtitle: "समुदायों को स्वास्थ्य से जोड़ना",
+        login: "लॉगिन",
+        email: "ईमेल पता",
+        password: "पासवर्ड",
+        signup: "साइन अप"
+    },
+
+    te: {
+        title: "రూరల్ కేర్ హబ్",
+        subtitle: "సమాజాలను ఆరోగ్యంతో కలుపుతోంది",
+        login: "లాగిన్",
+        email: "ఈమెయిల్ చిరునామా",
+        password: "పాస్‌వర్డ్",
+        signup: "సైన్ అప్"
+    }
+};
+
+document.getElementById("language-selector")
+
+.addEventListener("change", function () {
+
+    let lang = this.value;
+
+    document.getElementById("title").innerText =
+    translations[lang].title;
+
+    document.getElementById("subtitle").innerText =
+    translations[lang].subtitle;
+
+    document.getElementById("login-btn").innerText =
+    translations[lang].login;
+    
+    document.getElementById("email-label").innerText =
+    translations[lang].email;
+
+    document.getElementById("password-label").innerText =
+    translations[lang].password;
+
+    document.getElementById("signup-btn").innerText =
+    translations[lang].signup;
+
+});
+window.onload = function() {
+    document.getElementById("login-btn").innerText = "Login";
+};
+
+</script>
+</body>
+</html>

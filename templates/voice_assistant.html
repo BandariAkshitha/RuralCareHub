@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Symptom Checker</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f0f8ff;
+}
+
+.header{
+    background:linear-gradient(to right,#0047ff,#00c6ff);
+    color:white;
+    text-align:center;
+    padding:30px;
+}
+
+.container{
+    width:90%;
+    max-width:500px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+label{
+    font-size:22px;
+    font-weight:bold;
+}
+
+select{
+    width:100%;
+    padding:15px;
+    margin-top:15px;
+    border-radius:10px;
+    border:2px solid #ccc;
+    font-size:20px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:20px;
+    border:none;
+    border-radius:10px;
+    font-size:22px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.check-btn{
+    background:#00c6ff;
+    color:white;
+}
+
+.back-btn{
+    background:#6ee7b7;
+    color:white;
+}
+
+.result{
+    margin-top:25px;
+    text-align:center;
+    font-size:22px;
+    color:#555;
+}
+
+.language-box{
+    text-align:center;
+    margin-top:20px;
+}
+
+.language-box button{
+    width:auto;
+    padding:10px 20px;
+    margin:5px;
+    font-size:16px;
+    background:#0047ff;
+    color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+<h1 id="title">🩺 Symptom Checker</h1>
+
+</div>
+
+<div class="container">
+
+<label id="label">
+Select Symptom
+</label>
+
+<select id="symptom"></select>
+
+<button
+class="check-btn"
+id="checkBtn"
+onclick="checkSymptom()">
+Check
+</button>
+
+<div class="result" id="result">
+Select symptom to see advice
+</div>
+
+<button
+class="back-btn"
+id="backBtn"
+onclick="goBack()">
+Back
+</button>
+
+<div class="language-box">
+
+<button onclick="changeLanguage('en')">
+English
+</button>
+
+<button onclick="changeLanguage('te')">
+తెలుగు
+</button>
+
+<button onclick="changeLanguage('hi')">
+हिन्दी
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+let currentLanguage = "en";
+
+const translations = {
+
+en:{
+title:"🩺 Symptom Checker",
+select:"Select Symptom",
+check:"Check",
+back:"Back",
+defaultMsg:"Select symptom to see advice",
+
+symptoms:{
+fever:"Fever",
+cough:"Cough",
+headache:"Headache",
+stomach:"Stomach Pain",
+cold:"Cold",
+vomiting:"Vomiting",
+body:"Body Pain",
+dizzy:"Dizziness",
+chest:"Chest Pain",
+throat:"Sore Throat",
+breath:"Breathing Problem",
+allergy:"Allergy"
+},
+
+advice:{
+fever:"Drink water and take rest.",
+cough:"Take warm fluids and rest.",
+headache:"Sleep well and stay hydrated.",
+stomach:"Eat light food and rest.",
+cold:"Drink warm water.",
+vomiting:"Stay hydrated.",
+body:"Take proper rest.",
+dizzy:"Sit and relax.",
+chest:"Consult doctor immediately.",
+throat:"Drink warm liquids.",
+breath:"Seek medical help.",
+allergy:"Avoid allergy triggers."
+}
+},
+
+te:{
+title:"🩺 లక్షణాల పరిశీలన",
+select:"లక్షణాన్ని ఎంచుకోండి",
+check:"తనిఖీ చేయండి",
+back:"వెనక్కి",
+defaultMsg:"సలహా చూడడానికి లక్షణాన్ని ఎంచుకోండి",
+
+symptoms:{
+fever:"జ్వరం",
+cough:"దగ్గు",
+headache:"తలనొప్పి",
+stomach:"కడుపు నొప్పి",
+cold:"జలుబు",
+vomiting:"వాంతులు",
+body:"శరీర నొప్పి",
+dizzy:"తల తిరగడం",
+chest:"ఛాతి నొప్పి",
+throat:"గొంతు నొప్పి",
+breath:"శ్వాస సమస్య",
+allergy:"అలర్జీ"
+},
+
+advice:{
+fever:"నీరు ఎక్కువగా తాగండి మరియు విశ్రాంతి తీసుకోండి.",
+cough:"వెచ్చని ద్రవాలు తాగండి.",
+headache:"బాగా నిద్రపోండి.",
+stomach:"తేలికపాటి ఆహారం తీసుకోండి.",
+cold:"వెచ్చని నీరు తాగండి.",
+vomiting:"శరీరానికి నీరు అందించండి.",
+body:"శరీరానికి విశ్రాంతి ఇవ్వండి.",
+dizzy:"కూర్చొని విశ్రాంతి తీసుకోండి.",
+chest:"తక్షణమే డాక్టర్‌ను సంప్రదించండి.",
+throat:"వెచ్చని ద్రవాలు తాగండి.",
+breath:"వెంటనే వైద్య సహాయం పొందండి.",
+allergy:"అలర్జీ కారణాలను దూరంగా ఉంచండి."
+}
+},
+
+hi:{
+title:"🩺 लक्षण जांच",
+select:"लक्षण चुनें",
+check:"जांच करें",
+back:"वापस",
+defaultMsg:"सलाह देखने के लिए लक्षण चुनें",
+
+symptoms:{
+fever:"बुखार",
+cough:"खांसी",
+headache:"सिरदर्द",
+stomach:"पेट दर्द",
+cold:"जुकाम",
+vomiting:"उल्टी",
+body:"शरीर दर्द",
+dizzy:"चक्कर",
+chest:"सीने में दर्द",
+throat:"गले में दर्द",
+breath:"सांस की समस्या",
+allergy:"एलर्जी"
+},
+
+advice:{
+fever:"पानी पिएं और आराम करें।",
+cough:"गर्म पेय लें।",
+headache:"अच्छी नींद लें।",
+stomach:"हल्का भोजन करें।",
+cold:"गर्म पानी पिएं।",
+vomiting:"शरीर में पानी बनाए रखें।",
+body:"आराम करें।",
+dizzy:"बैठकर आराम करें।",
+chest:"तुरंत डॉक्टर से मिलें।",
+throat:"गर्म तरल पदार्थ लें।",
+breath:"तुरंत चिकित्सा सहायता लें।",
+allergy:"एलर्जी से बचें।"
+}
+}
+
+};
+
+function loadSymptoms(lang){
+
+const symptomSelect =
+document.getElementById("symptom");
+
+symptomSelect.innerHTML = "";
+
+const symptoms =
+translations[lang].symptoms;
+
+Object.keys(symptoms).forEach(function(key){
+
+const option =
+document.createElement("option");
+
+option.value = key;
+
+option.textContent = symptoms[key];
+
+symptomSelect.appendChild(option);
+
+});
+
+}
+
+function changeLanguage(lang){
+
+currentLanguage = lang;
+
+document.getElementById("title").textContent =
+translations[lang].title;
+
+document.getElementById("label").textContent =
+translations[lang].select;
+
+document.getElementById("checkBtn").textContent =
+translations[lang].check;
+
+document.getElementById("backBtn").textContent =
+translations[lang].back;
+
+document.getElementById("result").textContent =
+translations[lang].defaultMsg;
+
+loadSymptoms(lang);
+
+}
+
+function checkSymptom(){
+
+const symptom =
+document.getElementById("symptom").value;
+
+const advice =
+translations[currentLanguage].advice[symptom];
+
+document.getElementById("result").textContent =
+advice;
+
+}
+
+function goBack(){
+
+window.history.back();
+
+}
+
+window.onload = function(){
+
+changeLanguage("en");
+
+};
+
+</script>
+
+</body>
+</html>

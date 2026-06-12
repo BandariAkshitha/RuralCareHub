@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Symptom Checker</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f4fbff;
+}
+
+/* HEADER */
+
+.header{
+    background:linear-gradient(to right,#0047ff,#00c6ff);
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+
+.header h1{
+    margin:0;
+    font-size:42px;
+}
+
+/* LANGUAGE SELECT */
+
+.language-box{
+    text-align:center;
+    margin-top:20px;
+}
+
+.language-box select{
+    padding:10px;
+    border-radius:8px;
+    font-size:16px;
+}
+
+/* MAIN BOX */
+
+.container{
+    width:420px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+
+label{
+    font-size:24px;
+    font-weight:bold;
+}
+
+select{
+    width:100%;
+    padding:15px;
+    margin-top:15px;
+    border-radius:10px;
+    border:2px solid #ccc;
+    font-size:20px;
+}
+
+/* BUTTONS */
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:20px;
+    border:none;
+    border-radius:10px;
+    font-size:22px;
+    color:white;
+    cursor:pointer;
+}
+
+.check-btn{
+    background:#00bfff;
+}
+
+.back-btn{
+    background:#65e6a7;
+}
+
+/* RESULT */
+
+#result{
+    text-align:center;
+    margin-top:25px;
+    font-size:22px;
+    color:#666;
+    font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+    <h1 id="title">🩺 Symptom Checker</h1>
+</div>
+
+<!-- LANGUAGE -->
+
+<div class="language-box">
+
+<select id="languageSelect" onchange="changeLanguage()">
+
+<option value="english">English</option>
+
+<option value="telugu">తెలుగు</option>
+
+<option value="hindi">हिंदी</option>
+
+</select>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="container">
+
+<label id="selectText">Select Symptom</label>
+
+<select id="symptom">
+
+<option value="fever">Fever</option>
+<option value="cough">Cough</option>
+<option value="headache">Headache</option>
+<option value="stomach">Stomach Pain</option>
+<option value="cold">Cold</option>
+<option value="vomiting">Vomiting</option>
+<option value="bodypain">Body Pain</option>
+<option value="dizziness">Dizziness</option>
+<option value="chestpain">Chest Pain</option>
+<option value="sorethroat">Sore Throat</option>
+<option value="breathing">Breathing Problem</option>
+<option value="allergy">Allergy</option>
+
+</select>
+
+<button class="check-btn" id="checkBtn" onclick="checkSymptom()">
+Check
+</button>
+
+<div id="result">
+Select symptom to see advice
+</div>
+
+<button class="back-btn" id="backBtn" onclick="goBack()">
+Back
+</button>
+
+</div>
+
+<script>
+
+function changeLanguage(){
+
+    let lang = document.getElementById("languageSelect").value;
+
+    /* ENGLISH */
+
+    if(lang === "english"){
+
+        document.getElementById("title").innerHTML =
+        "🩺 Symptom Checker";
+
+        document.getElementById("selectText").innerHTML =
+        "Select Symptom";
+
+        document.getElementById("checkBtn").innerHTML =
+        "Check";
+
+        document.getElementById("backBtn").innerHTML =
+        "Back";
+
+        document.getElementById("result").innerHTML =
+        "Select symptom to see advice";
+
+    }
+
+    /* TELUGU */
+
+    else if(lang === "telugu"){
+
+        document.getElementById("title").innerHTML =
+        "🩺 లక్షణాల తనిఖీ";
+
+        document.getElementById("selectText").innerHTML =
+        "లక్షణాన్ని ఎంచుకోండి";
+
+        document.getElementById("checkBtn").innerHTML =
+        "తనిఖీ చేయండి";
+
+        document.getElementById("backBtn").innerHTML =
+        "వెనక్కి";
+
+        document.getElementById("result").innerHTML =
+        "సలహా చూడడానికి లక్షణాన్ని ఎంచుకోండి";
+
+    }
+
+    /* HINDI */
+
+    else if(lang === "hindi"){
+
+        document.getElementById("title").innerHTML =
+        "🩺 लक्षण जांच";
+
+        document.getElementById("selectText").innerHTML =
+        "लक्षण चुनें";
+
+        document.getElementById("checkBtn").innerHTML =
+        "जांच करें";
+
+        document.getElementById("backBtn").innerHTML =
+        "वापस";
+
+        document.getElementById("result").innerHTML =
+        "सलाह देखने के लिए लक्षण चुनें";
+
+    }
+
+}
+
+function checkSymptom(){
+
+    let symptom =
+    document.getElementById("symptom").value;
+
+    let lang =
+    document.getElementById("languageSelect").value;
+
+    let result = "";
+
+    /* ENGLISH */
+
+    if(lang === "english"){
+
+        if(symptom === "fever"){
+            result = "Drink water and take rest.";
+        }
+
+        else if(symptom === "cough"){
+            result = "Drink warm water.";
+        }
+
+        else if(symptom === "headache"){
+            result = "Take proper sleep.";
+        }
+
+        else if(symptom === "stomach"){
+            result = "Eat light food.";
+        }
+
+        else if(symptom === "cold"){
+            result = "Take steam and rest.";
+        }
+
+        else if(symptom === "vomiting"){
+            result = "Drink ORS and stay hydrated.";
+        }
+
+        else if(symptom === "bodypain"){
+            result = "Take rest and drink water.";
+        }
+
+        else if(symptom === "dizziness"){
+            result = "Sit down and drink water.";
+        }
+
+        else if(symptom === "chestpain"){
+            result = "Consult doctor immediately.";
+        }
+
+        else if(symptom === "sorethroat"){
+            result = "Drink warm liquids.";
+        }
+
+        else if(symptom === "breathing"){
+            result = "Seek medical help quickly.";
+        }
+
+        else if(symptom === "allergy"){
+            result = "Avoid allergy triggers.";
+        }
+
+    }
+
+    /* TELUGU */
+
+    else if(lang === "telugu"){
+
+        if(symptom === "fever"){
+            result = "నీళ్లు తాగి విశ్రాంతి తీసుకోండి.";
+        }
+
+        else if(symptom === "cough"){
+            result = "వెచ్చని నీళ్లు తాగండి.";
+        }
+
+        else if(symptom === "headache"){
+            result = "బాగా నిద్రపోండి.";
+        }
+
+        else if(symptom === "stomach"){
+            result = "తేలికపాటి ఆహారం తినండి.";
+        }
+
+        else if(symptom === "cold"){
+            result = "ఆవిరి పట్టండి మరియు విశ్రాంతి తీసుకోండి.";
+        }
+
+        else if(symptom === "vomiting"){
+            result = "ORS తాగండి.";
+        }
+
+        else if(symptom === "bodypain"){
+            result = "విశ్రాంతి తీసుకోండి.";
+        }
+
+        else if(symptom === "dizziness"){
+            result = "కూర్చొని నీళ్లు తాగండి.";
+        }
+
+        else if(symptom === "chestpain"){
+            result = "తక్షణం డాక్టర్‌ను సంప్రదించండి.";
+        }
+
+        else if(symptom === "sorethroat"){
+            result = "వెచ్చని ద్రవాలు తాగండి.";
+        }
+
+        else if(symptom === "breathing"){
+            result = "త్వరగా వైద్య సహాయం పొందండి.";
+        }
+
+        else if(symptom === "allergy"){
+            result = "అలర్జీ కారణాలను దూరంగా ఉంచండి.";
+        }
+
+    }
+
+    /* HINDI */
+
+    else if(lang === "hindi"){
+
+        if(symptom === "fever"){
+            result = "पानी पिएं और आराम करें।";
+        }
+
+        else if(symptom === "cough"){
+            result = "गर्म पानी पिएं।";
+        }
+
+        else if(symptom === "headache"){
+            result = "अच्छी नींद लें।";
+        }
+
+        else if(symptom === "stomach"){
+            result = "हल्का भोजन करें।";
+        }
+
+        else if(symptom === "cold"){
+            result = "भाप लें और आराम करें।";
+        }
+
+        else if(symptom === "vomiting"){
+            result = "ORS पिएं।";
+        }
+
+        else if(symptom === "bodypain"){
+            result = "आराम करें।";
+        }
+
+        else if(symptom === "dizziness"){
+            result = "बैठ जाएं और पानी पिएं।";
+        }
+
+        else if(symptom === "chestpain"){
+            result = "तुरंत डॉक्टर से संपर्क करें।";
+        }
+
+        else if(symptom === "sorethroat"){
+            result = "गर्म पेय पिएं।";
+        }
+
+        else if(symptom === "breathing"){
+            result = "जल्दी चिकित्सा सहायता लें।";
+        }
+
+        else if(symptom === "allergy"){
+            result = "एलर्जी से बचें।";
+        }
+
+    }
+
+    document.getElementById("result").innerHTML = result;
+
+}
+
+function goBack(){
+
+    window.location.href="/patient";
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>
+    Login - RuralCareHub
+</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#eef5fb;
+
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+.header{
+    background:linear-gradient(to right,#0056b3,#0077b6);
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.logo{
+    width:140px;
+    height:140px;
+    border-radius:50%;
+}
+
+.header h1{
+    margin:10px 0 5px;
+    font-size:40px;
+}
+
+.header p{
+    margin:0;
+    font-size:18px;
+}
+
+.login-box{
+    width:400px;
+    max-width:90%;
+    background:white;
+    margin:40px auto;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0px 0px 15px rgba(0,0,0,0.2);
+}
+
+.login-box h2{
+    text-align:center;
+    color:#0056b3;
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+input, select{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    box-sizing:border-box;
+    font-size:16px;
+}
+
+.login-btn{
+    width:100%;
+    padding:12px;
+    background:#0056d6;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.login-btn:hover{
+    background:#0045aa;
+}
+
+.or{
+    text-align:center;
+    margin:20px 0;
+    color:gray;
+}
+
+.signup-btn{
+    width:100%;
+    padding:12px;
+    background:#28a745;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.signup-btn:hover{
+    background:#218838;
+}
+
+.footer{
+    background:#0056b3;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:40px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+    <img src="{{ url_for('static', filename='logo.jpeg') }}"
+         alt="RuralCareHub Logo"
+         class="logo">
+
+    <h1 id="title">
+        RuralCareHub
+    </h1>
+
+    <p id="subtitle">
+        Connecting Communities to Health
+    </p>
+
+</div>
+
+<div class="login-box">
+
+    <h2 id="login-title">
+        User Login
+    </h2>
+
+    <form action="/login" method="POST" onsubmit="saveLanguageBeforeLogin()">
+
+        <label id="email-label">
+            Email Address
+        </label>
+
+        <input type="email"
+               name="email"
+               placeholder="Enter your email"
+               required>
+
+        <label id="password-label">
+            Password
+        </label>
+
+        <input type="password"
+               name="password"
+               placeholder="Enter your password"
+               required>
+
+        <button type="submit"
+                class="login-btn"
+                id="login-btn">
+
+            Login
+
+        </button>
+
+    </form>
+
+    <div style="margin-bottom:15px; text-align:center;">
+
+        <select id="languageSelect"
+                onchange="changeLanguage()">
+
+            <option value="en">
+                English
+            </option>
+
+            <option value="te">
+                Telugu
+            </option>
+
+            <option value="hi">
+                Hindi
+            </option>
+
+        </select>
+
+    </div>
+
+    <div class="or">
+        OR
+    </div>
+
+    <a href="/register">
+
+        <button type="button"
+                class="signup-btn"
+                id="signup-btn">
+
+            Sign Up
+
+        </button>
+
+    </a>
+
+</div>
+
+<div class="footer">
+
+    <p>
+        Emergency Number: 108
+    </p>
+
+    <p>
+        Email: support@ruralcarehub.com
+    </p>
+
+    <p>
+        © 2026 RuralCareHub. All Rights Reserved.
+    </p>
+
+</div>
+
+<script>
+
+const translations = {
+
+    en: {
+
+        title: "RuralCareHub",
+
+        subtitle: "Connecting Communities to Health",
+
+        loginTitle: "User Login",
+
+        email: "Email Address",
+
+        password: "Password",
+
+        login: "Login",
+
+        signup: "Sign Up"
+
+    },
+
+    hi: {
+
+        title: "रूरलकेयरहब",
+
+        subtitle: "समुदाय को स्वास्थ्य से जोड़ना",
+
+        loginTitle: "यूज़र लॉगिन",
+
+        email: "ईमेल पता",
+
+        password: "पासवर्ड",
+
+        login: "लॉगिन",
+
+        signup: "साइन अप"
+
+    },
+
+    te: {
+
+        title: "రూరల్ కేర్ హబ్",
+
+        subtitle: "సమాజాలను ఆరోగ్యంతో కలుపుతోంది",
+
+        loginTitle: "వినియోగదారు లాగిన్",
+
+        email: "ఈమెయిల్ చిరునామా",
+
+        password: "పాస్‌వర్డ్",
+
+        login: "లాగిన్",
+
+        signup: "సైన్ అప్"
+
+    }
+
+};
+
+function changeLanguage() {
+
+    let lang =
+    document.getElementById("languageSelect").value;
+
+    document.getElementById("title").innerText =
+    translations[lang].title;
+
+    document.getElementById("subtitle").innerText =
+    translations[lang].subtitle;
+
+    document.getElementById("login-title").innerText =
+    translations[lang].loginTitle;
+
+    document.getElementById("email-label").innerText =
+    translations[lang].email;
+
+    document.getElementById("password-label").innerText =
+    translations[lang].password;
+
+    document.getElementById("login-btn").innerText =
+    translations[lang].login;
+
+    document.getElementById("signup-btn").innerText =
+    translations[lang].signup;
+
+    localStorage.setItem("language", lang);
+}
+function saveLanguageBeforeLogin(){
+
+    let lang =
+    document.getElementById("languageSelect").value;
+
+    localStorage.setItem("language", lang);
+
+}
+
+window.onload = function() {
+
+    let savedLang =
+    localStorage.getItem("language") || "en";
+
+    document.getElementById("languageSelect").value =
+    savedLang;
+
+    changeLanguage();
+};
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Articles - RuralCareHub</title>
+
+    <style>
+        body{
+            font-family:Arial, sans-serif;
+            background:#f4f7fb;
+            margin:0;
+        }
+
+        .header{
+            background:#0077cc;
+            color:white;
+            text-align:center;
+            padding:20px;
+        }
+
+        .container{
+            width:80%;
+            margin:30px auto;
+        }
+
+        .article{
+            background:white;
+            padding:20px;
+            margin-bottom:20px;
+            border-radius:10px;
+            box-shadow:0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        h3{
+            color:#0077cc;
+        }
+
+        .back-btn{
+            display:block;
+            width:150px;
+            text-align:center;
+            margin:20px auto;
+            padding:10px;
+            background:#0077cc;
+            color:white;
+            text-decoration:none;
+            border-radius:5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <h1 id="title">Health Articles</h1>
+
+    <br>
+
+    <select id="languageSelect" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+        <option value="te">Telugu</option>
+    </select>
+
+</div>
+
+<div class="container">
+
+    <div class="article">
+        <h3 id="article1-title">Diabetes Prevention</h3>
+        <p id="article1-text">
+            Maintain a healthy diet, exercise regularly, and monitor blood sugar levels.
+</p>
+    </div>
+
+    <div class="article">
+        <h3 id="article2-title">Heart Health Tips</h3>
+        <p id="article2-text">
+            Eat nutritious food, avoid smoking, and stay physically active.
+</p>
+    </div>
+
+    <div class="article">
+        <h3 id="article3-title">Importance of Clean Water</h3>
+        <p id="article3-text">
+        Drinking clean water helps prevent many diseases and improves overall health.
+</p>
+    </div>
+
+</div>
+
+<a href="/patient" class="back-btn" id="back-btn">Back</a>
+
+<script>
+
+const translations = {
+
+    en:{
+        title:"Health Articles",
+
+        article1Title:"Diabetes Prevention",
+        article1Text:"Maintain a healthy diet, exercise regularly, and monitor blood sugar levels.",
+
+        article2Title:"Heart Health Tips",
+        article2Text:"Eat nutritious food, avoid smoking, and stay physically active.",
+
+        article3Title:"Importance of Clean Water",
+        article3Text:"Drinking clean water helps prevent many diseases and improves overall health.",
+
+        back:"Back"
+    },
+
+    hi:{
+        title:"स्वास्थ्य लेख",
+
+        article1Title:"मधुमेह रोकथाम",
+        article1Text:"स्वस्थ भोजन करें, नियमित व्यायाम करें और रक्त शर्करा की जांच करें।",
+
+        article2Title:"हृदय स्वास्थ्य सुझाव",
+        article2Text:"पौष्टिक भोजन खाएं, धूम्रपान से बचें और सक्रिय रहें।",
+
+        article3Title:"स्वच्छ पानी का महत्व",
+        article3Text:"स्वच्छ पानी पीने से कई बीमारियों से बचाव होता है।",
+
+        back:"वापस"
+    },
+
+    te:{
+        title:"ఆరోగ్య వ్యాసాలు",
+
+        article1Title:"మధుమేహ నివారణ",
+        article1Text:"ఆరోగ్యకరమైన ఆహారం తినండి మరియు వ్యాయామం చేయండి.",
+
+        article2Title:"గుండె ఆరోగ్య సూచనలు",
+        article2Text:"పౌష్టికాహారం తీసుకోండి మరియు ధూమపానం చేయవద్దు.",
+
+        article3Title:"శుభ్రమైన నీటి ప్రాముఖ్యత",
+        article3Text:"శుభ్రమైన నీరు అనేక వ్యాధులను నివారిస్తుంది.",
+
+        back:"వెనక్కి"
+    }
+
+};
+
+function changeLanguage(){
+
+    let lang =
+    document.getElementById("languageSelect").value;
+
+    document.getElementById("title").innerText =
+    translations[lang].title;
+
+    document.getElementById("article1-title").innerText =
+    translations[lang].article1Title;
+
+    document.getElementById("article1-text").innerText =
+    translations[lang].article1Text;
+
+    document.getElementById("article2-title").innerText =
+    translations[lang].article2Title;
+
+    document.getElementById("article2-text").innerText =
+    translations[lang].article2Text;
+
+    document.getElementById("article3-title").innerText =
+    translations[lang].article3Title;
+
+    document.getElementById("article3-text").innerText =
+    translations[lang].article3Text;
+
+    document.getElementById("back-btn").innerText =
+    translations[lang].back;
+
+    localStorage.setItem("language", lang);
+}
+
+window.onload = function(){
+
+    let savedLang =
+    localStorage.getItem("language") || "en";
+
+    document.getElementById("languageSelect").value =
+    savedLang;
+
+    changeLanguage();
+}
+
+</script>
+
+</body>
+</html>
