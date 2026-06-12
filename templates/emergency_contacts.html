@@ -145,6 +145,24 @@ Emergency Number:
     </div>
 
 </div>
+</div>
+
+<br><br>
+
+<button onclick="getLocation()" style="
+background:#007bff;
+color:white;
+padding:10px 20px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+font-size:16px;">
+
+📍 Detect My Location
+
+</button>
+
+<a href="/patient" class="back-btn" id="back-btn">
 
 <a href="/patient" class="back-btn" id="back-btn">
     Back
@@ -253,7 +271,32 @@ savedLang;
 changeLanguage();
 
 }
+function getLocation(){
 
+if(navigator.geolocation){
+
+navigator.geolocation.getCurrentPosition(
+
+function(position){
+
+let lat = position.coords.latitude;
+let lon = position.coords.longitude;
+
+window.open(
+`https://www.google.com/maps?q=${lat},${lon}`
+);
+
+}
+
+);
+
+}else{
+
+alert("Geolocation not supported");
+
+}
+
+}
 </script>
 
 </body>
