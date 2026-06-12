@@ -1,342 +1,384 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Assistant - RuralCareHub</title>
 
-<title>Symptom Checker</title>
+    <style>
 
-<style>
+        body{
+            font-family:Arial;
+            background:#f4f7fb;
+            text-align:center;
+            margin:0;
+        }
 
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f0f8ff;
-}
+        .header{
+            background:#0077cc;
+            color:white;
+            padding:20px;
+        }
 
-.header{
-    background:linear-gradient(to right,#0047ff,#00c6ff);
-    color:white;
-    text-align:center;
-    padding:30px;
-}
+        .card{
+            background:white;
+            width:90%;
+            margin:40px auto;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 3px 10px rgba(0,0,0,0.1);
+        }
 
-.container{
-    width:90%;
-    max-width:500px;
-    margin:40px auto;
-    background:white;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
+        select{
+            padding:10px;
+            margin-bottom:20px;
+        }
 
-label{
-    font-size:22px;
-    font-weight:bold;
-}
+        button{
+            background:#28a745;
+            color:white;
+            padding:15px 20px;
+            border:none;
+            border-radius:10px;
+            font-size:18px;
+            width:100%;
+            cursor:pointer;
+        }
 
-select{
-    width:100%;
-    padding:15px;
-    margin-top:15px;
-    border-radius:10px;
-    border:2px solid #ccc;
-    font-size:20px;
-}
+        #output{
+            margin-top:20px;
+            font-size:20px;
+            color:#333;
+        }
 
-button{
-    width:100%;
-    padding:15px;
-    margin-top:20px;
-    border:none;
-    border-radius:10px;
-    font-size:22px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.check-btn{
-    background:#00c6ff;
-    color:white;
-}
-
-.back-btn{
-    background:#6ee7b7;
-    color:white;
-}
-
-.result{
-    margin-top:25px;
-    text-align:center;
-    font-size:22px;
-    color:#555;
-}
-
-.language-box{
-    text-align:center;
-    margin-top:20px;
-}
-
-.language-box button{
-    width:auto;
-    padding:10px 20px;
-    margin:5px;
-    font-size:16px;
-    background:#0047ff;
-    color:white;
-}
-
-</style>
+    </style>
 </head>
 
 <body>
 
 <div class="header">
-
-<h1 id="title">🩺 Symptom Checker</h1>
-
+    <h1 id="title">Voice Assistant</h1>
 </div>
 
-<div class="container">
+<div class="card">
 
-<label id="label">
-Select Symptom
-</label>
+    <select id="languageSelect" onchange="changeLanguage()">
 
-<select id="symptom"></select>
+        <option value="en">English</option>
 
-<button
-class="check-btn"
-id="checkBtn"
-onclick="checkSymptom()">
-Check
-</button>
+        <option value="te">Telugu</option>
 
-<div class="result" id="result">
-Select symptom to see advice
-</div>
+        <option value="hi">Hindi</option>
 
-<button
-class="back-btn"
-id="backBtn"
-onclick="goBack()">
-Back
-</button>
+    </select>
 
-<div class="language-box">
+    <h2 id="subtitle">🎤 Tap & Speak</h2>
 
-<button onclick="changeLanguage('en')">
-English
-</button>
+    <button id="speak-btn" onclick="startVoice()">
+        🎙 Start Speaking
+    </button>
 
-<button onclick="changeLanguage('te')">
-తెలుగు
-</button>
-
-<button onclick="changeLanguage('hi')">
-हिन्दी
-</button>
-
-</div>
+    <p id="output">Press button and speak...</p>
 
 </div>
 
 <script>
 
-let currentLanguage = "en";
-
 const translations = {
 
-en:{
-title:"🩺 Symptom Checker",
-select:"Select Symptom",
-check:"Check",
-back:"Back",
-defaultMsg:"Select symptom to see advice",
+    en:{
+        title:"Voice Assistant",
+        subtitle:"🎤 Tap & Speak",
+        button:"🎙 Start Speaking",
+        output:"Press button and speak...",
 
-symptoms:{
-fever:"Fever",
-cough:"Cough",
-headache:"Headache",
-stomach:"Stomach Pain",
-cold:"Cold",
-vomiting:"Vomiting",
-body:"Body Pain",
-dizzy:"Dizziness",
-chest:"Chest Pain",
-throat:"Sore Throat",
-breath:"Breathing Problem",
-allergy:"Allergy"
-},
+        fever:"You may have fever. Drink plenty of water, take rest, and consult doctor if fever continues.",
 
-advice:{
-fever:"Drink water and take rest.",
-cough:"Take warm fluids and rest.",
-headache:"Sleep well and stay hydrated.",
-stomach:"Eat light food and rest.",
-cold:"Drink warm water.",
-vomiting:"Stay hydrated.",
-body:"Take proper rest.",
-dizzy:"Sit and relax.",
-chest:"Consult doctor immediately.",
-throat:"Drink warm liquids.",
-breath:"Seek medical help.",
-allergy:"Avoid allergy triggers."
-}
-},
+        headache:"Take proper rest, avoid mobile screen, and drink enough water.",
 
-te:{
-title:"🩺 లక్షణాల పరిశీలన",
-select:"లక్షణాన్ని ఎంచుకోండి",
-check:"తనిఖీ చేయండి",
-back:"వెనక్కి",
-defaultMsg:"సలహా చూడడానికి లక్షణాన్ని ఎంచుకోండి",
+        cold:"Drink warm water, avoid cold foods, and take enough rest.",
 
-symptoms:{
-fever:"జ్వరం",
-cough:"దగ్గు",
-headache:"తలనొప్పి",
-stomach:"కడుపు నొప్పి",
-cold:"జలుబు",
-vomiting:"వాంతులు",
-body:"శరీర నొప్పి",
-dizzy:"తల తిరగడం",
-chest:"ఛాతి నొప్పి",
-throat:"గొంతు నొప్పి",
-breath:"శ్వాస సమస్య",
-allergy:"అలర్జీ"
-},
+        doctor:"You can book doctor appointment in the app for better treatment.",
 
-advice:{
-fever:"నీరు ఎక్కువగా తాగండి మరియు విశ్రాంతి తీసుకోండి.",
-cough:"వెచ్చని ద్రవాలు తాగండి.",
-headache:"బాగా నిద్రపోండి.",
-stomach:"తేలికపాటి ఆహారం తీసుకోండి.",
-cold:"వెచ్చని నీరు తాగండి.",
-vomiting:"శరీరానికి నీరు అందించండి.",
-body:"శరీరానికి విశ్రాంతి ఇవ్వండి.",
-dizzy:"కూర్చొని విశ్రాంతి తీసుకోండి.",
-chest:"తక్షణమే డాక్టర్‌ను సంప్రదించండి.",
-throat:"వెచ్చని ద్రవాలు తాగండి.",
-breath:"వెంటనే వైద్య సహాయం పొందండి.",
-allergy:"అలర్జీ కారణాలను దూరంగా ఉంచండి."
-}
-},
+        hospital:"Nearest hospital details are available in Emergency Services section.",
 
-hi:{
-title:"🩺 लक्षण जांच",
-select:"लक्षण चुनें",
-check:"जांच करें",
-back:"वापस",
-defaultMsg:"सलाह देखने के लिए लक्षण चुनें",
+        help:"I am here to help you with healthcare information.",
 
-symptoms:{
-fever:"बुखार",
-cough:"खांसी",
-headache:"सिरदर्द",
-stomach:"पेट दर्द",
-cold:"जुकाम",
-vomiting:"उल्टी",
-body:"शरीर दर्द",
-dizzy:"चक्कर",
-chest:"सीने में दर्द",
-throat:"गले में दर्द",
-breath:"सांस की समस्या",
-allergy:"एलर्जी"
-},
+        cough:"Drink warm water and avoid cool drinks.",
 
-advice:{
-fever:"पानी पिएं और आराम करें।",
-cough:"गर्म पेय लें।",
-headache:"अच्छी नींद लें।",
-stomach:"हल्का भोजन करें।",
-cold:"गर्म पानी पिएं।",
-vomiting:"शरीर में पानी बनाए रखें।",
-body:"आराम करें।",
-dizzy:"बैठकर आराम करें।",
-chest:"तुरंत डॉक्टर से मिलें।",
-throat:"गर्म तरल पदार्थ लें।",
-breath:"तुरंत चिकित्सा सहायता लें।",
-allergy:"एलर्जी से बचें।"
-}
-}
+        water:"Drink at least 3 to 4 liters of clean water daily.",
+
+        food:"Eat healthy vegetables, fruits, and nutritious food daily.",
+
+        unknown:"Sorry, I did not understand."
+    },
+
+    te:{
+        title:"వాయిస్ అసిస్టెంట్",
+        subtitle:"🎤 నొక్కి మాట్లాడండి",
+        button:"🎙 మాట్లాడటం ప్రారంభించండి",
+        output:"బటన్ నొక్కి మాట్లాడండి...",
+
+        fever:"మీకు జ్వరం ఉండవచ్చు. ఎక్కువ నీరు తాగండి మరియు విశ్రాంతి తీసుకోండి.",
+
+        headache:"తలనొప్పికి విశ్రాంతి తీసుకోండి మరియు ఎక్కువ నీరు తాగండి.",
+
+        cold:"వెచ్చని నీరు తాగండి మరియు చల్లని పదార్థాలు తినవద్దు.",
+
+        doctor:"మంచి చికిత్స కోసం యాప్‌లో డాక్టర్ అపాయింట్మెంట్ బుక్ చేసుకోండి.",
+
+        hospital:"సమీప ఆసుపత్రి వివరాలు ఎమర్జెన్సీ సర్వీసెస్‌లో అందుబాటులో ఉన్నాయి.",
+
+        help:"నేను మీకు ఆరోగ్య సమాచారంతో సహాయం చేయడానికి ఇక్కడ ఉన్నాను.",
+
+        cough:"వెచ్చని నీరు తాగండి మరియు చల్లని పానీయాలు తాగవద్దు.",
+
+        water:"రోజుకు 3 నుండి 4 లీటర్ల శుభ్రమైన నీరు తాగండి.",
+
+        food:"ఆరోగ్యకరమైన కూరగాయలు మరియు పండ్లు తినండి.",
+
+        unknown:"క్షమించండి, నాకు అర్థం కాలేదు."
+    },
+
+    hi:{
+        title:"वॉइस असिस्टेंट",
+        subtitle:"🎤 दबाकर बोलें",
+        button:"🎙 बोलना शुरू करें",
+        output:"बटन दबाकर बोलें...",
+
+        fever:"आपको बुखार हो सकता है। अधिक पानी पिएं और आराम करें।",
+
+        headache:"सिरदर्द के लिए आराम करें और अधिक पानी पिएं।",
+
+        cold:"गर्म पानी पिएं और ठंडी चीजें खाने से बचें।",
+
+        doctor:"बेहतर इलाज के लिए ऐप में डॉक्टर अपॉइंटमेंट बुक करें।",
+
+        hospital:"नजदीकी अस्पताल की जानकारी इमरजेंसी सर्विस में उपलब्ध है।",
+
+        help:"मैं आपकी स्वास्थ्य जानकारी में मदद करने के लिए यहाँ हूँ।",
+
+        cough:"गर्म पानी पिएं और ठंडे पेय से बचें।",
+
+        water:"रोजाना 3 से 4 लीटर साफ पानी पिएं।",
+
+        food:"स्वस्थ सब्जियां और फल खाएं।",
+
+        unknown:"माफ कीजिए, मुझे समझ नहीं आया।"
+    }
 
 };
 
-function loadSymptoms(lang){
+function changeLanguage(){
 
-const symptomSelect =
-document.getElementById("symptom");
+    let lang =
+    document.getElementById("languageSelect").value;
 
-symptomSelect.innerHTML = "";
+    document.getElementById("title").innerText =
+    translations[lang].title;
 
-const symptoms =
-translations[lang].symptoms;
+    document.getElementById("subtitle").innerText =
+    translations[lang].subtitle;
 
-Object.keys(symptoms).forEach(function(key){
+    document.getElementById("speak-btn").innerText =
+    translations[lang].button;
 
-const option =
-document.createElement("option");
+    document.getElementById("output").innerText =
+    translations[lang].output;
 
-option.value = key;
-
-option.textContent = symptoms[key];
-
-symptomSelect.appendChild(option);
-
-});
-
+    localStorage.setItem("language", lang);
 }
 
-function changeLanguage(lang){
+function startVoice(){
 
-currentLanguage = lang;
+    let SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
 
-document.getElementById("title").textContent =
-translations[lang].title;
+    if(!SpeechRecognition){
 
-document.getElementById("label").textContent =
-translations[lang].select;
+        document.getElementById("output").innerText =
+        "Voice Recognition not supported.";
 
-document.getElementById("checkBtn").textContent =
-translations[lang].check;
+        return;
+    }
 
-document.getElementById("backBtn").textContent =
-translations[lang].back;
+    let recognition = new SpeechRecognition();
 
-document.getElementById("result").textContent =
-translations[lang].defaultMsg;
+    let selectedLang =
+    document.getElementById("languageSelect").value;
 
-loadSymptoms(lang);
+    if(selectedLang == "te"){
+        recognition.lang = "te-IN";
+    }
 
-}
+    else if(selectedLang == "hi"){
+        recognition.lang = "hi-IN";
+    }
 
-function checkSymptom(){
+    else{
+        recognition.lang = "en-US";
+    }
 
-const symptom =
-document.getElementById("symptom").value;
+    recognition.interimResults = false;
+    recognition.continuous = false;
 
-const advice =
-translations[currentLanguage].advice[symptom];
+    document.getElementById("output").innerText =
+    "Listening... 🎧";
 
-document.getElementById("result").textContent =
-advice;
+    recognition.start();
 
-}
+    recognition.onresult = function(event){
 
-function goBack(){
+        let text =
+        event.results[0][0].transcript.toLowerCase();
 
-window.history.back();
+        let response = "";
 
+        // FEVER
+        if(
+            text.includes("fever") ||
+            text.includes("జ్వరం") ||
+            text.includes("बुखार")
+        ){
+
+            response =
+            translations[selectedLang].fever;
+        }
+
+        // HEADACHE
+        else if(
+            text.includes("headache") ||
+            text.includes("తలనొప్పి") ||
+            text.includes("सिरदर्द")
+        ){
+
+            response =
+            translations[selectedLang].headache;
+        }
+
+        // COLD
+        else if(
+            text.includes("cold") ||
+            text.includes("జలుబు") ||
+            text.includes("सर्दी")
+        ){
+
+            response =
+            translations[selectedLang].cold;
+        }
+
+        // DOCTOR
+        else if(
+            text.includes("doctor") ||
+            text.includes("డాక్టర్") ||
+            text.includes("डॉक्टर")
+        ){
+
+            response =
+            translations[selectedLang].doctor;
+        }
+
+        // HOSPITAL
+        else if(
+            text.includes("hospital") ||
+            text.includes("హాస్పిటల్") ||
+            text.includes("अस्पताल")
+        ){
+
+            response =
+            translations[selectedLang].hospital;
+        }
+
+        // HELP
+        else if(
+            text.includes("help") ||
+            text.includes("సహాయం") ||
+            text.includes("मदद")
+        ){
+
+            response =
+            translations[selectedLang].help;
+        }
+
+        // COUGH
+        else if(
+            text.includes("cough") ||
+            text.includes("దగ్గు") ||
+            text.includes("खांसी")
+        ){
+
+            response =
+            translations[selectedLang].cough;
+        }
+
+        // WATER
+        else if(
+            text.includes("water") ||
+            text.includes("నీరు") ||
+            text.includes("पानी")
+        ){
+
+            response =
+            translations[selectedLang].water;
+        }
+
+        // FOOD
+        else if(
+            text.includes("food") ||
+            text.includes("ఆహారం") ||
+            text.includes("भोजन")
+        ){
+
+            response =
+            translations[selectedLang].food;
+        }
+
+        else{
+
+            response =
+            translations[selectedLang].unknown;
+        }
+
+        document.getElementById("output").innerText =
+        response;
+
+        let reply =
+        new SpeechSynthesisUtterance(response);
+
+        if(selectedLang == "te"){
+            reply.lang = "te-IN";
+        }
+
+        else if(selectedLang == "hi"){
+            reply.lang = "hi-IN";
+        }
+
+        else{
+            reply.lang = "en-US";
+        }
+
+        reply.rate = 1;
+        reply.pitch = 1;
+
+        window.speechSynthesis.speak(reply);
+    };
+
+    recognition.onerror = function(){
+
+        document.getElementById("output").innerText =
+        "Error occurred. Please try again.";
+    };
 }
 
 window.onload = function(){
 
-changeLanguage("en");
+    let savedLang =
+    localStorage.getItem("language") || "en";
 
-};
+    document.getElementById("languageSelect").value =
+    savedLang;
+
+    changeLanguage();
+}
 
 </script>
 
