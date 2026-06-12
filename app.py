@@ -206,6 +206,7 @@ def appointment():
         )
 
         db.session.add(new_appointment)
+        
 
         db.session.commit()
 

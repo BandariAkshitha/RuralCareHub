@@ -80,15 +80,60 @@ Emergency Number:
 </p>
     </div>
 
-    <div class="card">
-        <h3 id="hospital-title">🏥 Nearest Hospital</h3>
-        <p id="hospital-name">
-Government General Hospital
-</p>
-    </div>
+  <div class="card" style="padding:20px; margin-top:20px; background:white; border-radius:10px;">
 
-    <div class="card">
-        <h3 id="contact-title">📞 Emergency Contact</h3>
+    <h3 style="color:#d9534f;">📍 Hospital Location</h3>
+
+    <iframe
+        src="https://maps.google.com/maps?q=Government%20General%20Hospital&t=&z=13&ie=UTF8&iwloc=&output=embed"
+        width="100%"
+        height="300"
+        style="border:0; border-radius:10px;">
+    </iframe>
+
+    <br><br>
+
+    <a href="https://www.google.com/maps/search/?api=1&query=Government+General+Hospital"
+       target="_blank">
+
+        <button style="
+            background:#28a745;
+            color:white;
+            padding:10px 20px;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            font-size:16px;">
+
+            Get Directions
+
+        </button>
+
+    </a>
+
+<br><br>
+
+<a href="tel:108">
+
+    <button style="
+        background:red;
+        color:white;
+        padding:12px 25px;
+        border:none;
+        border-radius:5px;
+        cursor:pointer;
+        font-size:18px;">
+
+        🚑 Call Ambulance (108)
+
+    </button>
+
+</a>
+
+</div>
+
+<div class="card">
+    <h3 id="contact-title">📞 Emergency Contact</h3>
         <p>
 <span id="police-label">Police:</span>
 100
