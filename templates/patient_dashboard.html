@@ -333,6 +333,17 @@ document.getElementById("symptom-card").innerText =
 
 }
 
+function changeLanguage() {
+
+let selectedLang =
+document.getElementById("languageSelect").value;
+
+localStorage.setItem("language", selectedLang);
+
+applyLanguage();
+
+}
+
 window.onload = function(){
 
 let savedLang =
