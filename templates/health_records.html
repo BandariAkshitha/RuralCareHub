@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <title>Health Records - RuralCareHub</title>
 
     <style>
+
         body{
             font-family:Arial, sans-serif;
             background:#f4f7fb;
@@ -26,12 +28,58 @@
             background:white;
             padding:20px;
             margin-bottom:20px;
-            border-radius:10px;
+            border-radius:12px;
             box-shadow:0 3px 10px rgba(0,0,0,0.1);
         }
 
         h3{
             color:#0077cc;
+        }
+
+        .profile-pic{
+            width:100px;
+            height:100px;
+            border-radius:50%;
+            margin-bottom:15px;
+        }
+
+        .cards-container{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+            gap:20px;
+            margin-bottom:20px;
+        }
+
+        .health-card{
+            background:white;
+            padding:20px;
+            border-radius:12px;
+            box-shadow:0 3px 10px rgba(0,0,0,0.1);
+            text-align:center;
+            transition:0.3s;
+        }
+
+        .health-card:hover{
+            transform:translateY(-5px);
+        }
+
+        .healthy-status{
+            color:green;
+            font-weight:bold;
+        }
+
+        .download-btn{
+            padding:12px 25px;
+            background:#28a745;
+            color:white;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        .download-btn:hover{
+            background:#218838;
         }
 
         .back-btn{
@@ -45,24 +93,52 @@
             text-decoration:none;
             border-radius:5px;
         }
+
+        @media(max-width:768px){
+
+            .container{
+                width:95%;
+            }
+
+            .cards-container{
+                grid-template-columns:1fr;
+            }
+
+            .profile-pic{
+                width:80px;
+                height:80px;
+            }
+
+        }
+
     </style>
+
 </head>
 
 <body>
 
 <div class="header">
 
-    <h1 id="title">Health Records</h1>
+    <h1 id="title">
+        Health Records
+    </h1>
 
     <br>
 
-    <select id="languageSelect" onchange="changeLanguage()">
+    <select id="languageSelect"
+            onchange="changeLanguage()">
 
-        <option value="en">English</option>
+        <option value="en">
+            English
+        </option>
 
-        <option value="hi">Hindi</option>
+        <option value="hi">
+            Hindi
+        </option>
 
-        <option value="te">Telugu</option>
+        <option value="te">
+            Telugu
+        </option>
 
     </select>
 
@@ -71,36 +147,157 @@
 <div class="container">
 
     <div class="record-card">
-        <h3 id="patient-details-title">Patient Details</h3>
-        <p><strong id="name-label">Name:</strong> {{ record.patient_name }}</p>
-        <p><strong id="age-label">Age:</strong> {{ record.age }}</p>
-        <p><strong id="blood-label">Blood Group:</strong> {{ record.blood_group }}</p>
+
+        <h3 id="patient-details-title">
+            Patient Details
+        </h3>
+
+        <div style="text-align:center;">
+
+            <img src="{{ url_for('static', filename='patient.png') }}"
+                 class="profile-pic">
+
+        </div>
+
         <p>
-         <strong id="history-label">Medical History:</strong>
-         <span id="history-text">{{ record.history }}</span>
+            <strong id="name-label">
+                👤 Name:
+            </strong>
+
+            {{ record.patient_name }}
         </p>
+
+        <p>
+            <strong id="age-label">
+                🧑 Age:
+            </strong>
+
+            {{ record.age }}
+        </p>
+
+        <p>
+            <strong id="blood-label">
+                🩸 Blood Group:
+            </strong>
+
+            {{ record.blood_group }}
+        </p>
+
+        <p>
+            <strong id="history-label">
+                📋 Medical History:
+            </strong>
+
+            <span id="history-text">
+                {{ record.history }}
+            </span>
+        </p>
+
+    </div>
+
+    <div class="cards-container">
+
+        <div class="health-card">
+
+            <h3>
+                💓 Heart Rate
+            </h3>
+
+            <p>
+                72 BPM
+            </p>
+
+        </div>
+
+        <div class="health-card">
+
+            <h3>
+                🩸 Blood Pressure
+            </h3>
+
+            <p>
+                120 / 80
+            </p>
+
+        </div>
+
+        <div class="health-card">
+
+            <h3>
+                ⚖️ BMI
+            </h3>
+
+            <p>
+                22.5 Normal
+            </p>
+
+        </div>
+
     </div>
 
     <div class="record-card">
-        <h3 id="checkup-title">Recent Checkup</h3>
+
+        <h3 id="checkup-title">
+            Recent Checkup
+        </h3>
+
         <p>
-<span id="date-label">Date:</span>
-{{ record.checkup_date }}
-</p>
+
+            <span id="date-label">
+                📅 Date:
+            </span>
+
+            {{ record.checkup_date }}
+
+        </p>
+
         <p>
-<span id="doctor-label">Doctor:</span>
-<span id="doctor-name">{{ record.doctor }}</span>
-</p>
+
+            <span id="doctor-label">
+                👨‍⚕️ Doctor:
+            </span>
+
+            <span id="doctor-name">
+                {{ record.doctor }}
+            </span>
+
+        </p>
+
         <p>
-<span id="status-label">Status:</span>
-<span id="status-text">{{ record.status }}</span>
-</p>
+
+            <span id="status-label">
+                🟢 Status:
+            </span>
+
+            <span id="status-text"
+                  class="healthy-status">
+
+                {{ record.status }}
+
+            </span>
+
+        </p>
+
+    </div>
+
+    <div style="text-align:center;">
+
+        <button class="download-btn">
+
+            Download Report
+
+        </button>
+
     </div>
 
 </div>
 
-<a href="/patient" class="back-btn" id="back-btn">
+<a href="/patient"
+   class="back-btn"
+   id="back-btn">
+
     Back
+
 </a>
 
 <script>
@@ -110,16 +307,16 @@ const translations = {
 en:{
 title:"Health Records",
 patientDetails:"Patient Details",
-name:"Name:",
-age:"Age:",
-blood:"Blood Group:",
-history:"Medical History:",
+name:"👤 Name:",
+age:"🧑 Age:",
+blood:"🩸 Blood Group:",
+history:"📋 Medical History:",
 historyText:"No major illnesses",
 checkup:"Recent Checkup",
-date:"Date:",
-doctor:"Doctor:",
+date:"📅 Date:",
+doctor:"👨‍⚕️ Doctor:",
 doctorName:"Dr. Ravi Kumar",
-status:"Status:",
+status:"🟢 Status:",
 healthy:"Healthy",
 back:"Back"
 },
@@ -127,16 +324,16 @@ back:"Back"
 hi:{
 title:"स्वास्थ्य रिकॉर्ड",
 patientDetails:"मरीज विवरण",
-name:"नाम:",
-age:"आयु:",
-blood:"ब्लड ग्रुप:",
-history:"चिकित्सा इतिहास:",
+name:"👤 नाम:",
+age:"🧑 आयु:",
+blood:"🩸 ब्लड ग्रुप:",
+history:"📋 चिकित्सा इतिहास:",
 historyText:"कोई बड़ी बीमारी नहीं",
 checkup:"हाल की जांच",
-date:"तारीख:",
-doctor:"डॉक्टर:",
+date:"📅 तारीख:",
+doctor:"👨‍⚕️ डॉक्टर:",
 doctorName:"डॉ. रवि कुमार",
-status:"स्थिति:",
+status:"🟢 स्थिति:",
 healthy:"स्वस्थ",
 back:"वापस"
 },
@@ -144,16 +341,16 @@ back:"वापस"
 te:{
 title:"హెల్త్ రికార్డ్స్",
 patientDetails:"రోగి వివరాలు",
-name:"పేరు:",
-age:"వయస్సు:",
-blood:"రక్త గ్రూప్:",
-history:"వైద్య చరిత్ర:",
+name:"👤 పేరు:",
+age:"🧑 వయస్సు:",
+blood:"🩸 రక్త గ్రూప్:",
+history:"📋 వైద్య చరిత్ర:",
 historyText:"పెద్ద వ్యాధులు లేవు",
 checkup:"ఇటీవలి పరీక్ష",
-date:"తేదీ:",
-doctor:"డాక్టర్:",
+date:"📅 తేదీ:",
+doctor:"👨‍⚕️ డాక్టర్:",
 doctorName:"డా. రవి కుమార్",
-status:"స్థితి:",
+status:"🟢 స్థితి:",
 healthy:"ఆరోగ్యంగా ఉన్నారు",
 back:"వెనక్కి"
 }
@@ -208,6 +405,7 @@ document.getElementById("back-btn").innerText =
 translations[lang].back;
 
 localStorage.setItem("language",lang);
+
 }
 
 window.onload = function(){

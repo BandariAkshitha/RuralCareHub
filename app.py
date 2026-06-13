@@ -220,30 +220,50 @@ def appointment():
 
 def records():
 
-    record = HealthRecord.query.first()
+    latest_appointment = Appointment.query.order_by(
+        Appointment.id.desc()
+    ).first()
 
-    if not record:
+    if latest_appointment:
 
-        record = HealthRecord(
+        record = {
 
-            patient_name="Priya",
+            "patient_name":
+            latest_appointment.patient_name,
 
-            age="20",
+            "age":"20",
 
-            blood_group="O+",
+            "blood_group":"O+",
 
-            history="No major illnesses",
+            "history":"No major illnesses",
 
-            checkup_date="01-06-2026",
+            "checkup_date":
+            latest_appointment.appointment_date,
 
-            doctor="Dr. Ravi Kumar",
+            "doctor":
+            latest_appointment.doctor_name,
 
-            status="Healthy"
-        )
+            "status":"Healthy"
+        }
 
-        db.session.add(record)
+    else:
 
-        db.session.commit()
+        record = {
+
+            "patient_name":"No Patient",
+
+            "age":"-",
+
+            "blood_group":"-",
+
+            "history":"No records available",
+
+            "checkup_date":"-",
+
+            "doctor":"-",
+
+            "status":"-"
+        }
 
     return render_template(
         'health_records.html',
