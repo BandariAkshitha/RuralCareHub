@@ -72,9 +72,8 @@
 
     <div class="notification">
         <h3 id="notify1-title">Appointment Confirmed</h3>
-        <p id="notify1-text">
-Your appointment with Dr. Ravi Kumar has been confirmed.
-</p>
+    <p id="notify1-text"></p>
+
     </div>
 
     <div class="notification">
@@ -192,6 +191,16 @@ document.getElementById("languageSelect").value =
 savedLang;
 
 changeLanguage();
+
+let savedNotification =
+localStorage.getItem("appointmentNotification");
+
+if(savedNotification){
+
+document.getElementById("notify1-text").innerText =
+savedNotification;
+
+}
 
 }
 

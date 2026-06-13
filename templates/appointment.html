@@ -120,6 +120,7 @@
 
     <form action="/appointment"
           method="POST">
+          onsubmit="saveNotification()">
 
         <label id="patient-label">
             Patient Name
@@ -270,6 +271,40 @@ function changeLanguage(){
     translations[lang].doc3;
 
     localStorage.setItem("language",lang);
+}
+
+function saveNotification(){
+
+    let patient =
+    document.querySelector(
+    'input[name="patient_name"]').value;
+
+    let doctor =
+    document.querySelector(
+    'select[name="doctor_name"]').value;
+
+    let date =
+    document.querySelector(
+    'input[name="appointment_date"]').value;
+
+    let time =
+    document.querySelector(
+    'input[name="appointment_time"]').value;
+
+    let notification =
+    "Appointment booked for " +
+    patient +
+    " with " +
+    doctor +
+    " on " +
+    date +
+    " at " +
+    time;
+
+    localStorage.setItem(
+    "appointmentNotification",
+    notification
+    );
 }
 
 window.onload = function(){
