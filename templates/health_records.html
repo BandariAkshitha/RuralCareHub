@@ -283,6 +283,7 @@
     <div style="text-align:center;">
 
         <button class="download-btn">
+            onclick="downloadReport()">
 
             Download Report
 
@@ -311,14 +312,13 @@ name:"👤 Name:",
 age:"🧑 Age:",
 blood:"🩸 Blood Group:",
 history:"📋 Medical History:",
-historyText:"No major illnesses",
 checkup:"Recent Checkup",
 date:"📅 Date:",
 doctor:"👨‍⚕️ Doctor:",
-doctorName:"Dr. Ravi Kumar",
 status:"🟢 Status:",
 healthy:"Healthy",
-back:"Back"
+back:"Back",
+download:"Download Report"
 },
 
 hi:{
@@ -328,14 +328,13 @@ name:"👤 नाम:",
 age:"🧑 आयु:",
 blood:"🩸 ब्लड ग्रुप:",
 history:"📋 चिकित्सा इतिहास:",
-historyText:"कोई बड़ी बीमारी नहीं",
 checkup:"हाल की जांच",
 date:"📅 तारीख:",
 doctor:"👨‍⚕️ डॉक्टर:",
-doctorName:"डॉ. रवि कुमार",
 status:"🟢 स्थिति:",
 healthy:"स्वस्थ",
-back:"वापस"
+back:"वापस",
+download:"रिपोर्ट डाउनलोड"
 },
 
 te:{
@@ -345,14 +344,13 @@ name:"👤 పేరు:",
 age:"🧑 వయస్సు:",
 blood:"🩸 రక్త గ్రూప్:",
 history:"📋 వైద్య చరిత్ర:",
-historyText:"పెద్ద వ్యాధులు లేవు",
 checkup:"ఇటీవలి పరీక్ష",
 date:"📅 తేదీ:",
 doctor:"👨‍⚕️ డాక్టర్:",
-doctorName:"డా. రవి కుమార్",
 status:"🟢 స్థితి:",
 healthy:"ఆరోగ్యంగా ఉన్నారు",
-back:"వెనక్కి"
+back:"వెనక్కి",
+download:"రిపోర్ట్ డౌన్‌లోడ్"
 }
 
 };
@@ -380,9 +378,6 @@ translations[lang].blood;
 document.getElementById("history-label").innerText =
 translations[lang].history;
 
-document.getElementById("history-text").innerText =
-translations[lang].historyText;
-
 document.getElementById("checkup-title").innerText =
 translations[lang].checkup;
 
@@ -392,17 +387,14 @@ translations[lang].date;
 document.getElementById("doctor-label").innerText =
 translations[lang].doctor;
 
-document.getElementById("doctor-name").innerText =
-translations[lang].doctorName;
-
 document.getElementById("status-label").innerText =
 translations[lang].status;
 
-document.getElementById("status-text").innerText =
-translations[lang].healthy;
-
 document.getElementById("back-btn").innerText =
 translations[lang].back;
+
+document.querySelector(".download-btn").innerText =
+translations[lang].download;
 
 localStorage.setItem("language",lang);
 
@@ -417,6 +409,12 @@ document.getElementById("languageSelect").value =
 savedLang;
 
 changeLanguage();
+
+}
+
+function downloadReport(){
+
+window.print();
 
 }
 
