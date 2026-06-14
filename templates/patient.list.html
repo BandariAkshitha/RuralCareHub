@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>
+        Patient List - RuralCareHub
+    </title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        body{
+            font-family:Arial,sans-serif;
+            background:#f4f7fb;
+            margin:0;
+        }
+
+        .header{
+            background:#0077cc;
+            color:white;
+            text-align:center;
+            padding:20px;
+        }
+
+        .container{
+            width:80%;
+            margin:30px auto;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        th,td{
+            padding:12px;
+            border:1px solid #ccc;
+            text-align:center;
+        }
+
+        th{
+            background:#0077cc;
+            color:white;
+        }
+
+        .back-btn{
+            display:block;
+            width:150px;
+            text-align:center;
+            margin:20px auto;
+            padding:10px;
+            background:#0077cc;
+            color:white;
+            text-decoration:none;
+            border-radius:5px;
+        }
+
+        @media(max-width:768px){
+
+            .container{
+                width:95%;
+                padding:15px;
+            }
+
+            table{
+                font-size:14px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+    <h1 id="title">
+        Patient List
+    </h1>
+
+    <br>
+
+    <select id="languageSelect"
+            onchange="changeLanguage()">
+
+        <option value="en">
+            English
+        </option>
+
+        <option value="te">
+            Telugu
+        </option>
+
+        <option value="hi">
+            Hindi
+        </option>
+
+    </select>
+
+</div>
+
+<div class="container">
+
+    <table>
+
+        <tr>
+
+            <th id="patient-heading">
+                Patient Name
+            </th>
+
+            <th id="doctor-heading">
+                Doctor
+            </th>
+
+            <th id="date-heading">
+                Date
+            </th>
+
+        </tr>
+
+        <tr>
+
+            <td>
+                Patient 1
+            </td>
+
+            <td>
+                Doctor 1
+            </td>
+
+            <td>
+                Date 1
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>
+                Patient 2
+            </td>
+
+            <td>
+                Doctor 2
+            </td>
+
+            <td>
+                Date 2
+            </td>
+
+        </tr>
+
+    </table>
+
+</div>
+
+<a href="/doctor"
+   class="back-btn"
+   id="back-btn">
+
+   Back
+
+</a>
+
+<script>
+
+const translations = {
+
+en:{
+title:"Patient List",
+patient:"Patient Name",
+doctor:"Doctor",
+date:"Date",
+back:"Back"
+},
+
+te:{
+title:"రోగుల జాబితా",
+patient:"రోగి పేరు",
+doctor:"డాక్టర్",
+date:"తేదీ",
+back:"వెనక్కి"
+},
+
+hi:{
+title:"मरीज सूची",
+patient:"मरीज का नाम",
+doctor:"डॉक्टर",
+date:"तारीख",
+back:"वापस"
+}
+
+};
+
+function changeLanguage(){
+
+let lang =
+document.getElementById("languageSelect").value;
+
+document.getElementById("title").innerText =
+translations[lang].title;
+
+document.getElementById("patient-heading").innerText =
+translations[lang].patient;
+
+document.getElementById("doctor-heading").innerText =
+translations[lang].doctor;
+
+document.getElementById("date-heading").innerText =
+translations[lang].date;
+
+document.getElementById("back-btn").innerText =
+translations[lang].back;
+
+localStorage.setItem("language",lang);
+
+}
+
+window.onload = function(){
+
+let savedLanguage =
+localStorage.getItem("language") || "en";
+
+document.getElementById("languageSelect").value =
+savedLanguage;
+
+changeLanguage();
+
+}
+
+</script>
+
+</body>
+</html>
