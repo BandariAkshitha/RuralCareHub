@@ -1,95 +1,368 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <title>Health Articles - RuralCareHub</title>
 
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <style>
+
         body{
-            font-family:Arial, sans-serif;
+            font-family:Arial,sans-serif;
             background:#f4f7fb;
             margin:0;
+            transition:0.3s;
+        }
+
+        .dark{
+            background:#111;
+            color:white;
+        }
+
+        .dark .article{
+            background:#222;
+            color:white;
+        }
+
+        .dark .search-box input{
+            background:#333;
+            color:white;
+            border:1px solid #555;
+        }
+
+        #progress-bar{
+            position:fixed;
+            top:0;
+            left:0;
+            height:5px;
+            background:#28a745;
+            width:0%;
+            z-index:1000;
         }
 
         .header{
-            background:#0077cc;
+            background:linear-gradient(to right,#0077cc,#00b4ff);
             color:white;
             text-align:center;
             padding:20px;
         }
 
         .container{
-            width:80%;
+            width:90%;
             margin:30px auto;
+        }
+
+        .search-box{
+            text-align:center;
+            margin-bottom:20px;
+        }
+
+        .search-box input{
+            width:60%;
+            padding:12px;
+            border-radius:8px;
+            border:1px solid #ccc;
+            font-size:16px;
+        }
+
+        .articles-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+            gap:20px;
         }
 
         .article{
             background:white;
             padding:20px;
-            margin-bottom:20px;
-            border-radius:10px;
+            border-radius:12px;
             box-shadow:0 3px 10px rgba(0,0,0,0.1);
+            transition:0.3s;
         }
 
-        h3{
+        .article:hover{
+            transform:translateY(-5px);
+        }
+
+        .article h3{
             color:#0077cc;
+        }
+
+        .article img{
+            width:100%;
+            border-radius:10px;
+            margin-bottom:15px;
+        }
+
+        .voice-btn{
+            background:#28a745;
+            color:white;
+            border:none;
+            padding:10px 15px;
+            border-radius:8px;
+            cursor:pointer;
+            margin-top:10px;
+            margin-right:5px;
+        }
+
+        .voice-btn:hover{
+            background:#218838;
+        }
+
+        .dark-btn{
+            background:#222;
+            color:white;
+            border:none;
+            padding:10px 15px;
+            border-radius:8px;
+            cursor:pointer;
+            margin-top:10px;
         }
 
         .back-btn{
             display:block;
-            width:150px;
+            width:200px;
             text-align:center;
-            margin:20px auto;
-            padding:10px;
+            margin:30px auto;
+            padding:12px;
             background:#0077cc;
             color:white;
             text-decoration:none;
-            border-radius:5px;
+            border-radius:8px;
         }
+
+        @media(max-width:768px){
+
+            .search-box input{
+                width:90%;
+            }
+
+        }
+
     </style>
+
 </head>
 
 <body>
 
+<div id="progress-bar"></div>
+
 <div class="header">
 
-    <h1 id="title">Health Articles</h1>
+    <h1 id="title">
+        Health Articles
+    </h1>
 
     <br>
 
-    <select id="languageSelect" onchange="changeLanguage()">
+    <select id="languageSelect"
+            onchange="changeLanguage()">
+
         <option value="en">English</option>
         <option value="hi">Hindi</option>
         <option value="te">Telugu</option>
+
     </select>
+
+    <br><br>
+
+    <button class="dark-btn"
+            onclick="toggleDarkMode()">
+
+        🌙 Dark Mode
+
+    </button>
 
 </div>
 
 <div class="container">
 
-    <div class="article">
-        <h3 id="article1-title">Diabetes Prevention</h3>
-        <p id="article1-text">
-            Maintain a healthy diet, exercise regularly, and monitor blood sugar levels.
-</p>
+    <div class="search-box">
+
+        <input type="text"
+               id="searchInput"
+               placeholder="Search health articles..."
+               onkeyup="searchArticles()">
+
     </div>
 
-    <div class="article">
-        <h3 id="article2-title">Heart Health Tips</h3>
-        <p id="article2-text">
-            Eat nutritious food, avoid smoking, and stay physically active.
-</p>
-    </div>
+    <div class="articles-grid">
 
-    <div class="article">
-        <h3 id="article3-title">Importance of Clean Water</h3>
-        <p id="article3-text">
-        Drinking clean water helps prevent many diseases and improves overall health.
-</p>
+        <div class="article">
+
+            <img src="{{ url_for('static', filename='diabetes.jpg') }}">
+
+            <h3 id="article1-title">
+                Diabetes Prevention
+            </h3>
+
+            <p id="article1-text">
+                Maintain a healthy diet, exercise regularly,
+                and monitor blood sugar levels.
+            </p>
+
+            <button class="voice-btn"
+                    onclick="speakText('article1-text')">
+
+                🔊 Listen
+
+            </button>
+
+            <button class="voice-btn"
+                    onclick="stopVoice()">
+
+                ⏹ Stop
+
+            </button>
+
+            <button class="voice-btn"
+                    onclick="likeArticle(this)">
+
+                ❤️ Like
+
+            </button>
+
+        </div>
+
+        <div class="article">
+
+            <img src="{{ url_for('static', filename='heart.jpg') }}">
+
+            <h3 id="article2-title">
+                Heart Health Tips
+            </h3>
+
+            <p id="article2-text">
+                Eat nutritious food, avoid smoking,
+                and stay physically active.
+            </p>
+
+            <button class="voice-btn"
+                    onclick="speakText('article2-text')">
+
+                🔊 Listen
+
+            </button>
+
+            <button class="voice-btn"
+                    onclick="stopVoice()">
+
+                ⏹ Stop
+
+            </button>
+
+            <button class="voice-btn"
+                    onclick="likeArticle(this)">
+
+                ❤️ Like
+
+            </button>
+
+        </div>
+
+        <div class="article">
+
+            <img src="{{ url_for('static', filename='water.jpg') }}">
+
+            <h3 id="article3-title">
+                Importance of Clean Water
+            </h3>
+
+            <p id="article3-text">
+                Drinking clean water helps prevent diseases
+                and improves overall health.
+            </p>
+
+            <button class="voice-btn"
+                    onclick="speakText('article3-text')">
+
+                🔊 Listen
+
+            </button>
+
+            <button class="voice-btn"
+                    onclick="stopVoice()">
+
+                ⏹ Stop
+
+            </button>
+
+            <button class="voice-btn"
+                    onclick="likeArticle(this)">
+
+                ❤️ Like
+
+            </button>
+
+        </div>
+
+        <div class="article">
+
+            <img src="{{ url_for('static', filename='mental.jpg') }}">
+
+            <h3 id="article4-title">
+                Mental Health Awareness
+            </h3>
+
+            <p id="article4-text">
+                Reduce stress through meditation,
+                proper sleep, and healthy communication.
+            </p>
+
+            <button class="voice-btn"
+                    onclick="speakText('article4-text')">
+
+                🔊 Listen
+
+            </button>
+
+            <button class="voice-btn"
+                    onclick="stopVoice()">
+
+                ⏹ Stop
+
+            </button>
+
+            <button class="voice-btn"
+                    onclick="likeArticle(this)">
+
+                ❤️ Like
+
+            </button>
+
+        </div>
+
+        <div class="article">
+
+            <h3>
+                🤖 AI Health Tip
+            </h3>
+
+            <p id="ai-tip">
+                Walk 30 minutes daily to stay healthy.
+            </p>
+
+        </div>
+
     </div>
 
 </div>
 
-<a href="/patient" class="back-btn" id="back-btn">Back</a>
+<a href="tel:108"
+   class="back-btn">
+
+    🚑 Call Emergency
+
+</a>
+
+<a href="/patient"
+   class="back-btn"
+   id="back-btn">
+
+    Back
+
+</a>
 
 <script>
 
@@ -97,46 +370,16 @@ const translations = {
 
     en:{
         title:"Health Articles",
-
-        article1Title:"Diabetes Prevention",
-        article1Text:"Maintain a healthy diet, exercise regularly, and monitor blood sugar levels.",
-
-        article2Title:"Heart Health Tips",
-        article2Text:"Eat nutritious food, avoid smoking, and stay physically active.",
-
-        article3Title:"Importance of Clean Water",
-        article3Text:"Drinking clean water helps prevent many diseases and improves overall health.",
-
         back:"Back"
     },
 
     hi:{
         title:"स्वास्थ्य लेख",
-
-        article1Title:"मधुमेह रोकथाम",
-        article1Text:"स्वस्थ भोजन करें, नियमित व्यायाम करें और रक्त शर्करा की जांच करें।",
-
-        article2Title:"हृदय स्वास्थ्य सुझाव",
-        article2Text:"पौष्टिक भोजन खाएं, धूम्रपान से बचें और सक्रिय रहें।",
-
-        article3Title:"स्वच्छ पानी का महत्व",
-        article3Text:"स्वच्छ पानी पीने से कई बीमारियों से बचाव होता है।",
-
         back:"वापस"
     },
 
     te:{
         title:"ఆరోగ్య వ్యాసాలు",
-
-        article1Title:"మధుమేహ నివారణ",
-        article1Text:"ఆరోగ్యకరమైన ఆహారం తినండి మరియు వ్యాయామం చేయండి.",
-
-        article2Title:"గుండె ఆరోగ్య సూచనలు",
-        article2Text:"పౌష్టికాహారం తీసుకోండి మరియు ధూమపానం చేయవద్దు.",
-
-        article3Title:"శుభ్రమైన నీటి ప్రాముఖ్యత",
-        article3Text:"శుభ్రమైన నీరు అనేక వ్యాధులను నివారిస్తుంది.",
-
         back:"వెనక్కి"
     }
 
@@ -150,28 +393,10 @@ function changeLanguage(){
     document.getElementById("title").innerText =
     translations[lang].title;
 
-    document.getElementById("article1-title").innerText =
-    translations[lang].article1Title;
-
-    document.getElementById("article1-text").innerText =
-    translations[lang].article1Text;
-
-    document.getElementById("article2-title").innerText =
-    translations[lang].article2Title;
-
-    document.getElementById("article2-text").innerText =
-    translations[lang].article2Text;
-
-    document.getElementById("article3-title").innerText =
-    translations[lang].article3Title;
-
-    document.getElementById("article3-text").innerText =
-    translations[lang].article3Text;
-
     document.getElementById("back-btn").innerText =
     translations[lang].back;
 
-    localStorage.setItem("language", lang);
+    localStorage.setItem("language",lang);
 }
 
 window.onload = function(){
@@ -183,6 +408,105 @@ window.onload = function(){
     savedLang;
 
     changeLanguage();
+
+    setTimeout(function(){
+
+        alert("💡 Drink enough water daily!");
+
+    },3000);
+
+}
+
+function speakText(id){
+
+    let text =
+    document.getElementById(id).innerText;
+
+    let speech =
+    new SpeechSynthesisUtterance(text);
+
+    let lang =
+    document.getElementById("languageSelect").value;
+
+    if(lang=="hi"){
+
+        speech.lang="hi-IN";
+
+    }
+    else if(lang=="te"){
+
+        speech.lang="te-IN";
+
+    }
+    else{
+
+        speech.lang="en-US";
+
+    }
+
+    window.speechSynthesis.speak(speech);
+}
+
+function stopVoice(){
+
+    window.speechSynthesis.cancel();
+
+}
+
+function searchArticles(){
+
+    let input =
+    document.getElementById("searchInput").value.toLowerCase();
+
+    let articles =
+    document.getElementsByClassName("article");
+
+    for(let i=0; i<articles.length; i++){
+
+        let text =
+        articles[i].innerText.toLowerCase();
+
+        if(text.includes(input)){
+
+            articles[i].style.display = "block";
+
+        }
+        else{
+
+            articles[i].style.display = "none";
+
+        }
+
+    }
+
+}
+
+function toggleDarkMode(){
+
+    document.body.classList.toggle("dark");
+
+}
+
+window.onscroll = function(){
+
+    let scrollTop =
+    document.documentElement.scrollTop;
+
+    let height =
+    document.documentElement.scrollHeight -
+    document.documentElement.clientHeight;
+
+    let scrolled =
+    (scrollTop / height) * 100;
+
+    document.getElementById("progress-bar").style.width =
+    scrolled + "%";
+}
+
+function likeArticle(btn){
+
+    btn.innerHTML = "❤️ Liked";
+
 }
 
 </script>
