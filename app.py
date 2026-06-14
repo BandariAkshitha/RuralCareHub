@@ -214,6 +214,15 @@ def appointment():
 
     return render_template('appointment.html')
 
+@app.route('/patients')
+def patients():
+
+    appointments = Appointment.query.all()
+
+    return render_template(
+        'patients.html',
+        appointments=appointments
+    )
 
 # HEALTH RECORDS
 @app.route('/records')

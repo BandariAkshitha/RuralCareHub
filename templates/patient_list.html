@@ -26,7 +26,7 @@
         }
 
         .container{
-            width:80%;
+            width:90%;
             margin:30px auto;
             background:white;
             padding:30px;
@@ -125,39 +125,35 @@
                 Date
             </th>
 
+            <th id="time-heading">
+                Time
+            </th>
+
         </tr>
+
+        {% for appointment in appointments %}
 
         <tr>
 
             <td>
-                Patient 1
+                {{ appointment.patient_name }}
             </td>
 
             <td>
-                Doctor 1
+                {{ appointment.doctor_name }}
             </td>
 
             <td>
-                Date 1
+                {{ appointment.appointment_date }}
+            </td>
+
+            <td>
+                {{ appointment.appointment_time }}
             </td>
 
         </tr>
 
-        <tr>
-
-            <td>
-                Patient 2
-            </td>
-
-            <td>
-                Doctor 2
-            </td>
-
-            <td>
-                Date 2
-            </td>
-
-        </tr>
+        {% endfor %}
 
     </table>
 
@@ -180,6 +176,7 @@ title:"Patient List",
 patient:"Patient Name",
 doctor:"Doctor",
 date:"Date",
+time:"Time",
 back:"Back"
 },
 
@@ -188,6 +185,7 @@ title:"రోగుల జాబితా",
 patient:"రోగి పేరు",
 doctor:"డాక్టర్",
 date:"తేదీ",
+time:"సమయం",
 back:"వెనక్కి"
 },
 
@@ -196,6 +194,7 @@ title:"मरीज सूची",
 patient:"मरीज का नाम",
 doctor:"डॉक्टर",
 date:"तारीख",
+time:"समय",
 back:"वापस"
 }
 
@@ -217,6 +216,9 @@ translations[lang].doctor;
 
 document.getElementById("date-heading").innerText =
 translations[lang].date;
+
+document.getElementById("time-heading").innerText =
+translations[lang].time;
 
 document.getElementById("back-btn").innerText =
 translations[lang].back;
