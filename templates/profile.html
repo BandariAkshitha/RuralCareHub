@@ -75,23 +75,33 @@
     <h2 id="profile-title">Profile Details</h2>
 
     <div class="profile-item">
-        👤 <b id="name-label">Name:</b> Ravi Kumar
+        👤 <b id="name-label">Name:</b>
+        {{ profile.name }}
     </div>
 
     <div class="profile-item">
-        🎂 <b id="age-label">Age:</b> 28
+        🎂 <b id="age-label">Age:</b>
+        {{ profile.age }}
     </div>
 
     <div class="profile-item">
-        🩸 <b id="blood-label">Blood Group:</b> O+
+        🩸 <b id="blood-label">Blood Group:</b>
+        {{ profile.blood_group }}
     </div>
 
     <div class="profile-item">
-        📞 <b id="phone-label">Phone:</b> 9876543210
+        📞 <b id="phone-label">Phone:</b>
+        {{ profile.phone }}
     </div>
 
     <div class="profile-item">
-        📍 <b id="address-label">Address:</b> Hyderabad
+        📍 <b id="address-label">Address:</b>
+        {{ profile.address }}
+    </div>
+
+    <div class="profile-item">
+        👨‍⚕️ <b>Recent Doctor:</b>
+        {{ profile.doctor }}
     </div>
 
     <a href="/patient" class="back-btn" id="back-btn">

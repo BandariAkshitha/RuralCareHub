@@ -323,10 +323,54 @@ def voice():
 @app.route('/language')
 def language():
     return render_template('language_support.html')
-
+# PROFILE
 @app.route('/profile')
 def profile():
-    return render_template('profile.html')
+
+    latest_appointment = Appointment.query.order_by(
+        Appointment.id.desc()
+    ).first()
+
+    if latest_appointment:
+
+        profile_data = {
+
+            "name":
+            latest_appointment.patient_name,
+
+            "age":"28",
+
+            "blood_group":"O+",
+
+            "phone":"9876543210",
+
+            "address":"Hyderabad",
+
+            "doctor":
+            latest_appointment.doctor_name
+        }
+
+    else:
+
+        profile_data = {
+
+            "name":"No Patient",
+
+            "age":"-",
+
+            "blood_group":"-",
+
+            "phone":"-",
+
+            "address":"-",
+
+            "doctor":"-"
+        }
+
+    return render_template(
+        'profile.html',
+        profile=profile_data
+    )
 
 @app.route('/symptomchecker')
 def symptomchecker():
