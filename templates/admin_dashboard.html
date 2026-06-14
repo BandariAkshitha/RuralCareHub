@@ -1,22 +1,308 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Admin Dashboard</title>
+    <title>Admin Dashboard - RuralCareHub</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:Arial, sans-serif;
+            background:#f4f7fa;
+        }
+
+        .top-bar{
+            display:flex;
+            justify-content:flex-end;
+            padding:15px 25px;
+            background:white;
+        }
+
+        .logout-btn{
+            background:linear-gradient(to right,#0052d4,#00c6ff);
+            color:white;
+            padding:10px 20px;
+            text-decoration:none;
+            border-radius:8px;
+            font-weight:bold;
+        }
+
+        .header{
+            background:linear-gradient(to right,#0052d4,#00c6ff);
+            color:white;
+            text-align:center;
+            padding:20px;
+        }
+
+        .logo{
+            width:140px;
+            height:140px;
+            border-radius:50%;
+        }
+
+        .dashboard-grid{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:20px;
+            padding:30px;
+            max-width:1000px;
+            margin:auto;
+        }
+
+        .card{
+            background:white;
+            padding:25px;
+            text-align:center;
+            color:#007bff;
+            font-size:22px;
+            font-weight:bold;
+            border-radius:12px;
+            box-shadow:0 4px 10px rgba(0,0,0,0.1);
+            transition:0.3s;
+        }
+
+        .card:hover{
+            background:#e6f7ff;
+            transform:translateY(-5px);
+        }
+
+        footer{
+            background:#0052d4;
+            color:white;
+            text-align:center;
+            padding:15px;
+            margin-top:30px;
+        }
+
+        .dark-btn{
+            padding:10px 15px;
+            border:none;
+            border-radius:8px;
+            background:black;
+            color:white;
+            cursor:pointer;
+            margin-right:15px;
+        }
+
+        .dark-mode{
+            background:#121212;
+            color:white;
+        }
+
+        .dark-mode .card{
+            background:#1f1f1f;
+            color:white;
+        }
+
+        .dark-mode footer{
+            background:#000;
+        }
+
+        @media(max-width:768px){
+
+            .dashboard-grid{
+                grid-template-columns:1fr;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 <body>
 
-<h1>Admin Dashboard</h1>
+<div class="top-bar">
 
-<ul>
-<li><a href="/directory">Doctor Directory</a></li>
-<li><a href="/appointment">Appointments</a></li>
-<li><a href="/records">Health Records</a></li>
-<li><a href="/articles">Health Articles</a></li>
-<li><a href="/emergency">Emergency Services</a></li>
-<li><a href="/notifications">Notifications</a></li>
-<li><a href="/voice">Voice Assistant</a></li>
-<li><a href="/language">Language Support</a></li>
-</ul>
+    <button onclick="toggleDarkMode()"
+            class="dark-btn">
+
+        🌙 Dark Mode
+
+    </button>
+
+    <a href="/login"
+       class="logout-btn"
+       id="logout-btn">
+
+       Logout
+
+    </a>
+
+</div>
+
+<div class="header">
+
+    <img src="{{ url_for('static', filename='logo.jpeg') }}"
+         class="logo">
+
+    <h1 id="dashboard-title">
+
+        Admin Dashboard 🛡️
+
+    </h1>
+
+    <p id="subtitle">
+
+        Manage RuralCareHub System
+
+    </p>
+
+    <select id="languageSelect"
+            onchange="changeLanguage()"
+            style="padding:8px;
+                   border-radius:6px;
+                   margin-top:10px;">
+
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+        <option value="te">Telugu</option>
+
+    </select>
+
+</div>
+
+<div class="dashboard-grid">
+
+    <div class="card"
+         id="users-card">
+
+        👥 Total Users
+
+    </div>
+
+    <div class="card"
+         id="doctors-card">
+
+        👨‍⚕️ Total Doctors
+
+    </div>
+
+    <div class="card"
+         id="articles-card">
+
+        📰 Manage Articles
+
+    </div>
+
+    <div class="card"
+         id="notifications-card">
+
+        🔔 Notifications
+
+    </div>
+
+</div>
+
+<footer>
+
+    Emergency Number: 108 |
+    Email: support@ruralcarehub.com
+
+    <br><br>
+
+    © 2026 RuralCareHub.
+    All Rights Reserved.
+
+</footer>
+
+<script>
+
+const translations = {
+
+en:{
+dashboard:"Admin Dashboard 🛡️",
+subtitle:"Manage RuralCareHub System",
+logout:"Logout",
+users:"Total Users",
+doctors:"Total Doctors",
+articles:"Manage Articles",
+notifications:"Notifications"
+},
+
+hi:{
+dashboard:"एडमिन डैशबोर्ड 🛡️",
+subtitle:"RuralCareHub सिस्टम प्रबंधन",
+logout:"लॉगआउट",
+users:"कुल उपयोगकर्ता",
+doctors:"कुल डॉक्टर",
+articles:"लेख प्रबंधन",
+notifications:"सूचनाएं"
+},
+
+te:{
+dashboard:"అడ్మిన్ డాష్‌బోర్డ్ 🛡️",
+subtitle:"RuralCareHub సిస్టమ్ నిర్వహణ",
+logout:"లాగౌట్",
+users:"మొత్తం వినియోగదారులు",
+doctors:"మొత్తం డాక్టర్లు",
+articles:"ఆర్టికల్స్ నిర్వహణ",
+notifications:"నోటిఫికేషన్స్"
+}
+
+};
+
+function applyLanguage(){
+
+let lang =
+localStorage.getItem("language") || "en";
+
+document.getElementById("dashboard-title").innerText =
+translations[lang].dashboard;
+
+document.getElementById("subtitle").innerText =
+translations[lang].subtitle;
+
+document.getElementById("logout-btn").innerText =
+translations[lang].logout;
+
+document.getElementById("users-card").innerText =
+"👥 " + translations[lang].users;
+
+document.getElementById("doctors-card").innerText =
+"👨‍⚕️ " + translations[lang].doctors;
+
+document.getElementById("articles-card").innerText =
+"📰 " + translations[lang].articles;
+
+document.getElementById("notifications-card").innerText =
+"🔔 " + translations[lang].notifications;
+
+}
+
+function changeLanguage(){
+
+let selectedLang =
+document.getElementById("languageSelect").value;
+
+localStorage.setItem("language", selectedLang);
+
+applyLanguage();
+
+}
+
+window.onload = function(){
+
+let savedLang =
+localStorage.getItem("language") || "en";
+
+document.getElementById("languageSelect").value =
+savedLang;
+
+applyLanguage();
+
+};
+
+function toggleDarkMode(){
+
+document.body.classList.toggle("dark-mode");
+
+}
+
+</script>
 
 </body>
 </html>
