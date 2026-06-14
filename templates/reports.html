@@ -4,7 +4,7 @@
 <head>
 
     <title>
-        Patient List
+        Upload Reports
     </title>
 
     <meta name="viewport"
@@ -26,27 +26,26 @@
         }
 
         .container{
-            width:90%;
-            margin:30px auto;
+            width:50%;
+            margin:40px auto;
             background:white;
-            padding:20px;
+            padding:30px;
             border-radius:10px;
-        }
-
-        table{
-            width:100%;
-            border-collapse:collapse;
-        }
-
-        th,td{
-            border:1px solid #ccc;
-            padding:15px;
             text-align:center;
         }
 
-        th{
-            background:#0077cc;
+        input{
+            margin-top:20px;
+        }
+
+        button{
+            margin-top:20px;
+            padding:12px 20px;
+            background:#28a745;
             color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
         }
 
         .back-btn{
@@ -70,7 +69,7 @@
 <div class="header">
 
     <h1 id="title">
-        👨‍⚕️ Patient List
+        🧾 Upload Reports
     </h1>
 
     <br>
@@ -96,37 +95,20 @@
 
 <div class="container">
 
-<table>
+<form>
 
-<tr>
+    <input type="file">
 
-    <th id="patient-heading">
-        Patient Name
-    </th>
+    <br>
 
-    <th id="doctor-heading">
-        Doctor
-    </th>
+    <button type="submit"
+            id="upload-btn">
 
-</tr>
+        Upload Report
 
-{% for appointment in appointments %}
+    </button>
 
-<tr>
-
-    <td>
-        {{ appointment.patient_name }}
-    </td>
-
-    <td>
-        {{ appointment.doctor_name }}
-    </td>
-
-</tr>
-
-{% endfor %}
-
-</table>
+</form>
 
 </div>
 
@@ -143,23 +125,20 @@
 const translations = {
 
     en:{
-        title:"👨‍⚕️ Patient List",
-        patient:"Patient Name",
-        doctor:"Doctor",
+        title:"🧾 Upload Reports",
+        upload:"Upload Report",
         back:"Back"
     },
 
     te:{
-        title:"👨‍⚕️ రోగుల జాబితా",
-        patient:"రోగి పేరు",
-        doctor:"డాక్టర్",
+        title:"🧾 రిపోర్టులు అప్లోడ్",
+        upload:"రిపోర్ట్ అప్లోడ్ చేయండి",
         back:"వెనక్కి"
     },
 
     hi:{
-        title:"👨‍⚕️ मरीज सूची",
-        patient:"मरीज का नाम",
-        doctor:"डॉक्टर",
+        title:"🧾 रिपोर्ट अपलोड करें",
+        upload:"रिपोर्ट अपलोड करें",
         back:"वापस"
     }
 };
@@ -172,11 +151,8 @@ function changeLanguage(){
     document.getElementById("title").innerText =
     translations[lang].title;
 
-    document.getElementById("patient-heading").innerText =
-    translations[lang].patient;
-
-    document.getElementById("doctor-heading").innerText =
-    translations[lang].doctor;
+    document.getElementById("upload-btn").innerText =
+    translations[lang].upload;
 
     document.getElementById("back-btn").innerText =
     translations[lang].back;
