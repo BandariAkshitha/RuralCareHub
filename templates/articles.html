@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
     <title>Health Articles - RuralCareHub</title>
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
 
     <style>
 
@@ -13,33 +11,6 @@
             font-family:Arial,sans-serif;
             background:#f4f7fb;
             margin:0;
-            transition:0.3s;
-        }
-
-        .dark{
-            background:#111;
-            color:white;
-        }
-
-        .dark .article{
-            background:#222;
-            color:white;
-        }
-
-        .dark .search-box input{
-            background:#333;
-            color:white;
-            border:1px solid #555;
-        }
-
-        #progress-bar{
-            position:fixed;
-            top:0;
-            left:0;
-            height:5px;
-            background:#28a745;
-            width:0%;
-            z-index:1000;
         }
 
         .header{
@@ -55,21 +26,18 @@
         }
 
         .search-box{
-            text-align:center;
-            margin-bottom:20px;
-        }
-
-        .search-box input{
             width:60%;
             padding:12px;
-            border-radius:8px;
+            border-radius:10px;
             border:1px solid #ccc;
+            display:block;
+            margin:20px auto;
             font-size:16px;
         }
 
         .articles-grid{
             display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
             gap:20px;
         }
 
@@ -78,21 +46,10 @@
             padding:20px;
             border-radius:12px;
             box-shadow:0 3px 10px rgba(0,0,0,0.1);
-            transition:0.3s;
-        }
-
-        .article:hover{
-            transform:translateY(-5px);
         }
 
         .article h3{
             color:#0077cc;
-        }
-
-        .article img{
-            width:100%;
-            border-radius:10px;
-            margin-bottom:15px;
         }
 
         .voice-btn{
@@ -102,27 +59,37 @@
             padding:10px 15px;
             border-radius:8px;
             cursor:pointer;
-            margin-top:10px;
             margin-right:5px;
+            margin-top:10px;
         }
 
         .voice-btn:hover{
             background:#218838;
         }
 
+        .dark-mode{
+            background:#1e1e1e;
+            color:white;
+        }
+
+        .dark-mode .article{
+            background:#2c2c2c;
+            color:white;
+        }
+
         .dark-btn{
+            margin-top:15px;
+            padding:10px 20px;
+            border:none;
+            border-radius:8px;
             background:#222;
             color:white;
-            border:none;
-            padding:10px 15px;
-            border-radius:8px;
             cursor:pointer;
-            margin-top:10px;
         }
 
         .back-btn{
             display:block;
-            width:200px;
+            width:180px;
             text-align:center;
             margin:30px auto;
             padding:12px;
@@ -132,21 +99,19 @@
             border-radius:8px;
         }
 
-        @media(max-width:768px){
-
-            .search-box input{
-                width:90%;
-            }
-
+        .tip-box{
+            background:white;
+            padding:20px;
+            border-radius:12px;
+            margin-top:20px;
+            box-shadow:0 3px 10px rgba(0,0,0,0.1);
         }
 
     </style>
 
 </head>
 
-<body>
-
-<div id="progress-bar"></div>
+<body id="body">
 
 <div class="header">
 
@@ -170,7 +135,7 @@
     <button class="dark-btn"
             onclick="toggleDarkMode()">
 
-        🌙 Dark Mode
+        Dark Mode
 
     </button>
 
@@ -178,19 +143,17 @@
 
 <div class="container">
 
-    <div class="search-box">
-
-        <input type="text"
-               id="searchInput"
-               placeholder="Search health articles..."
-               onkeyup="searchArticles()">
-
-    </div>
+    <input type="text"
+           id="searchInput"
+           class="search-box"
+           placeholder="Search health articles..."
+           onkeyup="searchArticles()">
 
     <div class="articles-grid">
 
-        <div class="article">
+        <!-- ARTICLE 1 -->
 
+        <div class="article">
 
             <h3 id="article1-title">
                 Diabetes Prevention
@@ -204,25 +167,27 @@
             <button class="voice-btn"
                     onclick="speakText('article1-text')">
 
-                🔊 Listen
+                Listen
 
             </button>
 
             <button class="voice-btn"
                     onclick="stopVoice()">
 
-                ⏹ Stop
+                Stop
 
             </button>
 
             <button class="voice-btn"
                     onclick="likeArticle(this)">
 
-                ❤️ Like
+                Like
 
             </button>
 
         </div>
+
+        <!-- ARTICLE 2 -->
 
         <div class="article">
 
@@ -238,25 +203,27 @@
             <button class="voice-btn"
                     onclick="speakText('article2-text')">
 
-                🔊 Listen
+                Listen
 
             </button>
 
             <button class="voice-btn"
                     onclick="stopVoice()">
 
-                ⏹ Stop
+                Stop
 
             </button>
 
             <button class="voice-btn"
                     onclick="likeArticle(this)">
 
-                ❤️ Like
+                Like
 
             </button>
 
         </div>
+
+        <!-- ARTICLE 3 -->
 
         <div class="article">
 
@@ -265,35 +232,36 @@
             </h3>
 
             <p id="article3-text">
-                Drinking clean water helps prevent diseases
-                and improves overall health.
+                Drinking clean water helps prevent
+                diseases and improves overall health.
             </p>
 
             <button class="voice-btn"
                     onclick="speakText('article3-text')">
 
-                🔊 Listen
+                Listen
 
             </button>
 
             <button class="voice-btn"
                     onclick="stopVoice()">
 
-                ⏹ Stop
+                Stop
 
             </button>
 
             <button class="voice-btn"
                     onclick="likeArticle(this)">
 
-                ❤️ Like
+                Like
 
             </button>
 
         </div>
 
-        <div class="article">
+        <!-- ARTICLE 4 -->
 
+        <div class="article">
 
             <h3 id="article4-title">
                 Mental Health Awareness
@@ -307,48 +275,41 @@
             <button class="voice-btn"
                     onclick="speakText('article4-text')">
 
-                🔊 Listen
+                Listen
 
             </button>
 
             <button class="voice-btn"
                     onclick="stopVoice()">
 
-                ⏹ Stop
+                Stop
 
             </button>
 
             <button class="voice-btn"
                     onclick="likeArticle(this)">
 
-                ❤️ Like
+                Like
 
             </button>
 
         </div>
 
-        <div class="article">
+    </div>
 
-            <h3>
-                🤖 AI Health Tip
-            </h3>
+    <div class="tip-box">
 
-            <p id="ai-tip">
-                Walk 30 minutes daily to stay healthy.
-            </p>
+        <h3 id="tip-title">
+            🤖 AI Health Tip
+        </h3>
 
-        </div>
+        <p id="tip-text">
+            Walk 30 minutes daily to stay healthy.
+        </p>
 
     </div>
 
 </div>
-
-<a href="tel:108"
-   class="back-btn">
-
-    🚑 Call Emergency
-
-</a>
 
 <a href="/patient"
    class="back-btn"
@@ -357,19 +318,80 @@
     Back
 
 </a>
+
 <script>
+
+const translations = {
+
+en:{
+title:"Health Articles",
+search:"Search health articles...",
+article1Title:"Diabetes Prevention",
+article1Text:"Maintain a healthy diet, exercise regularly, and monitor blood sugar levels.",
+article2Title:"Heart Health Tips",
+article2Text:"Eat nutritious food, avoid smoking, and stay physically active.",
+article3Title:"Importance of Clean Water",
+article3Text:"Drinking clean water helps prevent diseases and improves overall health.",
+article4Title:"Mental Health Awareness",
+article4Text:"Reduce stress through meditation, proper sleep, and healthy communication.",
+listen:"Listen",
+stop:"Stop",
+like:"Like",
+back:"Back",
+tip:"AI Health Tip",
+tipText:"Walk 30 minutes daily to stay healthy."
+},
+
+hi:{
+title:"स्वास्थ्य लेख",
+search:"स्वास्थ्य लेख खोजें...",
+article1Title:"मधुमेह रोकथाम",
+article1Text:"स्वस्थ भोजन करें और नियमित व्यायाम करें।",
+article2Title:"हृदय स्वास्थ्य सुझाव",
+article2Text:"पौष्टिक भोजन खाएं और धूम्रपान से बचें।",
+article3Title:"स्वच्छ पानी का महत्व",
+article3Text:"स्वच्छ पानी कई बीमारियों से बचाता है।",
+article4Title:"मानसिक स्वास्थ्य जागरूकता",
+article4Text:"ध्यान और अच्छी नींद तनाव कम करते हैं।",
+listen:"सुनें",
+stop:"रोकें",
+like:"पसंद",
+back:"वापस",
+tip:"AI स्वास्थ्य सुझाव",
+tipText:"प्रतिदिन 30 मिनट चलें।"
+},
+
+te:{
+title:"ఆరోగ్య వ్యాసాలు",
+search:"ఆరోగ్య వ్యాసాలు వెతకండి...",
+article1Title:"మధుమేహ నివారణ",
+article1Text:"ఆరోగ్యకరమైన ఆహారం తినండి మరియు వ్యాయామం చేయండి.",
+article2Title:"గుండె ఆరోగ్య సూచనలు",
+article2Text:"పౌష్టికాహారం తీసుకోండి మరియు ధూమపానం చేయవద్దు.",
+article3Title:"శుభ్రమైన నీటి ప్రాముఖ్యత",
+article3Text:"శుభ్రమైన నీరు వ్యాధులను నివారిస్తుంది.",
+article4Title:"మానసిక ఆరోగ్య అవగాహన",
+article4Text:"ధ్యానం మరియు మంచి నిద్ర ఒత్తిడిని తగ్గిస్తాయి.",
+listen:"వినండి",
+stop:"ఆపు",
+like:"లైక్",
+back:"వెనక్కి",
+tip:"AI ఆరోగ్య సూచన",
+tipText:"ప్రతిరోజూ 30 నిమిషాలు నడవండి."
+}
+
+};
 
 function changeLanguage(){
 
     let lang =
     document.getElementById("languageSelect").value;
 
-    /* TITLE */
-
     document.getElementById("title").innerText =
     translations[lang].title;
 
-    /* ARTICLE 1 */
+    document.getElementById("searchInput").placeholder =
+    translations[lang].search;
 
     document.getElementById("article1-title").innerText =
     translations[lang].article1Title;
@@ -377,15 +399,11 @@ function changeLanguage(){
     document.getElementById("article1-text").innerText =
     translations[lang].article1Text;
 
-    /* ARTICLE 2 */
-
     document.getElementById("article2-title").innerText =
     translations[lang].article2Title;
 
     document.getElementById("article2-text").innerText =
     translations[lang].article2Text;
-
-    /* ARTICLE 3 */
 
     document.getElementById("article3-title").innerText =
     translations[lang].article3Title;
@@ -393,103 +411,133 @@ function changeLanguage(){
     document.getElementById("article3-text").innerText =
     translations[lang].article3Text;
 
-    /* ARTICLE 4 */
-
     document.getElementById("article4-title").innerText =
     translations[lang].article4Title;
 
     document.getElementById("article4-text").innerText =
     translations[lang].article4Text;
 
-    /* BUTTONS */
+    document.getElementById("tip-title").innerText =
+    translations[lang].tip;
 
-    let listenBtns =
-    document.getElementsByClassName("listen-btn");
-
-    for(let i=0; i<listenBtns.length; i++){
-
-        if(lang == "en"){
-            listenBtns[i].innerText = "🔊 Listen";
-        }
-
-        else if(lang == "hi"){
-            listenBtns[i].innerText = "🔊 सुनें";
-        }
-
-        else if(lang == "te"){
-            listenBtns[i].innerText = "🔊 వినండి";
-        }
-
-    }
-
-    let stopBtns =
-    document.getElementsByClassName("stop-btn");
-
-    for(let i=0; i<stopBtns.length; i++){
-
-        if(lang == "en"){
-            stopBtns[i].innerText = "⏹ Stop";
-        }
-
-        else if(lang == "hi"){
-            stopBtns[i].innerText = "⏹ रोकें";
-        }
-
-        else if(lang == "te"){
-            stopBtns[i].innerText = "⏹ ఆపు";
-        }
-
-    }
-
-    let likeBtns =
-    document.getElementsByClassName("like-btn");
-
-    for(let i=0; i<likeBtns.length; i++){
-
-        if(lang == "en"){
-            likeBtns[i].innerText = "❤️ Like";
-        }
-
-        else if(lang == "hi"){
-            likeBtns[i].innerText = "❤️ पसंद";
-        }
-
-        else if(lang == "te"){
-            likeBtns[i].innerText = "❤️ లైక్";
-        }
-
-    }
-
-    /* EMERGENCY BUTTON */
-
-    let emergencyBtn =
-    document.getElementById("emergency-btn");
-
-    if(emergencyBtn){
-
-        if(lang == "en"){
-            emergencyBtn.innerText =
-            "🚑 Call Emergency";
-        }
-
-        else if(lang == "hi"){
-            emergencyBtn.innerText =
-            "🚑 एम्बुलेंस बुलाएं";
-        }
-
-        else if(lang == "te"){
-            emergencyBtn.innerText =
-            "🚑 అంబులెన్స్‌కు కాల్ చేయండి";
-        }
-
-    }
-
-    /* BACK BUTTON */
+    document.getElementById("tip-text").innerText =
+    translations[lang].tipText;
 
     document.getElementById("back-btn").innerText =
     translations[lang].back;
 
-    localStorage.setItem("language", lang);
+    let buttons =
+    document.getElementsByClassName("voice-btn");
+
+    for(let i=0;i<buttons.length;i+=3){
+
+        buttons[i].innerText =
+        translations[lang].listen;
+
+        buttons[i+1].innerText =
+        translations[lang].stop;
+
+        buttons[i+2].innerText =
+        translations[lang].like;
+
+    }
+
+    localStorage.setItem("language",lang);
+
+}
+
+function speakText(id){
+
+    let text =
+    document.getElementById(id).innerText;
+
+    let lang =
+    document.getElementById("languageSelect").value;
+
+    speechSynthesis.cancel();
+
+    let speech =
+    new SpeechSynthesisUtterance(text);
+
+    if(lang == "hi"){
+
+        speech.lang = "hi-IN";
+
+    }
+
+    else if(lang == "te"){
+
+        speech.lang = "te-IN";
+
+    }
+
+    else{
+
+        speech.lang = "en-US";
+
+    }
+
+    speechSynthesis.speak(speech);
+
+}
+
+function stopVoice(){
+
+    speechSynthesis.cancel();
+
+}
+
+function likeArticle(btn){
+
+    btn.innerText = "Liked";
+
+}
+
+function searchArticles(){
+
+    let input =
+    document.getElementById("searchInput").value.toLowerCase();
+
+    let articles =
+    document.getElementsByClassName("article");
+
+    for(let i=0;i<articles.length;i++){
+
+        let text =
+        articles[i].innerText.toLowerCase();
+
+        if(text.includes(input)){
+
+            articles[i].style.display = "block";
+
+        }
+
+        else{
+
+            articles[i].style.display = "none";
+
+        }
+
+    }
+
+}
+
+function toggleDarkMode(){
+
+    document.getElementById("body")
+    .classList.toggle("dark-mode");
+
+}
+
+window.onload = function(){
+
+    let savedLang =
+    localStorage.getItem("language") || "en";
+
+    document.getElementById("languageSelect").value =
+    savedLang;
+
+    changeLanguage();
 
 }
 
