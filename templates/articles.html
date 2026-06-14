@@ -191,7 +191,6 @@
 
         <div class="article">
 
-            <img src="{{ url_for('static', filename='diabetes.jpg') }}">
 
             <h3 id="article1-title">
                 Diabetes Prevention
@@ -227,8 +226,6 @@
 
         <div class="article">
 
-            <img src="{{ url_for('static', filename='heart.jpg') }}">
-
             <h3 id="article2-title">
                 Heart Health Tips
             </h3>
@@ -262,8 +259,6 @@
         </div>
 
         <div class="article">
-
-            <img src="{{ url_for('static', filename='water.jpg') }}">
 
             <h3 id="article3-title">
                 Importance of Clean Water
@@ -299,7 +294,6 @@
 
         <div class="article">
 
-            <img src="{{ url_for('static', filename='mental.jpg') }}">
 
             <h3 id="article4-title">
                 Mental Health Awareness
@@ -363,74 +357,19 @@
     Back
 
 </a>
-
 <script>
-
-const translations = {
-
-    en:{
-        title:"Health Articles",
-
-        article1Title:"Diabetes Prevention",
-        article1Text:"Maintain a healthy diet, exercise regularly, and monitor blood sugar levels.",
-
-        article2Title:"Heart Health Tips",
-        article2Text:"Eat nutritious food, avoid smoking, and stay physically active.",
-
-        article3Title:"Importance of Clean Water",
-        article3Text:"Drinking clean water helps prevent many diseases and improves overall health.",
-
-        article4Title:"Mental Health Awareness",
-        article4Text:"Reduce stress through meditation, proper sleep, and healthy communication.",
-
-        back:"Back"
-    },
-
-    hi:{
-        title:"स्वास्थ्य लेख",
-
-        article1Title:"मधुमेह रोकथाम",
-        article1Text:"स्वस्थ भोजन करें, नियमित व्यायाम करें और रक्त शर्करा की जांच करें।",
-
-        article2Title:"हृदय स्वास्थ्य सुझाव",
-        article2Text:"पौष्टिक भोजन खाएं, धूम्रपान से बचें और सक्रिय रहें।",
-
-        article3Title:"स्वच्छ पानी का महत्व",
-        article3Text:"स्वच्छ पानी पीने से कई बीमारियों से बचाव होता है।",
-
-        article4Title:"मानसिक स्वास्थ्य जागरूकता",
-        article4Text:"ध्यान, अच्छी नींद और स्वस्थ बातचीत से तनाव कम करें।",
-
-        back:"वापस"
-    },
-
-    te:{
-        title:"ఆరోగ్య వ్యాసాలు",
-
-        article1Title:"మధుమేహ నివారణ",
-        article1Text:"ఆరోగ్యకరమైన ఆహారం తినండి మరియు వ్యాయామం చేయండి.",
-
-        article2Title:"గుండె ఆరోగ్య సూచనలు",
-        article2Text:"పౌష్టికాహారం తీసుకోండి మరియు ధూమపానం చేయవద్దు.",
-
-        article3Title:"శుభ్రమైన నీటి ప్రాముఖ్యత",
-        article3Text:"శుభ్రమైన నీరు అనేక వ్యాధులను నివారిస్తుంది.",
-
-        article4Title:"మానసిక ఆరోగ్య అవగాహన",
-        article4Text:"ధ్యానం, మంచి నిద్ర మరియు ఆరోగ్యకరమైన సంభాషణ ద్వారా ఒత్తిడిని తగ్గించండి.",
-
-        back:"వెనక్కి"
-    }
-
-};
 
 function changeLanguage(){
 
     let lang =
     document.getElementById("languageSelect").value;
 
+    /* TITLE */
+
     document.getElementById("title").innerText =
     translations[lang].title;
+
+    /* ARTICLE 1 */
 
     document.getElementById("article1-title").innerText =
     translations[lang].article1Title;
@@ -438,11 +377,15 @@ function changeLanguage(){
     document.getElementById("article1-text").innerText =
     translations[lang].article1Text;
 
+    /* ARTICLE 2 */
+
     document.getElementById("article2-title").innerText =
     translations[lang].article2Title;
 
     document.getElementById("article2-text").innerText =
     translations[lang].article2Text;
+
+    /* ARTICLE 3 */
 
     document.getElementById("article3-title").innerText =
     translations[lang].article3Title;
@@ -450,69 +393,107 @@ function changeLanguage(){
     document.getElementById("article3-text").innerText =
     translations[lang].article3Text;
 
+    /* ARTICLE 4 */
+
     document.getElementById("article4-title").innerText =
     translations[lang].article4Title;
 
     document.getElementById("article4-text").innerText =
     translations[lang].article4Text;
 
+    /* BUTTONS */
+
+    let listenBtns =
+    document.getElementsByClassName("listen-btn");
+
+    for(let i=0; i<listenBtns.length; i++){
+
+        if(lang == "en"){
+            listenBtns[i].innerText = "🔊 Listen";
+        }
+
+        else if(lang == "hi"){
+            listenBtns[i].innerText = "🔊 सुनें";
+        }
+
+        else if(lang == "te"){
+            listenBtns[i].innerText = "🔊 వినండి";
+        }
+
+    }
+
+    let stopBtns =
+    document.getElementsByClassName("stop-btn");
+
+    for(let i=0; i<stopBtns.length; i++){
+
+        if(lang == "en"){
+            stopBtns[i].innerText = "⏹ Stop";
+        }
+
+        else if(lang == "hi"){
+            stopBtns[i].innerText = "⏹ रोकें";
+        }
+
+        else if(lang == "te"){
+            stopBtns[i].innerText = "⏹ ఆపు";
+        }
+
+    }
+
+    let likeBtns =
+    document.getElementsByClassName("like-btn");
+
+    for(let i=0; i<likeBtns.length; i++){
+
+        if(lang == "en"){
+            likeBtns[i].innerText = "❤️ Like";
+        }
+
+        else if(lang == "hi"){
+            likeBtns[i].innerText = "❤️ पसंद";
+        }
+
+        else if(lang == "te"){
+            likeBtns[i].innerText = "❤️ లైక్";
+        }
+
+    }
+
+    /* EMERGENCY BUTTON */
+
+    let emergencyBtn =
+    document.getElementById("emergency-btn");
+
+    if(emergencyBtn){
+
+        if(lang == "en"){
+            emergencyBtn.innerText =
+            "🚑 Call Emergency";
+        }
+
+        else if(lang == "hi"){
+            emergencyBtn.innerText =
+            "🚑 एम्बुलेंस बुलाएं";
+        }
+
+        else if(lang == "te"){
+            emergencyBtn.innerText =
+            "🚑 అంబులెన్స్‌కు కాల్ చేయండి";
+        }
+
+    }
+
+    /* BACK BUTTON */
+
     document.getElementById("back-btn").innerText =
     translations[lang].back;
 
     localStorage.setItem("language", lang);
-}
 
-function speakText(text){
-
-    let speech =
-    new SpeechSynthesisUtterance();
-
-    speech.text = text;
-
-    let lang =
-    document.getElementById("languageSelect").value;
-
-    if(lang == "en"){
-
-        speech.lang = "en-US";
-
-    }
-
-    else if(lang == "hi"){
-
-        speech.lang = "hi-IN";
-
-    }
-
-    else if(lang == "te"){
-
-        speech.lang = "te-IN";
-
-    }
-
-    speech.rate = 1;
-
-    speech.pitch = 1;
-
-    window.speechSynthesis.speak(speech);
-}
-
-function stopVoice(){
-
-    window.speechSynthesis.cancel();
-}
-
-window.onload = function(){
-
-    let savedLang =
-    localStorage.getItem("language") || "en";
-
-    document.getElementById("languageSelect").value =
-    savedLang;
-
-    changeLanguage();
 }
 
 </script>
+
 </body>
 </html>
