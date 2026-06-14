@@ -1,17 +1,9 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-
-    <title>
-        Notifications - RuralCareHub
-    </title>
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <title>Notifications - RuralCareHub</title>
 
     <style>
-
         body{
             font-family:Arial, sans-serif;
             background:#f4f7fb;
@@ -54,209 +46,162 @@
             text-decoration:none;
             border-radius:5px;
         }
-
-        @media(max-width:768px){
-
-            .container{
-                width:95%;
-            }
-
-        }
-
     </style>
-
 </head>
 
 <body>
 
 <div class="header">
 
-    <h1 id="title">
-        Notifications
-    </h1>
+    <h1 id="title">Notifications</h1>
 
     <br>
 
-    <select id="languageSelect"
-            onchange="changeLanguage()">
+    <select id="languageSelect" onchange="changeLanguage()">
 
-        <option value="en">
-            English
-        </option>
+        <option value="en">English</option>
 
-        <option value="hi">
-            Hindi
-        </option>
+        <option value="hi">Hindi</option>
 
-        <option value="te">
-            Telugu
-        </option>
+        <option value="te">Telugu</option>
 
     </select>
 
 </div>
-
 <div class="container">
 
     <div class="notification">
-
-        <h3 id="notify1-title">
-            Appointment Confirmed
-        </h3>
-
-        <p id="notify1-text">
-            Your appointment with Dr. Ravi Kumar has been confirmed.
-        </p>
+        <h3 id="notify1-title">Appointment Confirmed</h3>
+    <p id="notify1-text"></p>
 
     </div>
 
     <div class="notification">
-
-        <h3 id="notify2-title">
-            Health Camp Alert
-        </h3>
-
+        <h3 id="notify2-title">Health Camp Alert</h3>
         <p id="notify2-text">
-            Free health camp available in your village on Sunday.
-        </p>
-
+Free health camp available in your village on Sunday.
+</p>
     </div>
 
     <div class="notification">
 
-        <h3 id="notify3-title">
-            New Health Article
-        </h3>
+    <h3 id="notify3-title">
+        New Health Article
+    </h3>
 
-        <p id="notify3-text">
-            A new article about heart health has been published.
-        </p>
-
-    </div>
+    <p id="notify3-text">
+        A new article about heart health has been published.
+    </p>
 
 </div>
 
-<a href="/patient"
-   class="back-btn"
-   id="back-btn">
-
+<a href="/patient" class="back-btn" id="back-btn">
     Back
-
 </a>
 
 <script>
 
 const translations = {
 
-    en:{
+en:{
+title:"Notifications",
 
-        title:"Notifications",
+notify1Title:"Appointment Confirmed",
+notify1Text:"Your appointment with Dr. Ravi Kumar has been confirmed.",
 
-        notify1Title:"Appointment Confirmed",
+notify2Title:"Health Camp Alert",
+notify2Text:"Free health camp available in your village on Sunday.",
 
-        notify1Text:
-        "Your appointment with Dr. Ravi Kumar has been confirmed.",
+notify3Title:"New Health Article",
+notify3Text:"A new article about heart health has been published.",
 
-        notify2Title:"Health Camp Alert",
+back:"Back"
+},
 
-        notify2Text:
-        "Free health camp available in your village on Sunday.",
+hi:{
+title:"सूचनाएं",
 
-        notify3Title:"New Health Article",
+notify1Title:"अपॉइंटमेंट की पुष्टि",
+notify1Text:"डॉ. रवि कुमार के साथ आपका अपॉइंटमेंट पुष्टि हो गया है।",
 
-        notify3Text:
-        "A new article about heart health has been published.",
+notify2Title:"स्वास्थ्य शिविर सूचना",
+notify2Text:"रविवार को आपके गांव में मुफ्त स्वास्थ्य शिविर उपलब्ध है।",
 
-        back:"Back"
-    },
+notify3Title:"नया स्वास्थ्य लेख",
+notify3Text:"हृदय स्वास्थ्य पर नया लेख प्रकाशित हुआ है।",
 
-    hi:{
+back:"वापस"
+},
 
-        title:"सूचनाएं",
+te:{
+title:"నోటిఫికేషన్స్",
 
-        notify1Title:"अपॉइंटमेंट की पुष्टि",
+notify1Title:"అపాయింట్మెంట్ నిర్ధారించబడింది",
+notify1Text:"డా. రవి కుమార్‌తో మీ అపాయింట్మెంట్ నిర్ధారించబడింది.",
 
-        notify1Text:
-        "डॉ. रवि कुमार के साथ आपका अपॉइंटमेंट पुष्टि हो गया है।",
+notify2Title:"ఆరోగ్య శిబిరం సమాచారం",
+notify2Text:"ఆదివారం మీ గ్రామంలో ఉచిత ఆరోగ్య శిబిరం ఉంది.",
 
-        notify2Title:"स्वास्थ्य शिविर सूचना",
+notify3Title:"కొత్త ఆరోగ్య వ్యాసం",
+notify3Text:"హృదయ ఆరోగ్యంపై కొత్త వ్యాసం ప్రచురించబడింది.",
 
-        notify2Text:
-        "रविवार को आपके गांव में मुफ्त स्वास्थ्य शिविर उपलब्ध है।",
-
-        notify3Title:"नया स्वास्थ्य लेख",
-
-        notify3Text:
-        "हृदय स्वास्थ्य पर नया लेख प्रकाशित हुआ है।",
-
-        back:"वापस"
-    },
-
-    te:{
-
-        title:"నోటిఫికేషన్స్",
-
-        notify1Title:"అపాయింట్మెంట్ నిర్ధారించబడింది",
-
-        notify1Text:
-        "డా. రవి కుమార్‌తో మీ అపాయింట్మెంట్ నిర్ధారించబడింది.",
-
-        notify2Title:"ఆరోగ్య శిబిరం సమాచారం",
-
-        notify2Text:
-        "ఆదివారం మీ గ్రామంలో ఉచిత ఆరోగ్య శిబిరం ఉంది.",
-
-        notify3Title:"కొత్త ఆరోగ్య వ్యాసం",
-
-        notify3Text:
-        "హృదయ ఆరోగ్యంపై కొత్త వ్యాసం ప్రచురించబడింది.",
-
-        back:"వెనక్కి"
-    }
+back:"వెనక్కి"
+}
 
 };
 
 function changeLanguage(){
 
-    let lang =
-    document.getElementById("languageSelect").value;
+let lang =
+document.getElementById("languageSelect").value;
 
-    document.getElementById("title").innerText =
-    translations[lang].title;
+document.getElementById("title").innerText =
+translations[lang].title;
 
-    document.getElementById("notify1-title").innerText =
-    translations[lang].notify1Title;
+document.getElementById("notify1-title").innerText =
+translations[lang].notify1Title;
 
-    document.getElementById("notify1-text").innerText =
-    translations[lang].notify1Text;
+document.getElementById("notify1-text").innerText =
+translations[lang].notify1Text;
 
-    document.getElementById("notify2-title").innerText =
-    translations[lang].notify2Title;
+document.getElementById("notify2-title").innerText =
+translations[lang].notify2Title;
 
-    document.getElementById("notify2-text").innerText =
-    translations[lang].notify2Text;
+document.getElementById("notify2-text").innerText =
+translations[lang].notify2Text;
 
-    document.getElementById("notify3-title").innerText =
-    translations[lang].notify3Title;
+document.getElementById("notify3-title").innerText =
+translations[lang].notify3Title;
 
-    document.getElementById("notify3-text").innerText =
-    translations[lang].notify3Text;
+document.getElementById("notify3-text").innerText =
+translations[lang].notify3Text;
 
-    document.getElementById("back-btn").innerText =
-    translations[lang].back;
+document.getElementById("back-btn").innerText =
+translations[lang].back;
 
-    localStorage.setItem("language", lang);
+localStorage.setItem("language",lang);
 }
 
 window.onload = function(){
 
-    let savedLang =
-    localStorage.getItem("language") || "en";
+let savedLang =
+localStorage.getItem("language") || "en";
 
-    document.getElementById("languageSelect").value =
-    savedLang;
+document.getElementById("languageSelect").value =
+savedLang;
 
-    changeLanguage();
+changeLanguage();
+
+let savedNotification =
+localStorage.getItem("appointmentNotification");
+
+if(savedNotification){
+
+document.getElementById("notify1-text").innerText =
+savedNotification;
+
+}
+
 }
 
 </script>
