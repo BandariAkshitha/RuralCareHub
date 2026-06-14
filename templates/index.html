@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
 <title>RuralCareHub</title>
 
 <style>
@@ -11,7 +15,6 @@ body{
     margin:0;
     font-family:Arial,sans-serif;
     background:#eef5fb;
-
     min-height:100vh;
     display:flex;
     flex-direction:column;
@@ -54,34 +57,19 @@ body{
 .login-box h2{
     text-align:center;
     color:#0056b3;
-    margin-bottom:20px;
-}
-
-label{
-    display:block;
-    margin-bottom:5px;
-    font-weight:bold;
-}
-
-input{
-    width:100%;
-    padding:12px;
-    margin-bottom:15px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    box-sizing:border-box;
-    font-size:16px;
+    margin-bottom:25px;
 }
 
 .btn-login{
     width:100%;
-    padding:12px;
+    padding:14px;
     background:#0056d6;
     color:white;
     border:none;
     border-radius:8px;
     font-size:18px;
     cursor:pointer;
+    margin-bottom:15px;
 }
 
 .btn-login:hover{
@@ -96,7 +84,7 @@ input{
 
 .btn-signup{
     width:100%;
-    padding:12px;
+    padding:14px;
     background:#28a745;
     color:white;
     border:none;
@@ -116,6 +104,11 @@ input{
     padding:15px;
     margin-top:40px;
 }
+
+a{
+    text-decoration:none;
+}
+
 @media(max-width:768px){
 
     .header h1{
@@ -137,7 +130,9 @@ input{
     }
 
 }
+
 </style>
+
 </head>
 
 <body>
@@ -148,68 +143,102 @@ input{
          alt="RuralCareHub Logo"
          class="logo">
 
-    <h1 id="title">RuralCareHub</h1>
+    <h1 id="title">
+        RuralCareHub
+    </h1>
 
-    <p id="subtitle">Connecting Communities to Health</p>
+    <p id="subtitle">
+        Connecting Communities to Health
+    </p>
+
     <br>
 
-<select id="language-selector">
+    <select id="language-selector"
+            style="padding:8px;
+                   border-radius:6px;">
 
-    <option value="en">English</option>
+        <option value="en">English</option>
 
-    <option value="hi">Hindi</option>
+        <option value="hi">Hindi</option>
 
-    <option value="te">Telugu</option>
+        <option value="te">Telugu</option>
 
-</select>
+    </select>
 
 </div>
 
 <div class="login-box">
 
-    <h2>User Login</h2>
+    <h2 id="login-title">
+        Select Dashboard
+    </h2>
 
-    <form action="/login" method="POST">
+    <a href="/patient">
 
-        <label id="email-label">Email Address</label>
-        <input type="email"
-               name="email"
-               placeholder="Enter your email"
-               required>
+        <button class="btn-login"
+                id="patient-btn">
 
-        <label id="password-label">Password</label>
-        <input type="password"
-               name="password"
-               placeholder="Enter your password"
-               required>
+            👤 Patient Dashboard
 
-        <button type="submit"
-        class="btn-login"
-        id="login-btn">
-        Login
         </button>
 
-    </form>
+    </a>
 
-    <div class="or">OR</div>
+    <a href="/doctor">
+
+        <button class="btn-login"
+                id="doctor-btn">
+
+            👨‍⚕️ Doctor Dashboard
+
+        </button>
+
+    </a>
+
+    <a href="/admin">
+
+        <button class="btn-login"
+                id="admin-btn">
+
+            🛡️ Admin Dashboard
+
+        </button>
+
+    </a>
+
+    <div class="or">
+        OR
+    </div>
 
     <a href="/register">
-        <button class="btn-signup" id="signup-btn">
-    Sign Up
-</button>
+
+        <button class="btn-signup"
+                id="signup-btn">
+
+            Sign Up
+
+        </button>
+
     </a>
 
 </div>
 
 <div class="footer">
 
-    <p>Emergency Number: 108</p>
+    <p>
+        Emergency Number: 108
+    </p>
 
-    <p>Email: support@ruralcarehub.com</p>
+    <p>
+        Email: support@ruralcarehub.com
+    </p>
 
-    <p>© 2026 RuralCareHub. All Rights Reserved.</p>
+    <p>
+        © 2026 RuralCareHub. All Rights Reserved.
+    </p>
 
 </div>
+
 <script>
 
 const translations = {
@@ -217,29 +246,33 @@ const translations = {
     en: {
         title: "RuralCareHub",
         subtitle: "Connecting Communities to Health",
-        login: "Login",
-        email: "Email Address",
-        password: "Password",
+        loginTitle: "Select Dashboard",
+        patient: "Patient Dashboard",
+        doctor: "Doctor Dashboard",
+        admin: "Admin Dashboard",
         signup: "Sign Up"
     },
 
     hi: {
         title: "रूरलकेयरहब",
         subtitle: "समुदायों को स्वास्थ्य से जोड़ना",
-        login: "लॉगिन",
-        email: "ईमेल पता",
-        password: "पासवर्ड",
+        loginTitle: "डैशबोर्ड चुनें",
+        patient: "मरीज डैशबोर्ड",
+        doctor: "डॉक्टर डैशबोर्ड",
+        admin: "एडमिन डैशबोर्ड",
         signup: "साइन अप"
     },
 
     te: {
         title: "రూరల్ కేర్ హబ్",
         subtitle: "సమాజాలను ఆరోగ్యంతో కలుపుతోంది",
-        login: "లాగిన్",
-        email: "ఈమెయిల్ చిరునామా",
-        password: "పాస్‌వర్డ్",
+        loginTitle: "డాష్‌బోర్డ్ ఎంచుకోండి",
+        patient: "రోగి డాష్‌బోర్డ్",
+        doctor: "డాక్టర్ డాష్‌బోర్డ్",
+        admin: "అడ్మిన్ డాష్‌బోర్డ్",
         signup: "సైన్ అప్"
     }
+
 };
 
 document.getElementById("language-selector")
@@ -254,23 +287,24 @@ document.getElementById("language-selector")
     document.getElementById("subtitle").innerText =
     translations[lang].subtitle;
 
-    document.getElementById("login-btn").innerText =
-    translations[lang].login;
-    
-    document.getElementById("email-label").innerText =
-    translations[lang].email;
+    document.getElementById("login-title").innerText =
+    translations[lang].loginTitle;
 
-    document.getElementById("password-label").innerText =
-    translations[lang].password;
+    document.getElementById("patient-btn").innerText =
+    "👤 " + translations[lang].patient;
+
+    document.getElementById("doctor-btn").innerText =
+    "👨‍⚕️ " + translations[lang].doctor;
+
+    document.getElementById("admin-btn").innerText =
+    "🛡️ " + translations[lang].admin;
 
     document.getElementById("signup-btn").innerText =
     translations[lang].signup;
 
 });
-window.onload = function() {
-    document.getElementById("login-btn").innerText = "Login";
-};
 
 </script>
+
 </body>
 </html>
