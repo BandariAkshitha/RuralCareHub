@@ -52,7 +52,7 @@ label{
     font-weight:bold;
 }
 
-input, textarea, select{
+input, textarea{
     width:100%;
     padding:12px;
     border:1px solid #ccc;
@@ -73,10 +73,6 @@ input, textarea, select{
     cursor:pointer;
 }
 
-.register-btn:hover{
-    background:#1f8a38;
-}
-
 .login-link{
     text-align:center;
     margin-top:20px;
@@ -88,29 +84,22 @@ input, textarea, select{
     font-weight:bold;
 }
 
-.footer{
-    background:#0056b3;
-    color:white;
-    text-align:center;
-    padding:20px;
-    margin-top:40px;
-}
-
 .language-box{
     text-align:center;
     margin-top:15px;
 }
 
 .language-box select{
-    width:200px;
+    padding:10px;
+    border-radius:8px;
 }
 
-@media(max-width:768px){
-
-.container{
-    width:90%;
-}
-
+.footer{
+    background:#0056b3;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
 }
 
 </style>
@@ -160,7 +149,6 @@ input, textarea, select{
         </label>
 
         <input type="text"
-               name="name"
                placeholder="Enter Full Name"
                required>
 
@@ -169,7 +157,6 @@ input, textarea, select{
         </label>
 
         <input type="email"
-               name="email"
                placeholder="Enter Email"
                required>
 
@@ -178,7 +165,6 @@ input, textarea, select{
         </label>
 
         <input type="text"
-               name="phone"
                placeholder="Enter Phone Number"
                required>
 
@@ -187,17 +173,14 @@ input, textarea, select{
         </label>
 
         <textarea rows="3"
-                  name="address"
                   placeholder="Enter Address"
-                  required>
-        </textarea>
+                  required></textarea>
 
         <label id="password-label">
             Password
         </label>
 
         <input type="password"
-               name="password"
                placeholder="Enter Password"
                required>
 
@@ -244,76 +227,43 @@ input, textarea, select{
 
 const translations = {
 
-en: {
-
+en:{
 title:"RuralCareHub",
-
 subtitle:"Connecting Communities to Health",
-
 registerTitle:"User Registration",
-
 name:"Full Name",
-
 email:"Email Address",
-
 phone:"Phone Number",
-
 address:"Address",
-
 password:"Password",
-
 register:"Register",
-
 login:"Back to Login"
-
 },
 
-hi: {
-
+hi:{
 title:"रूरलकेयरहब",
-
 subtitle:"समुदायों को स्वास्थ्य से जोड़ना",
-
 registerTitle:"यूज़र रजिस्ट्रेशन",
-
 name:"पूरा नाम",
-
 email:"ईमेल पता",
-
 phone:"फोन नंबर",
-
 address:"पता",
-
 password:"पासवर्ड",
-
 register:"रजिस्टर",
-
 login:"लॉगिन पर वापस जाएं"
-
 },
 
-te: {
-
+te:{
 title:"రూరల్ కేర్ హబ్",
-
 subtitle:"సమాజాలను ఆరోగ్యంతో కలుపుతోంది",
-
 registerTitle:"వినియోగదారు నమోదు",
-
 name:"పూర్తి పేరు",
-
 email:"ఈమెయిల్ చిరునామా",
-
 phone:"ఫోన్ నంబర్",
-
 address:"చిరునామా",
-
 password:"పాస్‌వర్డ్",
-
 register:"రిజిస్టర్",
-
 login:"లాగిన్‌కు తిరిగి వెళ్ళండి"
-
 }
 
 };

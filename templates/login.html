@@ -6,59 +6,46 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Login - RuralCareHub</title>
+<title>RuralCareHub - Login</title>
 
 <style>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
 body{
+    margin:0;
     font-family:Arial,sans-serif;
-    background:#e9edf2;
+    background:#eef5fb;
 }
 
 /* HEADER */
 
 .header{
     background:linear-gradient(to right,#0056b3,#00a2ff);
-    text-align:center;
     color:white;
-    padding:40px 20px;
-    border-bottom-left-radius:20px;
-    border-bottom-right-radius:20px;
+    text-align:center;
+    padding:30px 20px;
 }
 
 .logo{
-    width:180px;
-    height:180px;
+    width:130px;
+    height:130px;
     border-radius:50%;
-    background:white;
-    object-fit:cover;
 }
 
 .header h1{
-    margin-top:20px;
-    font-size:60px;
-    font-weight:bold;
+    margin-top:15px;
+    font-size:50px;
 }
 
 .header p{
-    margin-top:10px;
-    font-size:22px;
+    font-size:20px;
 }
 
-/* LANGUAGE */
-
 .language-box{
-    margin-top:25px;
+    margin-top:20px;
 }
 
 .language-box select{
-    padding:10px 20px;
+    padding:10px 18px;
     border:none;
     border-radius:8px;
     font-size:18px;
@@ -67,72 +54,81 @@ body{
 /* LOGIN CARD */
 
 .container{
-    width:92%;
-    max-width:500px;
+    width:420px;
+    max-width:92%;
     background:white;
     margin:40px auto;
-    padding:40px 30px;
-    border-radius:25px;
+    padding:35px;
+    border-radius:20px;
     box-shadow:0 4px 12px rgba(0,0,0,0.15);
 }
 
 .container h2{
     text-align:center;
     color:#0056b3;
-    font-size:50px;
-    margin-bottom:35px;
+    font-size:42px;
+    margin-bottom:25px;
 }
-
-/* FORM */
 
 label{
     display:block;
-    margin-bottom:10px;
-    margin-top:25px;
-    font-size:28px;
+    margin-top:20px;
+    margin-bottom:8px;
+    font-size:22px;
     font-weight:bold;
 }
 
 input,
 select{
     width:100%;
-    padding:22px;
-    border:2px solid #dcdcdc;
-    border-radius:15px;
-    font-size:24px;
+    padding:16px;
+    border:2px solid #ddd;
+    border-radius:10px;
+    font-size:18px;
+    box-sizing:border-box;
 }
 
-/* BUTTON */
+/* BUTTONS */
 
 .login-btn{
     width:100%;
-    padding:22px;
-    margin-top:35px;
+    padding:18px;
+    margin-top:30px;
     border:none;
-    border-radius:15px;
-    background:#005eff;
+    border-radius:10px;
+    background:linear-gradient(to right,#007bff,#00c6ff);
     color:white;
-    font-size:32px;
+    font-size:26px;
     cursor:pointer;
-    font-weight:bold;
 }
 
 .login-btn:hover{
-    background:#0046c7;
+    background:linear-gradient(to right,#0056d6,#0099ff);
 }
 
-/* REGISTER */
-
-.register-link{
+.or-text{
     text-align:center;
-    margin-top:30px;
+    font-size:24px;
+    margin-top:20px;
+    color:gray;
 }
 
-.register-link a{
+.signup-btn{
+    display:block;
+    width:100%;
+    text-align:center;
+    padding:18px;
+    margin-top:15px;
+    background:#28a745;
+    color:white;
     text-decoration:none;
-    color:#005eff;
+    border-radius:10px;
     font-size:24px;
-    font-weight:bold;
+    box-sizing:border-box;
+}
+
+.signup-btn:hover{
+    background:#1f8a38;
 }
 
 /* FOOTER */
@@ -141,9 +137,12 @@ select{
     background:#0056b3;
     color:white;
     text-align:center;
-    padding:25px;
+    padding:20px;
     margin-top:40px;
-    font-size:18px;
+}
+
+.footer p{
+    margin:10px;
 }
 
 /* MOBILE */
@@ -151,34 +150,20 @@ select{
 @media(max-width:768px){
 
     .logo{
-        width:160px;
-        height:160px;
+        width:110px;
+        height:110px;
     }
 
     .header h1{
-        font-size:48px;
+        font-size:40px;
     }
 
-    .header p{
-        font-size:18px;
+    .container{
+        padding:25px;
     }
 
     .container h2{
-        font-size:42px;
-    }
-
-    label{
-        font-size:22px;
-    }
-
-    input,
-    select{
-        font-size:20px;
-        padding:18px;
-    }
-
-    .login-btn{
-        font-size:28px;
+        font-size:34px;
     }
 
 }
@@ -189,12 +174,10 @@ select{
 
 <body>
 
-<!-- HEADER -->
-
 <div class="header">
 
     <img src="{{ url_for('static', filename='logo.jpeg') }}"
-    class="logo">
+         class="logo">
 
     <h1 id="title">
         RuralCareHub
@@ -207,7 +190,7 @@ select{
     <div class="language-box">
 
         <select id="languageSelect"
-        onchange="changeLanguage()">
+                onchange="changeLanguage()">
 
             <option value="en">English</option>
             <option value="hi">Hindi</option>
@@ -218,8 +201,6 @@ select{
     </div>
 
 </div>
-
-<!-- LOGIN CARD -->
 
 <div class="container">
 
@@ -234,42 +215,40 @@ select{
         </label>
 
         <input type="email"
-        name="email"
-        placeholder="Enter your email"
-        required>
+               placeholder="Enter your email"
+               required>
 
         <label id="password-label">
             Password
         </label>
 
         <input type="password"
-        name="password"
-        placeholder="Enter your password"
-        required>
+               placeholder="Enter your password"
+               required>
 
         <label id="role-label">
             Select Role
         </label>
 
-        <select name="role" required>
+        <select required>
 
-            <option value="patient">
+            <option>
                 Patient
             </option>
 
-            <option value="doctor">
+            <option>
                 Doctor
             </option>
 
-            <option value="admin">
+            <option>
                 Admin
             </option>
 
         </select>
 
         <button type="submit"
-        class="login-btn"
-        id="login-btn">
+                class="login-btn"
+                id="login-btn">
 
             Login
 
@@ -277,24 +256,23 @@ select{
 
     </form>
 
-    <div class="register-link">
+    <p class="or-text">
+        OR
+    </p>
 
-        <a href="/register"
-        id="register-link">
+    <a href="/register"
+       class="signup-btn"
+       id="signup-btn">
 
-            Create New Account
+       Sign Up
 
-        </a>
-
-    </div>
+    </a>
 
 </div>
 
-<!-- FOOTER -->
-
 <div class="footer">
 
-    <p>
+    <p id="emergency-text">
         Emergency Number: 108
     </p>
 
@@ -302,7 +280,7 @@ select{
         support@ruralcarehub.com
     </p>
 
-    <p>
+    <p id="copyright-text">
         © 2026 RuralCareHub
     </p>
 
@@ -312,8 +290,7 @@ select{
 
 const translations = {
 
-en: {
-
+en:{
 title:"RuralCareHub",
 subtitle:"Connecting Communities to Health",
 loginTitle:"User Login",
@@ -321,12 +298,10 @@ email:"Email Address",
 password:"Password",
 role:"Select Role",
 login:"Login",
-register:"Create New Account"
-
+signup:"Sign Up"
 },
 
-hi: {
-
+hi:{
 title:"रूरलकेयरहब",
 subtitle:"समुदायों को स्वास्थ्य से जोड़ना",
 loginTitle:"यूज़र लॉगिन",
@@ -334,12 +309,10 @@ email:"ईमेल पता",
 password:"पासवर्ड",
 role:"भूमिका चुनें",
 login:"लॉगिन",
-register:"नया अकाउंट बनाएं"
-
+signup:"साइन अप"
 },
 
-te: {
-
+te:{
 title:"రూరల్ కేర్ హబ్",
 subtitle:"సమాజాలను ఆరోగ్యంతో కలుపుతోంది",
 loginTitle:"వినియోగదారు లాగిన్",
@@ -347,8 +320,7 @@ email:"ఈమెయిల్ చిరునామా",
 password:"పాస్‌వర్డ్",
 role:"పాత్రను ఎంచుకోండి",
 login:"లాగిన్",
-register:"కొత్త ఖాతా సృష్టించండి"
-
+signup:"సైన్ అప్"
 }
 
 };
@@ -381,8 +353,8 @@ translations[lang].role;
 document.getElementById("login-btn").innerText =
 translations[lang].login;
 
-document.getElementById("register-link").innerText =
-translations[lang].register;
+document.getElementById("signup-btn").innerText =
+translations[lang].signup;
 
 }
 

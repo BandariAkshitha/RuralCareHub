@@ -82,14 +82,22 @@ class Notification(db.Model):
     message = db.Column(db.String(500))
 
 
+# PRESCRIPTION TABLE
+class Prescription(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    patient_name = db.Column(db.String(100))
+
+    medicine = db.Column(db.String(200))
+
+    dosage = db.Column(db.String(100))
+
+
 # HOME PAGE
 @app.route('/')
 def home():
-    return render_template('index.html')
-
-@app.route('/select-role')
-def select_role():
-    return render_template('select_role.html')
+    return redirect('/login')
 
 
 # LOGIN PAGE
@@ -98,11 +106,10 @@ def login():
 
     if request.method == 'POST':
 
-        email = request.form['email']
-        password = request.form['password']
-        role = request.form['role']
+        email = request.form.get('email')
+        password = request.form.get('password')
+        role = request.form.get('role')
 
-        # CHECK USER FROM DATABASE
         user = User.query.filter_by(
             email=email,
             password=password
@@ -110,23 +117,24 @@ def login():
 
         if user:
 
-            # ADMIN
-            if role == "admin":
+            if role == "Admin":
                 return redirect('/admin')
 
-            # DOCTOR
-            elif role == "doctor":
+            elif role == "Doctor":
                 return redirect('/doctor-dashboard')
 
-            # PATIENT
-            elif role == "patient":
+            else:
                 return redirect('/patient')
 
         else:
-
-            return "Invalid Login"
+            return "Invalid Email or Password"
 
     return render_template('login.html')
+
+@app.route('/select-role')
+def select_role():
+    return render_template('select_role.html')
+
 
 # REGISTER PAGE
 @app.route('/register', methods=['GET', 'POST'])
@@ -134,27 +142,26 @@ def register():
 
     if request.method == 'POST':
 
-        email = request.form['email']
-
-        password = request.form['password']
+        name = request.form.get('name')
+        email = request.form.get('email')
+        phone = request.form.get('phone')
+        address = request.form.get('address')
+        password = request.form.get('password')
 
         new_user = User(
-
+            name=name,
             email=email,
-
+            phone=phone,
+            address=address,
             password=password
-
         )
 
         db.session.add(new_user)
-
         db.session.commit()
 
         return redirect('/login')
 
     return render_template('register.html')
-
-
 # ADMIN DASHBOARD
 @app.route('/admin')
 def admin():
@@ -308,6 +315,7 @@ def records():
         record=record
     )
 
+
 # HEALTH ARTICLES
 @app.route('/articles')
 def articles():
@@ -349,18 +357,6 @@ def notifications():
         'notifications.html',
         notifications=notifications
     )
-    
-    
-    # PRESCRIPTION TABLE
-class Prescription(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-
-    patient_name = db.Column(db.String(100))
-
-    medicine = db.Column(db.String(200))
-
-    dosage = db.Column(db.String(100))
 
 
 # VOICE ASSISTANT
@@ -432,7 +428,6 @@ def profile():
 def symptomchecker():
     return render_template('symptom_checker.html')
 
-# ---------------- DOCTOR FEATURES ----------------
 
 # TODAY APPOINTMENTS
 @app.route('/appointments')
@@ -582,7 +577,6 @@ def doctor_profile():
         doctor=doctor
     )
 
-# ---------------- ADMIN FEATURES ----------------
 
 # MANAGE DOCTORS
 @app.route('/manage-doctors')
@@ -641,28 +635,24 @@ def reports():
 # SETTINGS
 @app.route('/settings')
 def settings():
-
     return render_template('settings.html')
 
 
 # FEEDBACK
 @app.route('/feedback')
 def feedback():
-
     return render_template('feedback.html')
 
 
 # VERIFICATION
 @app.route('/verification')
 def verification():
-
     return render_template('verification.html')
 
 
 # DATABASE MONITORING
 @app.route('/database')
 def database():
-
     return render_template('database.html')
 
 
