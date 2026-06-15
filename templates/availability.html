@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Availability Status</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f4f7fa;
+}
+
+.header{
+    background:linear-gradient(to right,#0052d4,#00c6ff);
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.container{
+    width:90%;
+    margin:auto;
+    margin-top:40px;
+    text-align:center;
+}
+
+.card{
+    background:white;
+    padding:40px;
+    border-radius:12px;
+}
+
+.status{
+    font-size:28px;
+    margin-top:20px;
+    font-weight:bold;
+    color:green;
+}
+
+button{
+    margin-top:25px;
+    background:#0052d4;
+    color:white;
+    padding:12px 20px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.back-btn{
+    display:inline-block;
+    margin-top:20px;
+    background:#0052d4;
+    color:white;
+    padding:10px 20px;
+    text-decoration:none;
+    border-radius:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1 id="title">
+Availability Status
+</h1>
+
+<p id="subtitle">
+Manage Availability
+</p>
+
+<select id="languageSelect"
+onchange="changeLanguage()">
+
+<option value="en">English</option>
+<option value="hi">Hindi</option>
+<option value="te">Telugu</option>
+
+</select>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h2 id="status-text">
+Available
+</h2>
+
+<button onclick="toggleStatus()"
+id="toggle-btn">
+
+Change Status
+
+</button>
+
+</div>
+
+<a href="/doctor"
+class="back-btn"
+id="back-btn">
+
+Back to Dashboard
+
+</a>
+
+</div>
+
+<script>
+
+let available = true;
+
+const translations = {
+
+en:{
+title:"Availability Status",
+subtitle:"Manage Availability",
+available:"Available",
+busy:"Busy",
+change:"Change Status",
+back:"Back to Dashboard"
+},
+
+hi:{
+title:"उपलब्धता स्थिति",
+subtitle:"उपलब्धता प्रबंधन",
+available:"उपलब्ध",
+busy:"व्यस्त",
+change:"स्थिति बदलें",
+back:"डैशबोर्ड पर वापस जाएं"
+},
+
+te:{
+title:"అందుబాటు స్థితి",
+subtitle:"అందుబాటును నిర్వహించండి",
+available:"అందుబాటులో ఉన్నారు",
+busy:"బిజీగా ఉన్నారు",
+change:"స్థితిని మార్చండి",
+back:"డాష్‌బోర్డ్‌కు తిరిగి వెళ్ళు"
+}
+
+};
+
+function applyLanguage(){
+
+let lang =
+localStorage.getItem("language") || "en";
+
+document.getElementById("title").innerText =
+translations[lang].title;
+
+document.getElementById("subtitle").innerText =
+translations[lang].subtitle;
+
+document.getElementById("toggle-btn").innerText =
+translations[lang].change;
+
+document.getElementById("back-btn").innerText =
+translations[lang].back;
+
+if(available){
+
+document.getElementById("status-text").innerText =
+translations[lang].available;
+
+}else{
+
+document.getElementById("status-text").innerText =
+translations[lang].busy;
+
+}
+
+}
+
+function toggleStatus(){
+
+let lang =
+localStorage.getItem("language") || "en";
+
+if(available){
+
+document.getElementById("status-text").innerText =
+translations[lang].busy;
+
+document.getElementById("status-text").style.color =
+"red";
+
+available = false;
+
+}else{
+
+document.getElementById("status-text").innerText =
+translations[lang].available;
+
+document.getElementById("status-text").style.color =
+"green";
+
+available = true;
+
+}
+
+}
+
+function changeLanguage(){
+
+let lang =
+document.getElementById("languageSelect").value;
+
+localStorage.setItem("language", lang);
+
+applyLanguage();
+
+}
+
+window.onload = function(){
+
+let savedLang =
+localStorage.getItem("language") || "en";
+
+document.getElementById("languageSelect").value =
+savedLang;
+
+applyLanguage();
+
+};
+
+</script>
+
+</body>
+</html>

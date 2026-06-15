@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Reports</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f4f7fa;
+}
+
+.header{
+    background:linear-gradient(to right,#0052d4,#00c6ff);
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.container{
+    width:90%;
+    margin:30px auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.card{
+    background:white;
+    padding:30px;
+    text-align:center;
+    border-radius:12px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.card h2{
+    color:#007bff;
+    font-size:40px;
+}
+
+.card p{
+    font-size:22px;
+    color:#333;
+}
+
+.back-btn{
+    display:inline-block;
+    margin:30px;
+    padding:12px 20px;
+    background:#007bff;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+}
+
+select{
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    margin-top:10px;
+}
+
+footer{
+    background:#0052d4;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:40px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1 id="title">Reports & Analytics</h1>
+
+<p id="subtitle">
+
+Healthcare System Reports
+
+</p>
+
+<select id="languageSelect"
+onchange="changeLanguage()">
+
+<option value="en">English</option>
+
+<option value="hi">हिंदी</option>
+
+<option value="te">తెలుగు</option>
+
+</select>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h2>{{ users }}</h2>
+
+<p id="usersText">Total Users</p>
+
+</div>
+
+<div class="card">
+
+<h2>{{ doctors }}</h2>
+
+<p id="doctorsText">Total Doctors</p>
+
+</div>
+
+<div class="card">
+
+<h2>{{ appointments }}</h2>
+
+<p id="appointmentsText">Appointments</p>
+
+</div>
+
+</div>
+
+<center>
+
+<a href="/admin"
+class="back-btn"
+id="backBtn">
+
+⬅ Back to Dashboard
+
+</a>
+
+</center>
+
+<footer>
+
+© 2026 RuralCareHub
+
+</footer>
+
+<script>
+
+const translations = {
+
+en: {
+
+title:"Reports & Analytics",
+
+subtitle:"Healthcare System Reports",
+
+users:"Total Users",
+
+doctors:"Total Doctors",
+
+appointments:"Appointments",
+
+back:"Back to Dashboard"
+
+},
+
+hi: {
+
+title:"रिपोर्ट और विश्लेषण",
+
+subtitle:"स्वास्थ्य प्रणाली रिपोर्ट",
+
+users:"कुल यूजर्स",
+
+doctors:"कुल डॉक्टर",
+
+appointments:"अपॉइंटमेंट",
+
+back:"डैशबोर्ड पर वापस जाएं"
+
+},
+
+te: {
+
+title:"రిపోర్ట్స్ & విశ్లేషణ",
+
+subtitle:"ఆరోగ్య వ్యవస్థ రిపోర్ట్స్",
+
+users:"మొత్తం యూజర్లు",
+
+doctors:"మొత్తం డాక్టర్లు",
+
+appointments:"అపాయింట్‌మెంట్లు",
+
+back:"డాష్‌బోర్డ్‌కు వెళ్ళు"
+
+}
+
+};
+
+
+function changeLanguage(){
+
+let lang =
+document.getElementById("languageSelect").value;
+
+localStorage.setItem("language", lang);
+
+applyLanguage(lang);
+
+}
+
+
+function applyLanguage(lang){
+
+document.getElementById("title").innerHTML =
+translations[lang].title;
+
+document.getElementById("subtitle").innerHTML =
+translations[lang].subtitle;
+
+document.getElementById("usersText").innerHTML =
+translations[lang].users;
+
+document.getElementById("doctorsText").innerHTML =
+translations[lang].doctors;
+
+document.getElementById("appointmentsText").innerHTML =
+translations[lang].appointments;
+
+document.getElementById("backBtn").innerHTML =
+"⬅ " + translations[lang].back;
+
+}
+
+
+window.onload = function(){
+
+let savedLang =
+localStorage.getItem("language") || "en";
+
+document.getElementById("languageSelect").value =
+savedLang;
+
+applyLanguage(savedLang);
+
+};
+
+</script>
+
+</body>
+</html>

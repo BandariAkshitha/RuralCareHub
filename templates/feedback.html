@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Feedback Management</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f4f7fa;
+}
+
+/* HEADER */
+
+.header{
+    background:linear-gradient(to right,#0052d4,#00c6ff);
+    color:white;
+    text-align:center;
+    padding:30px;
+}
+
+.header h1{
+    margin:0;
+    font-size:42px;
+}
+
+.header p{
+    margin-top:10px;
+}
+
+/* LANGUAGE */
+
+select{
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    margin-top:15px;
+}
+
+/* CONTAINER */
+
+.container{
+    width:80%;
+    margin:40px auto;
+}
+
+/* SEARCH */
+
+.search-box{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    margin-bottom:25px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+/* FEEDBACK CARD */
+
+.feedback-card{
+    background:white;
+    padding:25px;
+    margin-bottom:20px;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.feedback-card:hover{
+    transform:translateY(-5px);
+}
+
+.feedback-card h3{
+    color:#00a2ff;
+    margin-bottom:10px;
+}
+
+/* RATING */
+
+.rating span{
+    font-size:28px;
+    cursor:pointer;
+    opacity:0.3;
+}
+
+/* BUTTONS */
+
+.btn{
+    padding:10px 18px;
+    border:none;
+    border-radius:8px;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+    margin-top:10px;
+    margin-right:10px;
+}
+
+.delete-btn{
+    background:#dc3545;
+}
+
+.back-btn{
+    background:#007bff;
+    text-decoration:none;
+    display:inline-block;
+}
+
+/* FOOTER */
+
+footer{
+    background:#0052d4;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:40px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+
+<h1 id="title">Feedback Management</h1>
+
+<p id="subtitle">
+Patient & Doctor Feedback Panel
+</p>
+
+<select id="languageSelect"
+onchange="changeLanguage()">
+
+<option value="en">English</option>
+<option value="hi">हिंदी</option>
+<option value="te">తెలుగు</option>
+
+</select>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="container">
+
+<input type="text"
+class="search-box"
+id="searchInput"
+placeholder="Search Feedback..."
+onkeyup="searchFeedback()">
+
+<!-- FEEDBACK 1 -->
+
+<div class="feedback-card">
+
+<h3 id="patientFeedbackTitle">
+Patient Feedback
+</h3>
+
+<div class="rating">
+
+<span onclick="rate(this,1)">⭐</span>
+<span onclick="rate(this,2)">⭐</span>
+<span onclick="rate(this,3)">⭐</span>
+<span onclick="rate(this,4)">⭐</span>
+<span onclick="rate(this,5)">⭐</span>
+
+</div>
+
+<p>
+Excellent healthcare service and quick response.
+</p>
+
+<button class="btn delete-btn"
+onclick="deleteFeedback(this)">
+Delete
+</button>
+
+</div>
+
+<!-- FEEDBACK 2 -->
+
+<div class="feedback-card">
+
+<h3 id="doctorFeedbackTitle">
+Doctor Feedback
+</h3>
+
+<div class="rating">
+
+<span onclick="rate(this,1)">⭐</span>
+<span onclick="rate(this,2)">⭐</span>
+<span onclick="rate(this,3)">⭐</span>
+<span onclick="rate(this,4)">⭐</span>
+<span onclick="rate(this,5)">⭐</span>
+
+</div>
+
+<p>
+System is easy to use and appointments are managed well.
+</p>
+
+<button class="btn delete-btn"
+onclick="deleteFeedback(this)">
+Delete
+</button>
+
+</div>
+
+<!-- BACK BUTTON -->
+
+<a href="/admin"
+class="btn back-btn"
+id="backBtn">
+
+⬅ Back to Dashboard
+
+</a>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+<p>
+Emergency Number: 108 |
+Email: support@ruralcarehub.com
+</p>
+
+<p>
+© 2026 RuralCareHub
+</p>
+
+</footer>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+const translations = {
+
+en:{
+title:"Feedback Management",
+subtitle:"Patient & Doctor Feedback Panel",
+patient:"Patient Feedback",
+doctor:"Doctor Feedback",
+back:"Back to Dashboard"
+},
+
+hi:{
+title:"फीडबैक प्रबंधन",
+subtitle:"रोगी और डॉक्टर फीडबैक पैनल",
+patient:"रोगी फीडबैक",
+doctor:"डॉक्टर फीडबैक",
+back:"डैशबोर्ड पर वापस जाएं"
+},
+
+te:{
+title:"ఫీడ్‌బ్యాక్ నిర్వహణ",
+subtitle:"రోగి & డాక్టర్ ఫీడ్‌బ్యాక్ ప్యానెల్",
+patient:"రోగి ఫీడ్‌బ్యాక్",
+doctor:"డాక్టర్ ఫీడ్‌బ్యాక్",
+back:"డాష్‌బోర్డ్‌కు వెళ్ళు"
+}
+
+};
+
+function changeLanguage(){
+
+let lang =
+document.getElementById("languageSelect").value;
+
+localStorage.setItem("language",lang);
+
+applyLanguage(lang);
+
+}
+
+function applyLanguage(lang){
+
+document.getElementById("title").innerHTML =
+translations[lang].title;
+
+document.getElementById("subtitle").innerHTML =
+translations[lang].subtitle;
+
+document.getElementById("patientFeedbackTitle").innerHTML =
+translations[lang].patient;
+
+document.getElementById("doctorFeedbackTitle").innerHTML =
+translations[lang].doctor;
+
+document.getElementById("backBtn").innerHTML =
+"⬅ " + translations[lang].back;
+
+}
+
+/* SEARCH */
+
+function searchFeedback(){
+
+let input =
+document.getElementById("searchInput").value.toLowerCase();
+
+let cards =
+document.getElementsByClassName("feedback-card");
+
+for(let i=0;i<cards.length;i++){
+
+let text =
+cards[i].innerText.toLowerCase();
+
+if(text.includes(input)){
+
+cards[i].style.display = "block";
+
+}else{
+
+cards[i].style.display = "none";
+
+}
+
+}
+
+}
+
+/* DELETE */
+
+function deleteFeedback(button){
+
+button.parentElement.remove();
+
+}
+
+/* STAR RATING */
+
+function rate(element,value){
+
+let stars =
+element.parentElement.children;
+
+for(let i=0;i<stars.length;i++){
+
+if(i < value){
+
+stars[i].style.opacity = "1";
+
+}else{
+
+stars[i].style.opacity = "0.3";
+
+}
+
+}
+
+}
+
+/* LOAD LANGUAGE */
+
+window.onload = function(){
+
+let savedLang =
+localStorage.getItem("language") || "en";
+
+document.getElementById("languageSelect").value =
+savedLang;
+
+applyLanguage(savedLang);
+
+};
+
+</script>
+
+</body>
+</html>

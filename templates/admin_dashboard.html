@@ -1,22 +1,398 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Admin Dashboard</title>
+
+<title>Admin Dashboard - RuralCareHub</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f7fa;
+}
+
+.top-bar{
+    display:flex;
+    justify-content:flex-end;
+    padding:15px 25px;
+    background:white;
+}
+
+.logout-btn{
+    background:linear-gradient(to right,#0052d4,#00c6ff);
+    color:white;
+    padding:10px 20px;
+    text-decoration:none;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.header{
+    background:linear-gradient(to right,#0052d4,#00c6ff);
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.logo{
+    width:140px;
+    height:140px;
+    border-radius:50%;
+}
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+    padding:30px;
+    max-width:1000px;
+    margin:auto;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    text-align:center;
+    text-decoration:none;
+    color:#007bff;
+    font-size:22px;
+    font-weight:bold;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.card:hover{
+    background:#e6f7ff;
+    transform:translateY(-5px);
+}
+
+footer{
+    background:#0052d4;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:30px;
+}
+
+.dark-btn{
+    padding:10px 15px;
+    border:none;
+    border-radius:8px;
+    background:black;
+    color:white;
+    cursor:pointer;
+    margin-right:15px;
+}
+
+.dark-mode{
+    background:#121212;
+    color:white;
+}
+
+.dark-mode .card{
+    background:#1f1f1f;
+    color:white;
+}
+
+.dark-mode footer{
+    background:#000;
+}
+
+</style>
+
 </head>
+
 <body>
 
-<h1>Admin Dashboard</h1>
+<div class="top-bar">
 
-<ul>
-<li><a href="/directory">Doctor Directory</a></li>
-<li><a href="/appointment">Appointments</a></li>
-<li><a href="/records">Health Records</a></li>
-<li><a href="/articles">Health Articles</a></li>
-<li><a href="/emergency">Emergency Services</a></li>
-<li><a href="/notifications">Notifications</a></li>
-<li><a href="/voice">Voice Assistant</a></li>
-<li><a href="/language">Language Support</a></li>
-</ul>
+<button onclick="toggleDarkMode()" class="dark-btn">
+🌙 Dark Mode
+</button>
+
+<a href="/login"
+class="logout-btn"
+id="logout-btn">
+
+Logout
+
+</a>
+
+</div>
+
+<div class="header">
+
+<img src="{{ url_for('static', filename='logo.jpeg') }}"
+class="logo">
+
+<h1 id="dashboard-title">
+
+Admin Dashboard
+
+</h1>
+
+<p id="subtitle">
+
+Healthcare System Management
+
+</p>
+
+<select id="languageSelect"
+onchange="changeLanguage()"
+style="
+padding:10px;
+border-radius:8px;
+margin-top:15px;
+font-size:16px;
+border:none;
+">
+
+<option value="en">English</option>
+
+<option value="hi">हिंदी</option>
+
+<option value="te">తెలుగు</option>
+
+</select>
+
+</div>
+
+<div class="dashboard-grid">
+
+<a href="/manage-doctors"
+class="card"
+id="doctors-card">
+
+👨‍⚕️ Manage Doctors
+
+</a>
+
+<a href="/manage-patients"
+class="card"
+id="patients-card">
+
+🧑 Manage Patients
+
+</a>
+
+<a href="/manage-appointments"
+class="card"
+id="appointments-card">
+
+📅 Manage Appointments
+
+</a>
+
+<a href="/reports"
+class="card"
+id="reports-card">
+
+📊 Reports & Analytics
+
+</a>
+
+<a href="/settings"
+class="card"
+id="settings-card">
+
+⚙️ System Settings
+
+</a>
+
+<a href="/feedback"
+class="card"
+id="feedback-card">
+
+💬 Feedback Management
+
+</a>
+
+<a href="/verification"
+class="card"
+id="verification-card">
+
+✅ User Verification
+
+</a>
+
+<a href="/database"
+class="card"
+id="database-card">
+
+🗄️ Database Monitoring
+
+</a>
+
+</div>
+
+<footer>
+
+Emergency Number: 108 |
+Email: support@ruralcarehub.com
+
+<br><br>
+
+© 2026 RuralCareHub. All Rights Reserved.
+
+</footer>
+
+<script>
+
+const translations = {
+
+    en: {
+
+        dashboard: "Admin Dashboard",
+
+        subtitle: "Healthcare System Management",
+
+        doctors: "Manage Doctors",
+
+        patients: "Manage Patients",
+
+        appointments: "Manage Appointments",
+
+        reports: "Reports & Analytics",
+
+        settings: "System Settings",
+
+        feedback: "Feedback Management",
+
+        verification: "User Verification",
+
+        database: "Database Monitoring",
+
+        logout: "Logout"
+
+    },
+
+    hi: {
+
+        dashboard: "एडमिन डैशबोर्ड",
+
+        subtitle: "स्वास्थ्य प्रणाली प्रबंधन",
+
+        doctors: "डॉक्टर प्रबंधन",
+
+        patients: "मरीज प्रबंधन",
+
+        appointments: "अपॉइंटमेंट प्रबंधन",
+
+        reports: "रिपोर्ट और विश्लेषण",
+
+        settings: "सिस्टम सेटिंग्स",
+
+        feedback: "फीडबैक प्रबंधन",
+
+        verification: "यूजर सत्यापन",
+
+        database: "डेटाबेस मॉनिटरिंग",
+
+        logout: "लॉगआउट"
+
+    },
+
+    te: {
+
+        dashboard: "అడ్మిన్ డాష్‌బోర్డ్",
+
+        subtitle: "ఆరోగ్య వ్యవస్థ నిర్వహణ",
+
+        doctors: "డాక్టర్ల నిర్వహణ",
+
+        patients: "రోగుల నిర్వహణ",
+
+        appointments: "అపాయింట్‌మెంట్ నిర్వహణ",
+
+        reports: "రిపోర్ట్స్ & విశ్లేషణ",
+
+        settings: "సిస్టమ్ సెట్టింగ్స్",
+
+        feedback: "ఫీడ్‌బ్యాక్ నిర్వహణ",
+
+        verification: "యూజర్ వెరిఫికేషన్",
+
+        database: "డేటాబేస్ మానిటరింగ్",
+
+        logout: "లాగౌట్"
+
+    }
+
+};
+
+
+function changeLanguage(){
+
+    let lang =
+    document.getElementById("languageSelect").value;
+
+    localStorage.setItem("language", lang);
+
+    applyLanguage(lang);
+
+}
+
+
+function applyLanguage(lang){
+
+    document.getElementById("dashboard-title").innerHTML =
+    translations[lang].dashboard;
+
+    document.getElementById("subtitle").innerHTML =
+    translations[lang].subtitle;
+
+    document.getElementById("doctors-card").innerHTML =
+    "👨‍⚕️ " + translations[lang].doctors;
+
+    document.getElementById("patients-card").innerHTML =
+    "🧑 " + translations[lang].patients;
+
+    document.getElementById("appointments-card").innerHTML =
+    "📅 " + translations[lang].appointments;
+
+    document.getElementById("reports-card").innerHTML =
+    "📊 " + translations[lang].reports;
+
+    document.getElementById("settings-card").innerHTML =
+    "⚙️ " + translations[lang].settings;
+
+    document.getElementById("feedback-card").innerHTML =
+    "💬 " + translations[lang].feedback;
+
+    document.getElementById("verification-card").innerHTML =
+    "✅ " + translations[lang].verification;
+
+    document.getElementById("database-card").innerHTML =
+    "🗄️ " + translations[lang].database;
+
+    document.getElementById("logout-btn").innerHTML =
+    translations[lang].logout;
+
+}
+
+
+window.onload = function(){
+
+    let savedLang =
+    localStorage.getItem("language") || "en";
+
+    document.getElementById("languageSelect").value =
+    savedLang;
+
+    applyLanguage(savedLang);
+
+};
+
+
+function toggleDarkMode(){
+
+    document.body.classList.toggle("dark-mode");
+
+}
+
+</script>
 
 </body>
 </html>

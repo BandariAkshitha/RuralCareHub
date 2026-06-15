@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Doctor Appointments</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f4f7fa;
+}
+
+.header{
+    background:linear-gradient(to right,#0052d4,#00c6ff);
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.container{
+    width:90%;
+    margin:auto;
+    margin-top:30px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+}
+
+th,td{
+    border:1px solid #ddd;
+    padding:15px;
+    text-align:center;
+}
+
+th{
+    background:#0052d4;
+    color:white;
+}
+
+.back-btn{
+    display:inline-block;
+    margin-top:20px;
+    background:#0052d4;
+    color:white;
+    padding:10px 20px;
+    text-decoration:none;
+    border-radius:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1 id="title">
+Doctor Appointments
+</h1>
+
+<p id="subtitle">
+View Patient Appointments
+</p>
+
+<select id="languageSelect"
+onchange="changeLanguage()">
+
+<option value="en">English</option>
+<option value="hi">Hindi</option>
+<option value="te">Telugu</option>
+
+</select>
+
+</div>
+
+<div class="container">
+
+<table>
+
+<tr>
+
+<th id="patient-head">
+Patient Name
+</th>
+
+<th id="doctor-head">
+Doctor Name
+</th>
+
+<th id="date-head">
+Date
+</th>
+
+<th id="time-head">
+Time
+</th>
+
+</tr>
+
+{% for appointment in appointments %}
+
+<tr>
+
+<td>{{ appointment.patient_name }}</td>
+
+<td>{{ appointment.doctor_name }}</td>
+
+<td>{{ appointment.appointment_date }}</td>
+
+<td>{{ appointment.appointment_time }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<a href="/doctor"
+class="back-btn"
+id="back-btn">
+
+Back to Dashboard
+
+</a>
+
+</div>
+
+<script>
+
+const translations = {
+
+en:{
+title:"Doctor Appointments",
+subtitle:"View Patient Appointments",
+patient:"Patient Name",
+doctor:"Doctor Name",
+date:"Date",
+time:"Time",
+back:"Back to Dashboard"
+},
+
+hi:{
+title:"डॉक्टर अपॉइंटमेंट्स",
+subtitle:"मरीज अपॉइंटमेंट देखें",
+patient:"मरीज का नाम",
+doctor:"डॉक्टर का नाम",
+date:"तारीख",
+time:"समय",
+back:"डैशबोर्ड पर वापस जाएं"
+},
+
+te:{
+title:"డాక్టర్ అపాయింట్‌మెంట్లు",
+subtitle:"రోగి అపాయింట్‌మెంట్లు చూడండి",
+patient:"రోగి పేరు",
+doctor:"డాక్టర్ పేరు",
+date:"తేదీ",
+time:"సమయం",
+back:"డాష్‌బోర్డ్‌కు తిరిగి వెళ్ళు"
+}
+
+};
+
+function applyLanguage(){
+
+let lang = localStorage.getItem("language") || "en";
+
+document.getElementById("title").innerText =
+translations[lang].title;
+
+document.getElementById("subtitle").innerText =
+translations[lang].subtitle;
+
+document.getElementById("patient-head").innerText =
+translations[lang].patient;
+
+document.getElementById("doctor-head").innerText =
+translations[lang].doctor;
+
+document.getElementById("date-head").innerText =
+translations[lang].date;
+
+document.getElementById("time-head").innerText =
+translations[lang].time;
+
+document.getElementById("back-btn").innerText =
+translations[lang].back;
+
+}
+
+function changeLanguage(){
+
+let lang =
+document.getElementById("languageSelect").value;
+
+localStorage.setItem("language", lang);
+
+applyLanguage();
+
+}
+
+window.onload = function(){
+
+let savedLang =
+localStorage.getItem("language") || "en";
+
+document.getElementById("languageSelect").value =
+savedLang;
+
+applyLanguage();
+
+};
+
+</script>
+
+</body>
+</html>

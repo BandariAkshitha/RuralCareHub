@@ -25,6 +25,8 @@ class User(db.Model):
 
     password = db.Column(db.String(100))
 
+
+# APPOINTMENT TABLE
 class Appointment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -36,7 +38,9 @@ class Appointment(db.Model):
     appointment_date = db.Column(db.String(50))
 
     appointment_time = db.Column(db.String(50))
-    
+
+
+# HEALTH RECORD TABLE
 class HealthRecord(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -54,6 +58,9 @@ class HealthRecord(db.Model):
     doctor = db.Column(db.String(100))
 
     status = db.Column(db.String(100))
+
+
+# DOCTOR TABLE
 class Doctor(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -63,7 +70,9 @@ class Doctor(db.Model):
     specialization = db.Column(db.String(100))
 
     city = db.Column(db.String(100))
-    
+
+
+# NOTIFICATION TABLE
 class Notification(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -72,13 +81,18 @@ class Notification(db.Model):
 
     message = db.Column(db.String(500))
 
+
 # HOME PAGE
 @app.route('/')
 def home():
     return render_template('index.html')
 
+@app.route('/select-role')
+def select_role():
+    return render_template('select_role.html')
 
-# LOGIN
+
+# LOGIN PAGE
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
@@ -86,20 +100,36 @@ def login():
 
         email = request.form['email']
         password = request.form['password']
+        role = request.form['role']
 
-        # TEMPORARY LOGIN
-        if email and password:
+        # CHECK USER FROM DATABASE
+        user = User.query.filter_by(
+            email=email,
+            password=password
+        ).first()
 
-            return redirect('/patient')
+        if user:
+
+            # ADMIN
+            if role == "admin":
+                return redirect('/admin')
+
+            # DOCTOR
+            elif role == "doctor":
+                return redirect('/doctor-dashboard')
+
+            # PATIENT
+            elif role == "patient":
+                return redirect('/patient')
 
         else:
+
             return "Invalid Login"
 
     return render_template('login.html')
 
-# REGISTER
+# REGISTER PAGE
 @app.route('/register', methods=['GET', 'POST'])
-
 def register():
 
     if request.method == 'POST':
@@ -109,8 +139,11 @@ def register():
         password = request.form['password']
 
         new_user = User(
+
             email=email,
+
             password=password
+
         )
 
         db.session.add(new_user)
@@ -122,19 +155,19 @@ def register():
     return render_template('register.html')
 
 
-# ADMIN
+# ADMIN DASHBOARD
 @app.route('/admin')
 def admin():
     return render_template('admin_dashboard.html')
 
 
-# DOCTOR
-@app.route('/doctor')
+# DOCTOR DASHBOARD
+@app.route('/doctor-dashboard')
 def doctor():
     return render_template('doctor_dashboard.html')
 
 
-# PATIENT
+# PATIENT DASHBOARD
 @app.route('/patient')
 def patient():
     return render_template('patient_dashboard.html')
@@ -177,11 +210,11 @@ def directory():
     return render_template(
         'doctor_directory.html',
         doctors=doctors
-    )    
+    )
 
-# APPOINTMENT
+
+# APPOINTMENT BOOKING
 @app.route('/appointment', methods=['GET', 'POST'])
-
 def appointment():
 
     if request.method == 'POST':
@@ -203,10 +236,10 @@ def appointment():
             appointment_date=appointment_date,
 
             appointment_time=appointment_time
+
         )
 
         db.session.add(new_appointment)
-        
 
         db.session.commit()
 
@@ -214,9 +247,21 @@ def appointment():
 
     return render_template('appointment.html')
 
+
+# PATIENT RECORDS
+@app.route('/patients')
+def patients():
+
+    appointments = Appointment.query.all()
+
+    return render_template(
+        'patients.html',
+        appointments=appointments
+    )
+
+
 # HEALTH RECORDS
 @app.route('/records')
-
 def records():
 
     latest_appointment = Appointment.query.order_by(
@@ -230,19 +275,16 @@ def records():
             "patient_name":
             latest_appointment.patient_name,
 
-            "age":"20",
-
-            "blood_group":"O+",
-
-            "history":"No major illnesses",
-
-            "checkup_date":
-            latest_appointment.appointment_date,
-
             "doctor":
             latest_appointment.doctor_name,
 
-            "status":"Healthy"
+            "disease":"Fever and Cold",
+
+            "medicine":"Paracetamol",
+
+            "date":
+            latest_appointment.appointment_date
+
         }
 
     else:
@@ -251,17 +293,14 @@ def records():
 
             "patient_name":"No Patient",
 
-            "age":"-",
-
-            "blood_group":"-",
-
-            "history":"No records available",
-
-            "checkup_date":"-",
-
             "doctor":"-",
 
-            "status":"-"
+            "disease":"-",
+
+            "medicine":"-",
+
+            "date":"-"
+
         }
 
     return render_template(
@@ -269,14 +308,13 @@ def records():
         record=record
     )
 
-
-# ARTICLES
+# HEALTH ARTICLES
 @app.route('/articles')
 def articles():
     return render_template('articles.html')
 
 
-# EMERGENCY
+# EMERGENCY SERVICES
 @app.route('/emergency')
 def emergency():
     return render_template('emergency_contacts.html')
@@ -311,6 +349,19 @@ def notifications():
         'notifications.html',
         notifications=notifications
     )
+    
+    
+    # PRESCRIPTION TABLE
+class Prescription(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    patient_name = db.Column(db.String(100))
+
+    medicine = db.Column(db.String(200))
+
+    dosage = db.Column(db.String(100))
+
 
 # VOICE ASSISTANT
 @app.route('/voice')
@@ -322,6 +373,8 @@ def voice():
 @app.route('/language')
 def language():
     return render_template('language_support.html')
+
+
 # PROFILE
 @app.route('/profile')
 def profile():
@@ -347,6 +400,7 @@ def profile():
 
             "doctor":
             latest_appointment.doctor_name
+
         }
 
     else:
@@ -364,6 +418,7 @@ def profile():
             "address":"-",
 
             "doctor":"-"
+
         }
 
     return render_template(
@@ -371,9 +426,244 @@ def profile():
         profile=profile_data
     )
 
+
+# SYMPTOM CHECKER
 @app.route('/symptomchecker')
 def symptomchecker():
     return render_template('symptom_checker.html')
+
+# ---------------- DOCTOR FEATURES ----------------
+
+# TODAY APPOINTMENTS
+@app.route('/appointments')
+def appointments():
+
+    appointments = Appointment.query.all()
+
+    return render_template(
+        'doctor_appointments.html',
+        appointments=appointments
+    )
+
+
+# PRESCRIPTIONS
+@app.route('/prescriptions', methods=['GET','POST'])
+def prescriptions():
+
+    if request.method == 'POST':
+
+        patient_name = request.form['patient_name']
+
+        medicine = request.form['medicine']
+
+        dosage = request.form['dosage']
+
+        new_prescription = Prescription(
+
+            patient_name=patient_name,
+
+            medicine=medicine,
+
+            dosage=dosage
+
+        )
+
+        db.session.add(new_prescription)
+
+        db.session.commit()
+
+    prescriptions = Prescription.query.all()
+
+    return render_template(
+        'prescriptions.html',
+        prescriptions=prescriptions
+    )
+
+
+# PATIENT HISTORY
+@app.route('/history')
+def history():
+
+    latest_appointment = Appointment.query.order_by(
+        Appointment.id.desc()
+    ).first()
+
+    if latest_appointment:
+
+        record = {
+
+            "patient_name":
+            latest_appointment.patient_name,
+
+            "doctor":
+            latest_appointment.doctor_name,
+
+            "date":
+            latest_appointment.appointment_date,
+
+            "time":
+            latest_appointment.appointment_time
+
+        }
+
+    else:
+
+        record = {
+
+            "patient_name":"No Patient",
+
+            "doctor":"-",
+
+            "date":"-",
+
+            "time":"-"
+
+        }
+
+    return render_template(
+        'patient_history.html',
+        record=record
+    )
+
+
+# AVAILABILITY STATUS
+@app.route('/availability')
+def availability():
+
+    return render_template('availability.html')
+
+
+# DOCTOR PROFILE
+@app.route('/doctor-profile')
+def doctor_profile():
+
+    latest_appointment = Appointment.query.order_by(
+        Appointment.id.desc()
+    ).first()
+
+    if latest_appointment:
+
+        doctor = {
+
+            "name": latest_appointment.doctor_name,
+
+            "specialization": "General Physician",
+
+            "hospital": "RuralCareHub Hospital",
+
+            "experience": "10 Years",
+
+            "phone": "9876543210",
+
+            "email": "doctor@ruralcarehub.com"
+
+        }
+
+    else:
+
+        doctor = {
+
+            "name": "No Doctor",
+
+            "specialization": "-",
+
+            "hospital": "-",
+
+            "experience": "-",
+
+            "phone": "-",
+
+            "email": "-"
+
+        }
+
+    return render_template(
+        'doctor_profile.html',
+        doctor=doctor
+    )
+
+# ---------------- ADMIN FEATURES ----------------
+
+# MANAGE DOCTORS
+@app.route('/manage-doctors')
+def manage_doctors():
+
+    doctors = Doctor.query.all()
+
+    return render_template(
+        'manage_doctors.html',
+        doctors=doctors
+    )
+
+
+# MANAGE PATIENTS
+@app.route('/manage-patients')
+def manage_patients():
+
+    users = User.query.all()
+
+    return render_template(
+        'manage_patients.html',
+        users=users
+    )
+
+
+# MANAGE APPOINTMENTS
+@app.route('/manage-appointments')
+def manage_appointments():
+
+    appointments = Appointment.query.all()
+
+    return render_template(
+        'manage_appointments.html',
+        appointments=appointments
+    )
+
+
+# REPORTS
+@app.route('/reports')
+def reports():
+
+    total_users = User.query.count()
+
+    total_doctors = Doctor.query.count()
+
+    total_appointments = Appointment.query.count()
+
+    return render_template(
+        'reports.html',
+        users=total_users,
+        doctors=total_doctors,
+        appointments=total_appointments
+    )
+
+
+# SETTINGS
+@app.route('/settings')
+def settings():
+
+    return render_template('settings.html')
+
+
+# FEEDBACK
+@app.route('/feedback')
+def feedback():
+
+    return render_template('feedback.html')
+
+
+# VERIFICATION
+@app.route('/verification')
+def verification():
+
+    return render_template('verification.html')
+
+
+# DATABASE MONITORING
+@app.route('/database')
+def database():
+
+    return render_template('database.html')
 
 
 # CREATE DATABASE

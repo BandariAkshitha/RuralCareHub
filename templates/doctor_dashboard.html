@@ -1,15 +1,350 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Doctor Dashboard</title>
+
+<title>Doctor Dashboard - RuralCareHub</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f7fa;
+}
+
+.top-bar{
+    display:flex;
+    justify-content:flex-end;
+    padding:15px 25px;
+    background:white;
+}
+
+.logout-btn{
+    background:linear-gradient(to right,#0052d4,#00c6ff);
+    color:white;
+    padding:10px 20px;
+    text-decoration:none;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.header{
+    background:linear-gradient(to right,#0052d4,#00c6ff);
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.logo{
+    width:140px;
+    height:140px;
+    border-radius:50%;
+}
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+    padding:30px;
+    max-width:1000px;
+    margin:auto;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    text-align:center;
+    text-decoration:none;
+    color:#007bff;
+    font-size:22px;
+    font-weight:bold;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.card:hover{
+    background:#e6f7ff;
+    transform:translateY(-5px);
+}
+
+footer{
+    background:#0052d4;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:30px;
+}
+
+.dark-btn{
+    padding:10px 15px;
+    border:none;
+    border-radius:8px;
+    background:black;
+    color:white;
+    cursor:pointer;
+    margin-right:15px;
+}
+
+.dark-mode{
+    background:#121212;
+    color:white;
+}
+
+.dark-mode .card{
+    background:#1f1f1f;
+    color:white;
+}
+
+.dark-mode footer{
+    background:#000;
+}
+
+</style>
+
 </head>
+
 <body>
 
-<h1>Doctor Dashboard</h1>
+<div class="top-bar">
 
-<p>View Appointments</p>
-<p>Manage Patients</p>
-<p>Update Records</p>
+<button onclick="toggleDarkMode()" class="dark-btn">
+🌙 Dark Mode
+</button>
+
+<a href="/login"
+class="logout-btn"
+id="logout-btn">
+
+Logout
+
+</a>
+
+</div>
+
+<div class="header">
+
+<img src="{{ url_for('static', filename='logo.jpeg') }}"
+class="logo">
+
+<h1 id="dashboard-title">
+
+Doctor Dashboard
+
+</h1>
+
+<p id="subtitle">
+
+Manage Patients & Healthcare
+
+</p>
+
+<select id="languageSelect"
+onchange="changeLanguage()"
+style="padding:8px; border-radius:6px; margin-top:10px;">
+
+<option value="en">English</option>
+<option value="hi">Hindi</option>
+<option value="te">Telugu</option>
+
+</select>
+
+</div>
+
+<div class="dashboard-grid">
+
+<a href="/appointments"
+class="card"
+id="appointments-card">
+
+📅 Today's Appointments
+
+</a>
+
+<a href="/prescriptions"
+class="card"
+id="prescriptions-card">
+
+💊 Prescriptions
+
+</a>
+
+
+<a href="/history"
+class="card"
+id="history-card">
+
+📖 Patient History
+
+</a>
+
+<a href="/notifications"
+class="card"
+id="notifications-card">
+
+🔔 Notifications
+
+</a>
+
+<a href="/availability"
+class="card"
+id="availability-card">
+
+🟢 Availability Status
+
+</a>
+
+<a href="/doctor-profile"
+class="card"
+id="profile-card">
+
+<h3>
+👨‍⚕️ Doctor Profile
+</h3>
+
+<p>
+View doctor information and profile details.
+</p>
+
+</a>
+
+</div>
+
+<footer>
+
+Emergency Number: 108 |
+Email: support@ruralcarehub.com
+
+<br><br>
+
+© 2026 RuralCareHub. All Rights Reserved.
+
+</footer>
+
+<script>
+
+const translations = {
+
+en: {
+
+dashboard:"Doctor Dashboard",
+subtitle:"Manage Patients & Healthcare",
+logout:"Logout",
+appointments:"Today's Appointments",
+patients:"Patient Records",
+prescriptions:"Prescriptions",
+consultation:"Video Consultation",
+history:"Patient History",
+notifications:"Notifications",
+availability:"Availability Status",
+profile:"Doctor Profile"
+
+},
+
+hi: {
+
+dashboard:"डॉक्टर डैशबोर्ड",
+subtitle:"मरीजों और स्वास्थ्य का प्रबंधन",
+logout:"लॉगआउट",
+appointments:"आज की अपॉइंटमेंट्स",
+patients:"मरीज रिकॉर्ड",
+prescriptions:"दवाइयाँ",
+consultation:"वीडियो परामर्श",
+history:"मरीज इतिहास",
+notifications:"सूचनाएं",
+availability:"उपलब्धता स्थिति",
+profile:"डॉक्टर प्रोफाइल"
+
+},
+
+te: {
+
+dashboard:"డాక్టర్ డాష్‌బోర్డ్",
+subtitle:"రోగులు మరియు ఆరోగ్య నిర్వహణ",
+logout:"లాగౌట్",
+appointments:"ఈరోజు అపాయింట్‌మెంట్లు",
+patients:"రోగి రికార్డులు",
+prescriptions:"ఔషధాలు",
+consultation:"వీడియో సంప్రదింపు",
+history:"రోగి చరిత్ర",
+notifications:"నోటిఫికేషన్లు",
+availability:"అందుబాటు స్థితి",
+profile:"డాక్టర్ ప్రొఫైల్"
+
+}
+
+};
+
+function applyLanguage(){
+
+let lang =
+localStorage.getItem("language") || "en";
+
+document.getElementById("dashboard-title").innerText =
+translations[lang].dashboard;
+
+document.getElementById("subtitle").innerText =
+translations[lang].subtitle;
+
+document.getElementById("logout-btn").innerText =
+translations[lang].logout;
+
+document.getElementById("appointments-card").innerText =
+"📅 " + translations[lang].appointments;
+
+document.getElementById("patients-card").innerText =
+"🧾 " + translations[lang].patients;
+
+document.getElementById("prescriptions-card").innerText =
+"💊 " + translations[lang].prescriptions;
+
+document.getElementById("consultation-card").innerText =
+"🎥 " + translations[lang].consultation;
+
+document.getElementById("history-card").innerText =
+"📖 " + translations[lang].history;
+
+document.getElementById("notifications-card").innerText =
+"🔔 " + translations[lang].notifications;
+
+document.getElementById("availability-card").innerText =
+"🟢 " + translations[lang].availability;
+
+document.getElementById("profile-card").innerText =
+"👨‍⚕️ " + translations[lang].profile;
+
+}
+
+function changeLanguage(){
+
+let selectedLang =
+document.getElementById("languageSelect").value;
+
+localStorage.setItem("language", selectedLang);
+
+applyLanguage();
+
+}
+
+window.onload = function(){
+
+let savedLang =
+localStorage.getItem("language") || "en";
+
+document.getElementById("languageSelect").value =
+savedLang;
+
+applyLanguage();
+
+};
+
+function toggleDarkMode(){
+
+document.body.classList.toggle("dark-mode");
+
+}
+
+</script>
 
 </body>
 </html>

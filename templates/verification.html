@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>User Verification</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f4f7fa;
+}
+
+/* HEADER */
+
+.header{
+    background:linear-gradient(to right,#0052d4,#00c6ff);
+    color:white;
+    text-align:center;
+    padding:30px;
+}
+
+.header h1{
+    margin:0;
+    font-size:42px;
+}
+
+.header p{
+    margin-top:10px;
+}
+
+/* LANGUAGE */
+
+select{
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    margin-top:15px;
+}
+
+/* CONTAINER */
+
+.container{
+    width:80%;
+    margin:40px auto;
+}
+
+/* SEARCH */
+
+.search-box{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    margin-bottom:25px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+/* CARD */
+
+.verification-card{
+    background:white;
+    padding:25px;
+    margin-bottom:20px;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.verification-card:hover{
+    transform:translateY(-5px);
+}
+
+.verification-card h3{
+    color:#00a2ff;
+}
+
+/* STATUS */
+
+.status{
+    font-weight:bold;
+    margin:15px 0;
+    color:orange;
+}
+
+/* BUTTONS */
+
+.approve-btn{
+    background:#28a745;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-right:10px;
+    font-weight:bold;
+}
+
+.reject-btn{
+    background:#dc3545;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.back-btn{
+    background:#007bff;
+    color:white;
+    padding:12px 20px;
+    text-decoration:none;
+    border-radius:8px;
+    display:inline-block;
+    margin-top:20px;
+}
+
+/* DARK MODE */
+
+.dark-mode{
+    background:#121212;
+    color:white;
+}
+
+.dark-mode .verification-card{
+    background:#1f1f1f;
+    color:white;
+}
+
+/* FOOTER */
+
+footer{
+    background:#0052d4;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:40px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+
+<h1 id="title">User Verification</h1>
+
+<p id="subtitle">
+Admin Verification Panel
+</p>
+
+<select id="languageSelect"
+onchange="changeLanguage()">
+
+<option value="en">English</option>
+
+<option value="hi">हिंदी</option>
+
+<option value="te">తెలుగు</option>
+
+</select>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="container">
+
+<input type="text"
+class="search-box"
+id="searchInput"
+placeholder="Search user..."
+onkeyup="searchUser()">
+
+<!-- CARD 1 -->
+
+<div class="verification-card">
+
+<h3 id="doctorTitle">
+Doctor Account
+</h3>
+
+<p>Doctor User</p>
+
+<p class="status">
+🟡 Pending Verification
+</p>
+
+<button class="approve-btn"
+onclick="approveUser(this)">
+Approve
+</button>
+
+<button class="reject-btn"
+onclick="rejectUser(this)">
+Reject
+</button>
+
+</div>
+
+<!-- CARD 2 -->
+
+<div class="verification-card">
+
+<h3 id="patientTitle">
+Patient Account
+</h3>
+
+<p>Patient User</p>
+
+<p class="status">
+🟡 Pending Verification
+</p>
+
+<button class="approve-btn"
+onclick="approveUser(this)">
+Approve
+</button>
+
+<button class="reject-btn"
+onclick="rejectUser(this)">
+Reject
+</button>
+
+</div>
+
+<!-- DARK MODE -->
+
+<button class="back-btn"
+onclick="toggleDarkMode()">
+
+🌙 Dark Mode
+
+</button>
+
+<br><br>
+
+<!-- BACK BUTTON -->
+
+<a href="/admin"
+class="back-btn"
+id="backBtn">
+
+⬅ Back to Dashboard
+
+</a>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+<p>
+Emergency Number: 108 |
+Email: support@ruralcarehub.com
+</p>
+
+<p>
+© 2026 RuralCareHub
+</p>
+
+</footer>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+/* APPROVE */
+
+function approveUser(button){
+
+    let card = button.parentElement;
+
+    let status = card.querySelector(".status");
+
+    status.innerHTML = "✅ Verified";
+
+    status.style.color = "green";
+
+}
+
+/* REJECT */
+
+function rejectUser(button){
+
+    let card = button.parentElement;
+
+    let status = card.querySelector(".status");
+
+    status.innerHTML = "❌ Rejected";
+
+    status.style.color = "red";
+
+}
+
+/* SEARCH */
+
+function searchUser(){
+
+    let input =
+    document.getElementById("searchInput").value.toLowerCase();
+
+    let cards =
+    document.getElementsByClassName("verification-card");
+
+    for(let i=0;i<cards.length;i++){
+
+        let text =
+        cards[i].innerText.toLowerCase();
+
+        if(text.includes(input)){
+
+            cards[i].style.display="block";
+
+        }
+
+        else{
+
+            cards[i].style.display="none";
+
+        }
+
+    }
+
+}
+
+/* DARK MODE */
+
+function toggleDarkMode(){
+
+    document.body.classList.toggle("dark-mode");
+
+}
+
+/* TRANSLATIONS */
+
+const translations = {
+
+en:{
+title:"User Verification",
+subtitle:"Admin Verification Panel",
+doctor:"Doctor Account",
+patient:"Patient Account",
+back:"Back to Dashboard"
+},
+
+hi:{
+title:"उपयोगकर्ता सत्यापन",
+subtitle:"एडमिन सत्यापन पैनल",
+doctor:"डॉक्टर खाता",
+patient:"रोगी खाता",
+back:"डैशबोर्ड पर वापस जाएं"
+},
+
+te:{
+title:"వినియోగదారు ధృవీకరణ",
+subtitle:"అడ్మిన్ ధృవీకరణ ప్యానెల్",
+doctor:"డాక్టర్ ఖాతా",
+patient:"రోగి ఖాతా",
+back:"డాష్‌బోర్డ్‌కు వెళ్ళు"
+}
+
+};
+
+/* CHANGE LANGUAGE */
+
+function changeLanguage(){
+
+    let lang =
+    document.getElementById("languageSelect").value;
+
+    document.getElementById("title").innerHTML =
+    translations[lang].title;
+
+    document.getElementById("subtitle").innerHTML =
+    translations[lang].subtitle;
+
+    document.getElementById("doctorTitle").innerHTML =
+    translations[lang].doctor;
+
+    document.getElementById("patientTitle").innerHTML =
+    translations[lang].patient;
+
+    document.getElementById("backBtn").innerHTML =
+    "⬅ " + translations[lang].back;
+
+}
+
+</script>
+
+</body>
+</html>

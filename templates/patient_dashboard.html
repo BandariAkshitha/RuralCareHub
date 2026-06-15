@@ -1,296 +1,305 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Patient Dashboard - RuralCareHub</title>
 
-    <style>
-        body{
-            margin:0;
-            font-family:Arial, sans-serif;
-            background:#f4f7fa;
-        }
+<title>Patient Dashboard - RuralCareHub</title>
 
-        .top-bar{
-            display:flex;
-            justify-content:flex-end;
-            padding:15px 25px;
-            background:white;
-        }
+<style>
 
-        .logout-btn{
-            background:linear-gradient(to right,#0052d4,#00c6ff);
-            color:white;
-            padding:10px 20px;
-            text-decoration:none;
-            border-radius:8px;
-            font-weight:bold;
-        }
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f7fa;
+}
 
-        .header{
-            background:linear-gradient(to right,#0052d4,#00c6ff);
-            color:white;
-            text-align:center;
-            padding:20px;
-        }
+.top-bar{
+    display:flex;
+    justify-content:flex-end;
+    padding:15px 25px;
+    background:white;
+}
 
-        .logo{
-            width:140px;
-            height:140px;
-            border-radius:50%;
-        }
+.logout-btn{
+    background:linear-gradient(to right,#0052d4,#00c6ff);
+    color:white;
+    padding:10px 20px;
+    text-decoration:none;
+    border-radius:8px;
+    font-weight:bold;
+}
 
-        .dashboard-grid{
-            display:grid;
-            grid-template-columns:repeat(2,1fr);
-            gap:20px;
-            padding:30px;
-            max-width:1000px;
-            margin:auto;
-        }
+.header{
+    background:linear-gradient(to right,#0052d4,#00c6ff);
+    color:white;
+    text-align:center;
+    padding:20px;
+}
 
-        .card{
-            background:white;
-            padding:25px;
-            text-align:center;
-            text-decoration:none;
-            color:#007bff;
-            font-size:22px;
-            font-weight:bold;
-            border-radius:12px;
-            box-shadow:0 4px 10px rgba(0,0,0,0.1);
-            transition:0.3s;
-        }
+.logo{
+    width:140px;
+    height:140px;
+    border-radius:50%;
+}
 
-        .card:hover{
-            background:#e6f7ff;
-            transform:translateY(-5px);
-        }
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+    padding:30px;
+    max-width:1000px;
+    margin:auto;
+}
 
-        footer{
-            background:#0052d4;
-            color:white;
-            text-align:center;
-            padding:15px;
-            margin-top:30px;
-        }
+.card{
+    background:white;
+    padding:25px;
+    text-align:center;
+    text-decoration:none;
+    color:#007bff;
+    font-size:22px;
+    font-weight:bold;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
 
-        .dark-btn{
-            padding:10px 15px;
-            border:none;
-            border-radius:8px;
-            background:black;
-            color:white;
-            cursor:pointer;
-            margin-right:15px;
-        }
+.card:hover{
+    background:#e6f7ff;
+    transform:translateY(-5px);
+}
 
-        .dark-mode{
-            background:#121212;
-            color:white;
-        }
+footer{
+    background:#0052d4;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:30px;
+}
 
-        .dark-mode .card{
-            background:#1f1f1f;
-            color:white;
-        }
+.dark-btn{
+    padding:10px 15px;
+    border:none;
+    border-radius:8px;
+    background:black;
+    color:white;
+    cursor:pointer;
+    margin-right:15px;
+}
 
-        .dark-mode footer{
-            background:#000;
-        }
-    </style>
+.dark-mode{
+    background:#121212;
+    color:white;
+}
+
+.dark-mode .card{
+    background:#1f1f1f;
+    color:white;
+}
+
+.dark-mode footer{
+    background:#000;
+}
+
+</style>
+
 </head>
 
 <body>
 
-    <div class="top-bar">
+<div class="top-bar">
 
-        <button onclick="toggleDarkMode()" class="dark-btn">
-            🌙 Dark Mode
-        </button>
+<button onclick="toggleDarkMode()" class="dark-btn">
+🌙 Dark Mode
+</button>
 
-        <a href="/login"
-           class="logout-btn"
-           id="logout-btn">
-           Logout
-        </a>
+<a href="/login"
+class="logout-btn"
+id="logout-btn">
 
-    </div>
+Logout
 
-    <div class="header">
-
-    <img src="{{ url_for('static', filename='logo.jpeg') }}" class="logo">
-
-    <h1 id="dashboard-title">
-        Patient Dashboard
-    </h1>
-
-    <p id="subtitle">
-        Connecting Communities to Health
-    </p>
-
-    <select id="languageSelect"
-            onchange="changeLanguage()"
-            style="padding:8px; border-radius:6px; margin-top:10px;">
-
-        <option value="en">English</option>
-        <option value="hi">Hindi</option>
-        <option value="te">Telugu</option>
-
-    </select>
+</a>
 
 </div>
-    <div class="dashboard-grid">
 
-        <a href="/directory"
-           class="card"
-           id="doctor-card">
+<div class="header">
 
-           👨‍⚕️ Doctor Directory
+<img src="{{ url_for('static', filename='logo.jpeg') }}"
+class="logo">
 
-        </a>
+<h1 id="dashboard-title">
+Patient Dashboard
+</h1>
 
-        <a href="/appointment"
-           class="card"
-           id="appointment-card">
+<p id="subtitle">
+Connecting Communities to Health
+</p>
 
-           📅 Appointment Booking
+<select id="languageSelect"
+onchange="changeLanguage()"
+style="padding:8px; border-radius:6px; margin-top:10px;">
 
-        </a>
+<option value="en">English</option>
+<option value="hi">Hindi</option>
+<option value="te">Telugu</option>
 
-        <a href="/records"
-           class="card"
-           id="records-card">
+</select>
 
-           📋 Health Records
+</div>
 
-        </a>
+<div class="dashboard-grid">
 
-        <a href="/articles"
-           class="card"
-           id="articles-card">
+<a href="/directory"
+class="card"
+id="doctor-card">
 
-           📰 Health Articles
+👨‍⚕️ Doctor Directory
 
-        </a>
+</a>
 
-        <a href="/emergency"
-           class="card"
-           id="emergency-card">
+<a href="/appointment"
+class="card"
+id="appointment-card">
 
-           🚑 Emergency Services
+📅 Appointment Booking
 
-        </a>
+</a>
 
-        <a href="/notifications"
-           class="card"
-           id="notifications-card">
+<a href="/records"
+class="card"
+id="records-card">
 
-           🔔 Notifications
+📋 Health Records
 
-        </a>
+</a>
 
-        <a href="/voice"
-           class="card"
-           id="voice-card">
+<a href="/articles"
+class="card"
+id="articles-card">
 
-           🎤 Voice Assistant
+📰 Health Articles
 
-        </a>
+</a>
 
-        <a href="/language"
-           class="card"
-           id="language-card">
+<a href="/emergency"
+class="card"
+id="emergency-card">
 
-           🌐 Language Support
+🚑 Emergency Services
 
-        </a>
+</a>
 
-        <a href="/profile"
-           class="card"
-           id="profile-card">
+<a href="/notifications"
+class="card"
+id="notifications-card">
 
-           👤 Profile
+🔔 Notifications
 
-        </a>
+</a>
 
-        <a href="/symptomchecker"
-           class="card"
-           id="symptom-card">
+<a href="/voice"
+class="card"
+id="voice-card">
 
-           🩺 Symptom Checker
+🎤 Voice Assistant
 
-        </a>
+</a>
 
-    </div>
+<a href="/language"
+class="card"
+id="language-card">
 
-    <footer>
-        Emergency Number: 108 |
-        Email: support@ruralcarehub.com
-        <br><br>
-        © 2026 RuralCareHub. All Rights Reserved.
-    </footer>
+🌐 Language Support
+
+</a>
+
+<a href="/profile"
+class="card"
+id="profile-card">
+
+👤 Profile
+
+</a>
+
+<a href="/symptomchecker"
+class="card"
+id="symptom-card">
+
+🩺 Symptom Checker
+
+</a>
+
+</div>
+
+<footer>
+
+Emergency Number: 108 |
+Email: support@ruralcarehub.com
+
+<br><br>
+
+© 2026 RuralCareHub. All Rights Reserved.
+
+</footer>
 
 <script>
 
 const translations = {
 
 en: {
-dashboard: "Patient Dashboard",
-subtitle: "Connecting Communities to Health",
-logout: "Logout",
-doctor: "Doctor Directory",
-appointment: "Appointment Booking",
-records: "Health Records",
-articles: "Health Articles",
-emergency: "Emergency Services",
-notifications: "Notifications",
-voice: "Voice Assistant",
-language: "Language Support",
-profile: "Profile",
-symptom: "Symptom Checker"
+dashboard:"Patient Dashboard",
+subtitle:"Connecting Communities to Health",
+logout:"Logout",
+doctor:"Doctor Directory",
+appointment:"Appointment Booking",
+records:"Health Records",
+articles:"Health Articles",
+emergency:"Emergency Services",
+notifications:"Notifications",
+voice:"Voice Assistant",
+language:"Language Support",
+profile:"Profile",
+symptom:"Symptom Checker"
 },
 
 hi: {
-dashboard: "मरीज डैशबोर्ड",
-subtitle: "समुदाय को स्वास्थ्य से जोड़ना",
-logout: "लॉगआउट",
-doctor: "डॉक्टर निर्देशिका",
-appointment: "अपॉइंटमेंट बुकिंग",
-records: "स्वास्थ्य रिकॉर्ड",
-articles: "स्वास्थ्य लेख",
-emergency: "आपातकालीन सेवाएं",
-notifications: "सूचनाएं",
-voice: "वॉइस असिस्टेंट",
-language: "भाषा समर्थन",
-profile: "प्रोफाइल",
-symptom: "लक्षण जांच"
+dashboard:"मरीज डैशबोर्ड",
+subtitle:"समुदाय को स्वास्थ्य से जोड़ना",
+logout:"लॉगआउट",
+doctor:"डॉक्टर निर्देशिका",
+appointment:"अपॉइंटमेंट बुकिंग",
+records:"स्वास्थ्य रिकॉर्ड",
+articles:"स्वास्थ्य लेख",
+emergency:"आपातकालीन सेवाएं",
+notifications:"सूचनाएं",
+voice:"वॉइस असिस्टेंट",
+language:"भाषा समर्थन",
+profile:"प्रोफाइल",
+symptom:"लक्षण जांच"
 },
 
 te: {
-dashboard: "రోగి డాష్‌బోర్డ్",
-subtitle: "సమాజాలను ఆరోగ్యంతో కలుపుతోంది",
-logout: "లాగౌట్",
-doctor: "డాక్టర్ డైరెక్టరీ",
-appointment: "అపాయింట్మెంట్ బుకింగ్",
-records: "హెల్త్ రికార్డ్స్",
-articles: "హెల్త్ ఆర్టికల్స్",
-emergency: "అత్యవసర సేవలు",
-notifications: "నోటిఫికేషన్స్",
-voice: "వాయిస్ అసిస్టెంట్",
-language: "భాషా మద్దతు",
-profile: "ప్రొఫైల్",
-symptom: "లక్షణాల పరిశీలన"
+dashboard:"రోగి డాష్‌బోర్డ్",
+subtitle:"సమాజాలను ఆరోగ్యంతో కలుపుతోంది",
+logout:"లాగౌట్",
+doctor:"డాక్టర్ డైరెక్టరీ",
+appointment:"అపాయింట్మెంట్ బుకింగ్",
+records:"హెల్త్ రికార్డ్స్",
+articles:"హెల్త్ ఆర్టికల్స్",
+emergency:"అత్యవసర సేవలు",
+notifications:"నోటిఫికేషన్స్",
+voice:"వాయిస్ అసిస్టెంట్",
+language:"భాషా మద్దతు",
+profile:"ప్రొఫైల్",
+symptom:"లక్షణాల పరిశీలన"
 }
 
 };
 
-function applyLanguage() {
+function applyLanguage(){
 
-let lang = localStorage.getItem("language");
-
-if(!lang){
-    lang = "en";
-}
+let lang =
+localStorage.getItem("language") || "en";
 
 document.getElementById("dashboard-title").innerText =
 translations[lang].dashboard;
@@ -333,7 +342,7 @@ document.getElementById("symptom-card").innerText =
 
 }
 
-function changeLanguage() {
+function changeLanguage(){
 
 let selectedLang =
 document.getElementById("languageSelect").value;
@@ -363,5 +372,6 @@ document.body.classList.toggle("dark-mode");
 }
 
 </script>
+
 </body>
 </html>

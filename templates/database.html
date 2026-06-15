@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Database Monitoring</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f4f7fa;
+}
+
+.header{
+    background:linear-gradient(to right,#0052d4,#00c6ff);
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.container{
+    width:90%;
+    max-width:900px;
+    margin:40px auto;
+}
+
+.box{
+    background:white;
+    padding:25px;
+    margin-bottom:20px;
+    border-radius:12px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.box h3{
+    color:#007bff;
+}
+
+.box p{
+    color:#444;
+    font-size:18px;
+}
+
+.status{
+    color:green;
+    font-weight:bold;
+}
+
+.back-btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 20px;
+    background:#007bff;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+}
+
+select{
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    margin-top:10px;
+}
+
+footer{
+    background:#0052d4;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:40px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1 id="title">Database Monitoring</h1>
+
+<p id="subtitle">
+
+Admin Database Monitoring Panel
+
+</p>
+
+<select id="languageSelect"
+onchange="changeLanguage()">
+
+<option value="en">English</option>
+
+<option value="hi">हिंदी</option>
+
+<option value="te">తెలుగు</option>
+
+</select>
+
+</div>
+
+<div class="container">
+
+<div class="box">
+
+<h3 id="serverTitle">
+
+Database Server
+
+</h3>
+
+<p class="status"
+id="serverStatus">
+
+✅ Connected Successfully
+
+</p>
+
+</div>
+
+<div class="box">
+
+<h3 id="storageTitle">
+
+Storage Status
+
+</h3>
+
+<p id="storageText">
+
+Database running normally with secure storage.
+
+</p>
+
+</div>
+
+<div class="box">
+
+<h3 id="backupTitle">
+
+Backup Status
+
+</h3>
+
+<p class="status"
+id="backupText">
+
+✅ Daily Backup Completed
+
+</p>
+
+</div>
+
+<a href="/admin"
+class="back-btn"
+id="backBtn">
+
+⬅ Back to Dashboard
+
+</a>
+
+</div>
+
+<footer>
+
+© 2026 RuralCareHub
+
+</footer>
+
+<script>
+
+const translations = {
+
+en: {
+
+title:"Database Monitoring",
+
+subtitle:"Admin Database Monitoring Panel",
+
+server:"Database Server",
+
+serverStatus:"✅ Connected Successfully",
+
+storage:"Storage Status",
+
+storageText:"Database running normally with secure storage.",
+
+backup:"Backup Status",
+
+backupText:"✅ Daily Backup Completed",
+
+back:"Back to Dashboard"
+
+},
+
+hi: {
+
+title:"डेटाबेस मॉनिटरिंग",
+
+subtitle:"एडमिन डेटाबेस मॉनिटरिंग पैनल",
+
+server:"डेटाबेस सर्वर",
+
+serverStatus:"✅ सफलतापूर्वक कनेक्टेड",
+
+storage:"स्टोरेज स्थिति",
+
+storageText:"डेटाबेस सुरक्षित रूप से चल रहा है।",
+
+backup:"बैकअप स्थिति",
+
+backupText:"✅ दैनिक बैकअप पूरा हुआ",
+
+back:"डैशबोर्ड पर वापस जाएं"
+
+},
+
+te: {
+
+title:"డేటాబేస్ మానిటరింగ్",
+
+subtitle:"అడ్మిన్ డేటాబేస్ మానిటరింగ్ ప్యానెల్",
+
+server:"డేటాబేస్ సర్వర్",
+
+serverStatus:"✅ విజయవంతంగా కనెక్ట్ అయింది",
+
+storage:"స్టోరేజ్ స్థితి",
+
+storageText:"డేటాబేస్ సురక్షితంగా పనిచేస్తోంది.",
+
+backup:"బ్యాకప్ స్థితి",
+
+backupText:"✅ డైలీ బ్యాకప్ పూర్తయింది",
+
+back:"డాష్‌బోర్డ్‌కు వెళ్ళు"
+
+}
+
+};
+
+
+function changeLanguage(){
+
+let lang =
+document.getElementById("languageSelect").value;
+
+localStorage.setItem("language", lang);
+
+applyLanguage(lang);
+
+}
+
+
+function applyLanguage(lang){
+
+document.getElementById("title").innerHTML =
+translations[lang].title;
+
+document.getElementById("subtitle").innerHTML =
+translations[lang].subtitle;
+
+document.getElementById("serverTitle").innerHTML =
+translations[lang].server;
+
+document.getElementById("serverStatus").innerHTML =
+translations[lang].serverStatus;
+
+document.getElementById("storageTitle").innerHTML =
+translations[lang].storage;
+
+document.getElementById("storageText").innerHTML =
+translations[lang].storageText;
+
+document.getElementById("backupTitle").innerHTML =
+translations[lang].backup;
+
+document.getElementById("backupText").innerHTML =
+translations[lang].backupText;
+
+document.getElementById("backBtn").innerHTML =
+"⬅ " + translations[lang].back;
+
+}
+
+
+window.onload = function(){
+
+let savedLang =
+localStorage.getItem("language") || "en";
+
+document.getElementById("languageSelect").value =
+savedLang;
+
+applyLanguage(savedLang);
+
+};
+
+</script>
+
+</body>
+</html>

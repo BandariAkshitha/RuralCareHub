@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Select Role</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#eef5fb;
+text-align:center;
+}
+
+.header{
+background:linear-gradient(to right,#0056b3,#00aaff);
+color:white;
+padding:30px;
+}
+
+.container{
+margin-top:60px;
+}
+
+.role-card{
+display:inline-block;
+width:250px;
+background:white;
+margin:20px;
+padding:30px;
+border-radius:15px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.role-card:hover{
+transform:translateY(-5px);
+}
+
+.role-card h2{
+color:#0056b3;
+}
+
+.role-card a{
+text-decoration:none;
+}
+
+.btn{
+margin-top:20px;
+padding:12px 25px;
+border:none;
+border-radius:8px;
+background:#0056d6;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1 id="title">
+Select Dashboard
+</h1>
+
+<p id="subtitle">
+Choose your role to continue
+</p>
+
+<br>
+
+<select id="languageSelect"
+onchange="changeLanguage()">
+
+<option value="en">English</option>
+<option value="hi">Hindi</option>
+<option value="te">Telugu</option>
+
+</select>
+
+</div>
+
+<div class="container">
+
+<div class="role-card">
+
+<h2 id="admin-text">
+Admin
+</h2>
+
+<p id="admin-desc">
+Manage hospital system
+</p>
+
+<a href="/login">
+
+<button class="btn" id="admin-btn">
+Open
+</button>
+
+</a>
+
+</div>
+
+<div class="role-card">
+
+<h2 id="doctor-text">
+Doctor
+</h2>
+
+<p id="doctor-desc">
+Manage patients and appointments
+</p>
+
+<a href="/login">
+
+<button class="btn" id="doctor-btn">
+Open
+</button>
+
+</a>
+
+</div>
+
+<div class="role-card">
+
+<h2 id="patient-text">
+Patient
+</h2>
+
+<p id="patient-desc">
+Book appointments and records
+</p>
+
+<a href="/login">
+
+<button class="btn" id="patient-btn">
+Open
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+const translations = {
+
+en:{
+title:"Select Dashboard",
+subtitle:"Choose your role to continue",
+admin:"Admin",
+doctor:"Doctor",
+patient:"Patient",
+adminDesc:"Manage hospital system",
+doctorDesc:"Manage patients and appointments",
+patientDesc:"Book appointments and records",
+open:"Open"
+},
+
+hi:{
+title:"डैशबोर्ड चुनें",
+subtitle:"जारी रखने के लिए भूमिका चुनें",
+admin:"एडमिन",
+doctor:"डॉक्टर",
+patient:"मरीज",
+adminDesc:"अस्पताल प्रबंधन",
+doctorDesc:"मरीज और अपॉइंटमेंट प्रबंधन",
+patientDesc:"अपॉइंटमेंट और रिकॉर्ड",
+open:"खोलें"
+},
+
+te:{
+title:"డాష్‌బోర్డ్ ఎంచుకోండి",
+subtitle:"కొనసాగించడానికి పాత్రను ఎంచుకోండి",
+admin:"అడ్మిన్",
+doctor:"డాక్టర్",
+patient:"రోగి",
+adminDesc:"హాస్పిటల్ నిర్వహణ",
+doctorDesc:"రోగులు మరియు అపాయింట్మెంట్లు",
+patientDesc:"అపాయింట్మెంట్లు మరియు రికార్డులు",
+open:"తెరవండి"
+}
+
+};
+
+function changeLanguage(){
+
+let lang =
+document.getElementById("languageSelect").value;
+
+document.getElementById("title").innerText =
+translations[lang].title;
+
+document.getElementById("subtitle").innerText =
+translations[lang].subtitle;
+
+document.getElementById("admin-text").innerText =
+translations[lang].admin;
+
+document.getElementById("doctor-text").innerText =
+translations[lang].doctor;
+
+document.getElementById("patient-text").innerText =
+translations[lang].patient;
+
+document.getElementById("admin-desc").innerText =
+translations[lang].adminDesc;
+
+document.getElementById("doctor-desc").innerText =
+translations[lang].doctorDesc;
+
+document.getElementById("patient-desc").innerText =
+translations[lang].patientDesc;
+
+document.getElementById("admin-btn").innerText =
+translations[lang].open;
+
+document.getElementById("doctor-btn").innerText =
+translations[lang].open;
+
+document.getElementById("patient-btn").innerText =
+translations[lang].open;
+
+localStorage.setItem("language", lang);
+
+}
+
+window.onload = function(){
+
+let savedLang =
+localStorage.getItem("language") || "en";
+
+document.getElementById("languageSelect").value =
+savedLang;
+
+changeLanguage();
+
+};
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Prescriptions</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f4f7fa;
+    padding:30px;
+}
+
+.header{
+    background:linear-gradient(to right,#0052d4,#00c6ff);
+    color:white;
+    text-align:center;
+    padding:20px;
+    border-radius:12px;
+}
+
+form{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    margin-top:30px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    margin-bottom:20px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+button{
+    background:#0052d4;
+    color:white;
+    padding:12px 20px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:30px;
+    background:white;
+}
+
+th,td{
+    border:1px solid #ddd;
+    padding:15px;
+    text-align:center;
+}
+
+th{
+    background:#0052d4;
+    color:white;
+}
+
+.back-btn{
+    display:inline-block;
+    margin-top:20px;
+    background:#0052d4;
+    color:white;
+    padding:10px 20px;
+    text-decoration:none;
+    border-radius:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1 id="title">
+Prescriptions
+</h1>
+
+<p id="subtitle">
+Manage Patient Prescriptions
+</p>
+
+<select id="languageSelect"
+onchange="changeLanguage()">
+
+<option value="en">English</option>
+<option value="hi">Hindi</option>
+<option value="te">Telugu</option>
+
+</select>
+
+</div>
+
+<form method="POST">
+
+<input type="text"
+name="patient_name"
+id="patient-input"
+placeholder="Patient Name"
+required>
+
+<input type="text"
+name="medicine"
+id="medicine-input"
+placeholder="Medicine"
+required>
+
+<input type="text"
+name="dosage"
+id="dosage-input"
+placeholder="Dosage"
+required>
+
+<button type="submit"
+id="save-btn">
+
+Save Prescription
+
+</button>
+
+</form>
+
+<table>
+
+<tr>
+
+<th id="patient-head">
+Patient
+</th>
+
+<th id="medicine-head">
+Medicine
+</th>
+
+<th id="dosage-head">
+Dosage
+</th>
+
+</tr>
+
+{% for prescription in prescriptions %}
+
+<tr>
+
+<td>{{ prescription.patient_name }}</td>
+
+<td>{{ prescription.medicine }}</td>
+
+<td>{{ prescription.dosage }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<a href="/doctor"
+class="back-btn"
+id="back-btn">
+
+Back to Dashboard
+
+</a>
+
+<script>
+
+const translations = {
+
+en:{
+title:"Prescriptions",
+subtitle:"Manage Patient Prescriptions",
+patientPlaceholder:"Patient Name",
+medicinePlaceholder:"Medicine",
+dosagePlaceholder:"Dosage",
+save:"Save Prescription",
+patient:"Patient",
+medicine:"Medicine",
+dosage:"Dosage",
+back:"Back to Dashboard"
+},
+
+hi:{
+title:"दवाइयाँ",
+subtitle:"मरीज की दवाइयों का प्रबंधन",
+patientPlaceholder:"मरीज का नाम",
+medicinePlaceholder:"दवा",
+dosagePlaceholder:"खुराक",
+save:"दवा सेव करें",
+patient:"मरीज",
+medicine:"दवा",
+dosage:"खुराक",
+back:"डैशबोर्ड पर वापस जाएं"
+},
+
+te:{
+title:"ఔషధాలు",
+subtitle:"రోగి మందులను నిర్వహించండి",
+patientPlaceholder:"రోగి పేరు",
+medicinePlaceholder:"మందు",
+dosagePlaceholder:"మోతాదు",
+save:"ఔషధాన్ని సేవ్ చేయండి",
+patient:"రోగి",
+medicine:"మందు",
+dosage:"మోతాదు",
+back:"డాష్‌బోర్డ్‌కు తిరిగి వెళ్ళు"
+}
+
+};
+
+function applyLanguage(){
+
+let lang =
+localStorage.getItem("language") || "en";
+
+document.getElementById("title").innerText =
+translations[lang].title;
+
+document.getElementById("subtitle").innerText =
+translations[lang].subtitle;
+
+document.getElementById("patient-input").placeholder =
+translations[lang].patientPlaceholder;
+
+document.getElementById("medicine-input").placeholder =
+translations[lang].medicinePlaceholder;
+
+document.getElementById("dosage-input").placeholder =
+translations[lang].dosagePlaceholder;
+
+document.getElementById("save-btn").innerText =
+translations[lang].save;
+
+document.getElementById("patient-head").innerText =
+translations[lang].patient;
+
+document.getElementById("medicine-head").innerText =
+translations[lang].medicine;
+
+document.getElementById("dosage-head").innerText =
+translations[lang].dosage;
+
+document.getElementById("back-btn").innerText =
+translations[lang].back;
+
+}
+
+function changeLanguage(){
+
+let lang =
+document.getElementById("languageSelect").value;
+
+localStorage.setItem("language", lang);
+
+applyLanguage();
+
+}
+
+window.onload = function(){
+
+let savedLang =
+localStorage.getItem("language") || "en";
+
+document.getElementById("languageSelect").value =
+savedLang;
+
+applyLanguage();
+
+};
+
+</script>
+
+</body>
+</html>

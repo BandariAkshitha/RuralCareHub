@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Manage Appointments</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f4f7fa;
+}
+
+.header{
+    background:linear-gradient(to right,#0052d4,#00c6ff);
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.container{
+    width:90%;
+    margin:30px auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+th,td{
+    padding:15px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+}
+
+th{
+    background:#007bff;
+    color:white;
+}
+
+tr:hover{
+    background:#f1f1f1;
+}
+
+.back-btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 20px;
+    background:#007bff;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+}
+
+select{
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    margin-top:10px;
+}
+
+footer{
+    background:#0052d4;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:40px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1 id="title">Manage Appointments</h1>
+
+<p id="subtitle">
+
+Admin Appointment Management Panel
+
+</p>
+
+<select id="languageSelect"
+onchange="changeLanguage()">
+
+<option value="en">English</option>
+
+<option value="hi">हिंदी</option>
+
+<option value="te">తెలుగు</option>
+
+</select>
+
+</div>
+
+<div class="container">
+
+<table>
+
+<tr>
+
+<th>ID</th>
+
+<th id="patientText">Patient Name</th>
+
+<th id="doctorText">Doctor Name</th>
+
+<th id="dateText">Date</th>
+
+<th id="timeText">Time</th>
+
+</tr>
+
+{% for appointment in appointments %}
+
+<tr>
+
+<td>{{ appointment.id }}</td>
+
+<td>{{ appointment.patient_name }}</td>
+
+<td>{{ appointment.doctor_name }}</td>
+
+<td>{{ appointment.appointment_date }}</td>
+
+<td>{{ appointment.appointment_time }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<a href="/admin"
+class="back-btn"
+id="backBtn">
+
+⬅ Back to Dashboard
+
+</a>
+
+</div>
+
+<footer>
+
+© 2026 RuralCareHub
+
+</footer>
+
+<script>
+
+const translations = {
+
+en: {
+
+title:"Manage Appointments",
+
+subtitle:"Admin Appointment Management Panel",
+
+patient:"Patient Name",
+
+doctor:"Doctor Name",
+
+date:"Date",
+
+time:"Time",
+
+back:"Back to Dashboard"
+
+},
+
+hi: {
+
+title:"अपॉइंटमेंट प्रबंधन",
+
+subtitle:"एडमिन अपॉइंटमेंट प्रबंधन पैनल",
+
+patient:"मरीज का नाम",
+
+doctor:"डॉक्टर का नाम",
+
+date:"तारीख",
+
+time:"समय",
+
+back:"डैशबोर्ड पर वापस जाएं"
+
+},
+
+te: {
+
+title:"అపాయింట్‌మెంట్ నిర్వహణ",
+
+subtitle:"అడ్మిన్ అపాయింట్‌మెంట్ మేనేజ్‌మెంట్ ప్యానెల్",
+
+patient:"రోగి పేరు",
+
+doctor:"డాక్టర్ పేరు",
+
+date:"తేదీ",
+
+time:"సమయం",
+
+back:"డాష్‌బోర్డ్‌కు వెళ్ళు"
+
+}
+
+};
+
+
+function changeLanguage(){
+
+let lang =
+document.getElementById("languageSelect").value;
+
+localStorage.setItem("language", lang);
+
+applyLanguage(lang);
+
+}
+
+
+function applyLanguage(lang){
+
+document.getElementById("title").innerHTML =
+translations[lang].title;
+
+document.getElementById("subtitle").innerHTML =
+translations[lang].subtitle;
+
+document.getElementById("patientText").innerHTML =
+translations[lang].patient;
+
+document.getElementById("doctorText").innerHTML =
+translations[lang].doctor;
+
+document.getElementById("dateText").innerHTML =
+translations[lang].date;
+
+document.getElementById("timeText").innerHTML =
+translations[lang].time;
+
+document.getElementById("backBtn").innerHTML =
+"⬅ " + translations[lang].back;
+
+}
+
+
+window.onload = function(){
+
+let savedLang =
+localStorage.getItem("language") || "en";
+
+document.getElementById("languageSelect").value =
+savedLang;
+
+applyLanguage(savedLang);
+
+};
+
+</script>
+
+</body>
+</html>

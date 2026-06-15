@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Patient Records</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f4f9ff;
+}
+
+.header{
+    background:linear-gradient(to right,#001f8f,#00bfff);
+    color:white;
+    text-align:center;
+    padding:40px;
+}
+
+.header h1{
+    margin:0;
+    font-size:40px;
+}
+
+.language-box{
+    margin-top:20px;
+}
+
+select{
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    font-size:16px;
+}
+
+.container{
+    width:90%;
+    margin:auto;
+    margin-top:50px;
+}
+
+.empty-box{
+    background:white;
+    padding:50px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.empty-box h2{
+    color:#0099ff;
+    font-size:35px;
+}
+
+.empty-box p{
+    font-size:22px;
+    color:#555;
+}
+
+.back-btn{
+    display:block;
+    width:250px;
+    margin:40px auto;
+    text-align:center;
+    background:#0099ff;
+    color:white;
+    padding:15px;
+    border-radius:10px;
+    text-decoration:none;
+    font-size:22px;
+}
+
+.footer{
+    background:#007bff;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:60px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1 id="title">
+Patient Records
+</h1>
+
+<div class="language-box">
+
+<select onchange="changeLanguage(this.value)">
+
+<option value="english">
+English
+</option>
+
+<option value="telugu">
+తెలుగు
+</option>
+
+<option value="hindi">
+हिन्दी
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="container">
+
+<div class="empty-box">
+
+<h2 id="empty-title">
+No Patient Records Available
+</h2>
+
+<p id="empty-subtitle">
+Records will appear after appointment booking.
+</p>
+
+</div>
+
+<a href="/doctor"
+class="back-btn"
+id="back-btn">
+
+Back to Dashboard
+
+</a>
+
+</div>
+
+
+<div class="footer">
+
+Emergency Number: 108 |
+support@ruralcarehub.com
+
+<br><br>
+
+© 2026 RuralCareHub
+
+</div>
+
+
+<script>
+
+function changeLanguage(language){
+
+if(language=="telugu"){
+
+document.getElementById("title").innerHTML=
+"రోగి రికార్డులు";
+
+document.getElementById("empty-title").innerHTML=
+"రోగి రికార్డులు లేవు";
+
+document.getElementById("empty-subtitle").innerHTML=
+"అపాయింట్‌మెంట్ తర్వాత రికార్డులు కనిపిస్తాయి";
+
+document.getElementById("back-btn").innerHTML=
+"డాష్‌బోర్డ్‌కు వెళ్ళు";
+
+}
+
+else if(language=="hindi"){
+
+document.getElementById("title").innerHTML=
+"रोगी रिकॉर्ड";
+
+document.getElementById("empty-title").innerHTML=
+"कोई रोगी रिकॉर्ड उपलब्ध नहीं";
+
+document.getElementById("empty-subtitle").innerHTML=
+"अपॉइंटमेंट के बाद रिकॉर्ड दिखाई देंगे";
+
+document.getElementById("back-btn").innerHTML=
+"डैशबोर्ड पर जाएँ";
+
+}
+
+else{
+
+document.getElementById("title").innerHTML=
+"Patient Records";
+
+document.getElementById("empty-title").innerHTML=
+"No Patient Records Available";
+
+document.getElementById("empty-subtitle").innerHTML=
+"Records will appear after appointment booking.";
+
+document.getElementById("back-btn").innerHTML=
+"Back to Dashboard";
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Doctor Profile</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:0;
+    font-family:Arial;
+    background:#f4f7fa;
+}
+
+/* HEADER */
+
+.header{
+    background:linear-gradient(to right,#001f8f,#00bfff);
+    color:white;
+    text-align:center;
+    padding:40px;
+}
+
+.language-box{
+    margin-top:20px;
+}
+
+select{
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    font-size:16px;
+}
+
+/* CARD */
+
+.card{
+    width:420px;
+    background:white;
+    margin:50px auto;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,0.2);
+}
+
+.card h2{
+    color:#007bff;
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.card p{
+    font-size:20px;
+    margin:15px 0;
+    color:#333;
+}
+
+/* BUTTON */
+
+.btn{
+    display:block;
+    width:100%;
+    text-align:center;
+    padding:14px;
+    background:#00bfff;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    margin-top:25px;
+    font-size:18px;
+}
+
+.btn:hover{
+    background:#0095cc;
+}
+
+/* FOOTER */
+
+.footer{
+    background:linear-gradient(to right,#001f8f,#00bfff);
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+
+<h1 id="title">
+Doctor Profile
+</h1>
+
+<p id="subtitle">
+Doctor Information Panel
+</p>
+
+<div class="language-box">
+
+<select onchange="changeLanguage(this.value)">
+
+<option value="english">
+English
+</option>
+
+<option value="telugu">
+తెలుగు
+</option>
+
+<option value="hindi">
+हिन्दी
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<!-- CARD -->
+
+<div class="card">
+
+<h2 id="details">
+Doctor Details
+</h2>
+
+<p>
+👨‍⚕️ 
+<b id="nameText">
+Name:
+</b>
+
+{{ doctor.name }}
+
+</p>
+
+<p>
+🩺 
+<b id="specializationText">
+Specialization:
+</b>
+
+{{ doctor.specialization }}
+
+</p>
+
+<p>
+🏥 
+<b id="hospitalText">
+Hospital:
+</b>
+
+{{ doctor.hospital }}
+
+</p>
+
+<p>
+⭐ 
+<b id="experienceText">
+Experience:
+</b>
+
+{{ doctor.experience }}
+
+</p>
+
+<p>
+📞 
+<b id="phoneText">
+Phone:
+</b>
+
+{{ doctor.phone }}
+
+</p>
+
+<p>
+📧 
+<b id="emailText">
+Email:
+</b>
+
+{{ doctor.email }}
+
+</p>
+
+<a href="/doctor-dashboard"
+class="btn"
+id="backBtn">
+⬅ Back
+
+</a>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+Emergency Number: 108
+
+<br><br>
+
+© 2026 RuralCareHub
+
+</div>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+function changeLanguage(language){
+
+if(language=="telugu"){
+
+document.getElementById("title").innerHTML=
+"డాక్టర్ ప్రొఫైల్";
+
+document.getElementById("subtitle").innerHTML=
+"డాక్టర్ సమాచారం ప్యానెల్";
+
+document.getElementById("details").innerHTML=
+"డాక్టర్ వివరాలు";
+
+document.getElementById("nameText").innerHTML=
+"పేరు:";
+
+document.getElementById("specializationText").innerHTML=
+"ప్రత్యేకత:";
+
+document.getElementById("hospitalText").innerHTML=
+"హాస్పిటల్:";
+
+document.getElementById("experienceText").innerHTML=
+"అనుభవం:";
+
+document.getElementById("phoneText").innerHTML=
+"ఫోన్:";
+
+document.getElementById("emailText").innerHTML=
+"ఇమెయిల్:";
+
+document.getElementById("backBtn").innerHTML=
+"⬅ వెనక్కి";
+
+}
+
+else if(language=="hindi"){
+
+document.getElementById("title").innerHTML=
+"डॉक्टर प्रोफाइल";
+
+document.getElementById("subtitle").innerHTML=
+"डॉक्टर जानकारी पैनल";
+
+document.getElementById("details").innerHTML=
+"डॉक्टर विवरण";
+
+document.getElementById("nameText").innerHTML=
+"नाम:";
+
+document.getElementById("specializationText").innerHTML=
+"विशेषज्ञता:";
+
+document.getElementById("hospitalText").innerHTML=
+"अस्पताल:";
+
+document.getElementById("experienceText").innerHTML=
+"अनुभव:";
+
+document.getElementById("phoneText").innerHTML=
+"फोन:";
+
+document.getElementById("emailText").innerHTML=
+"ईमेल:";
+
+document.getElementById("backBtn").innerHTML=
+"⬅ वापस";
+
+}
+
+else{
+
+document.getElementById("title").innerHTML=
+"Doctor Profile";
+
+document.getElementById("subtitle").innerHTML=
+"Doctor Information Panel";
+
+document.getElementById("details").innerHTML=
+"Doctor Details";
+
+document.getElementById("nameText").innerHTML=
+"Name:";
+
+document.getElementById("specializationText").innerHTML=
+"Specialization:";
+
+document.getElementById("hospitalText").innerHTML=
+"Hospital:";
+
+document.getElementById("experienceText").innerHTML=
+"Experience:";
+
+document.getElementById("phoneText").innerHTML=
+"Phone:";
+
+document.getElementById("emailText").innerHTML=
+"Email:";
+
+document.getElementById("backBtn").innerHTML=
+"⬅ Back";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

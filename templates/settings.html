@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>System Settings</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f4f7fa;
+}
+
+/* HEADER */
+
+.header{
+    background:linear-gradient(to right,#0052d4,#00c6ff);
+    color:white;
+    text-align:center;
+    padding:30px;
+}
+
+.header h1{
+    margin:0;
+    font-size:40px;
+}
+
+.header p{
+    margin-top:10px;
+}
+
+/* LANGUAGE */
+
+select{
+    margin-top:15px;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+}
+
+/* CONTAINER */
+
+.container{
+    width:80%;
+    margin:40px auto;
+}
+
+/* SETTINGS CARD */
+
+.settings-card{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+
+/* EACH BOX */
+
+.setting-box{
+    background:#f9f9f9;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+    transition:0.3s;
+}
+
+.setting-box:hover{
+    transform:scale(1.02);
+    background:#eef7ff;
+}
+
+.setting-box h3{
+    color:#007bff;
+}
+
+/* BUTTONS */
+
+.btn{
+    display:inline-block;
+    padding:10px 20px;
+    border:none;
+    border-radius:8px;
+    text-decoration:none;
+    color:white;
+    cursor:pointer;
+    margin-top:10px;
+    margin-right:10px;
+    font-weight:bold;
+}
+
+.save-btn{
+    background:#28a745;
+}
+
+.dark-btn{
+    background:#343a40;
+}
+
+.back-btn{
+    background:#007bff;
+}
+
+/* FOOTER */
+
+footer{
+    background:#0052d4;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:50px;
+}
+
+/* DARK MODE */
+
+.dark-mode{
+    background:#1e1e1e;
+    color:white;
+}
+
+.dark-mode .settings-card{
+    background:#2b2b2b;
+}
+
+.dark-mode .setting-box{
+    background:#3b3b3b;
+}
+
+.dark-mode footer{
+    background:black;
+}
+
+</style>
+
+</head>
+
+<body id="body">
+
+<!-- HEADER -->
+
+<div class="header">
+
+<h1 id="title">System Settings</h1>
+
+<p id="subtitle">Admin Settings Panel</p>
+
+<select id="languageSelect" onchange="changeLanguage()">
+
+<option value="en">English</option>
+
+<option value="hi">हिंदी</option>
+
+<option value="te">తెలుగు</option>
+
+</select>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="container">
+
+<div class="settings-card">
+
+<div class="setting-box">
+
+<h3 id="themeTitle">Theme Settings</h3>
+
+<p id="themeText">
+Enable dark mode and customize dashboard appearance.
+</p>
+
+<button class="btn dark-btn"
+onclick="toggleDarkMode()"
+id="darkBtn">
+
+🌙 Dark Mode
+
+</button>
+
+</div>
+
+<div class="setting-box">
+
+<h3 id="securityTitle">Security Settings</h3>
+
+<p id="securityText">
+Manage passwords and admin access security.
+</p>
+
+<button class="btn save-btn"
+onclick="showSaved()">
+
+Save Changes
+
+</button>
+
+</div>
+
+<div class="setting-box">
+
+<h3 id="notifyTitle">Notification Settings</h3>
+
+<p id="notifyText">
+Enable or disable admin notifications.
+</p>
+
+<button class="btn save-btn"
+onclick="showSaved()">
+
+Save Notifications
+
+</button>
+
+</div>
+
+<a href="/admin"
+class="btn back-btn"
+id="backBtn">
+
+⬅ Back to Dashboard
+
+</a>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+<p>
+Emergency Number: 108 |
+Email: support@ruralcarehub.com
+</p>
+
+<p>
+© 2026 RuralCareHub
+</p>
+
+</footer>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+const translations = {
+
+en:{
+title:"System Settings",
+subtitle:"Admin Settings Panel",
+theme:"Theme Settings",
+themeText:"Enable dark mode and customize dashboard appearance.",
+security:"Security Settings",
+securityText:"Manage passwords and admin access security.",
+notify:"Notification Settings",
+notifyText:"Enable or disable admin notifications.",
+back:"Back to Dashboard",
+dark:"🌙 Dark Mode"
+},
+
+hi:{
+title:"सिस्टम सेटिंग्स",
+subtitle:"एडमिन सेटिंग्स पैनल",
+theme:"थीम सेटिंग्स",
+themeText:"डार्क मोड सक्षम करें और डैशबोर्ड बदलें।",
+security:"सुरक्षा सेटिंग्स",
+securityText:"पासवर्ड और सुरक्षा प्रबंधन।",
+notify:"नोटिफिकेशन सेटिंग्स",
+notifyText:"नोटिफिकेशन चालू या बंद करें।",
+back:"डैशबोर्ड पर वापस जाएं",
+dark:"🌙 डार्क मोड"
+},
+
+te:{
+title:"సిస్టమ్ సెట్టింగ్స్",
+subtitle:"అడ్మిన్ సెట్టింగ్స్ ప్యానెల్",
+theme:"థీమ్ సెట్టింగ్స్",
+themeText:"డార్క్ మోడ్ ప్రారంభించండి.",
+security:"సెక్యూరిటీ సెట్టింగ్స్",
+securityText:"పాస్‌వర్డ్ మరియు భద్రత నిర్వహణ.",
+notify:"నోటిఫికేషన్ సెట్టింగ్స్",
+notifyText:"నోటిఫికేషన్‌లను నియంత్రించండి.",
+back:"డాష్‌బోర్డ్‌కు వెళ్ళు",
+dark:"🌙 డార్క్ మోడ్"
+}
+
+};
+
+function changeLanguage(){
+
+let lang =
+document.getElementById("languageSelect").value;
+
+localStorage.setItem("language",lang);
+
+applyLanguage(lang);
+
+}
+
+function applyLanguage(lang){
+
+document.getElementById("title").innerHTML =
+translations[lang].title;
+
+document.getElementById("subtitle").innerHTML =
+translations[lang].subtitle;
+
+document.getElementById("themeTitle").innerHTML =
+translations[lang].theme;
+
+document.getElementById("themeText").innerHTML =
+translations[lang].themeText;
+
+document.getElementById("securityTitle").innerHTML =
+translations[lang].security;
+
+document.getElementById("securityText").innerHTML =
+translations[lang].securityText;
+
+document.getElementById("notifyTitle").innerHTML =
+translations[lang].notify;
+
+document.getElementById("notifyText").innerHTML =
+translations[lang].notifyText;
+
+document.getElementById("backBtn").innerHTML =
+"⬅ " + translations[lang].back;
+
+document.getElementById("darkBtn").innerHTML =
+translations[lang].dark;
+
+}
+
+window.onload = function(){
+
+let savedLang =
+localStorage.getItem("language") || "en";
+
+document.getElementById("languageSelect").value =
+savedLang;
+
+applyLanguage(savedLang);
+
+};
+
+function toggleDarkMode(){
+
+document.getElementById("body")
+.classList.toggle("dark-mode");
+
+}
+
+function showSaved(){
+
+alert("Settings Saved Successfully!");
+
+}
+
+</script>
+
+</body>
+</html>

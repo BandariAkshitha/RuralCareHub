@@ -4,122 +4,183 @@
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>
-    Login - RuralCareHub
-</title>
+<title>Login - RuralCareHub</title>
 
 <style>
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#eef5fb;
 
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
+
+body{
+    font-family:Arial,sans-serif;
+    background:#e9edf2;
+}
+
+/* HEADER */
+
 .header{
-    background:linear-gradient(to right,#0056b3,#0077b6);
-    color:white;
+    background:linear-gradient(to right,#0056b3,#00a2ff);
     text-align:center;
-    padding:20px;
+    color:white;
+    padding:40px 20px;
+    border-bottom-left-radius:20px;
+    border-bottom-right-radius:20px;
 }
 
 .logo{
-    width:140px;
-    height:140px;
+    width:180px;
+    height:180px;
     border-radius:50%;
+    background:white;
+    object-fit:cover;
 }
 
 .header h1{
-    margin:10px 0 5px;
-    font-size:40px;
-}
-
-.header p{
-    margin:0;
-    font-size:18px;
-}
-
-.login-box{
-    width:400px;
-    max-width:90%;
-    background:white;
-    margin:40px auto;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0px 0px 15px rgba(0,0,0,0.2);
-}
-
-.login-box h2{
-    text-align:center;
-    color:#0056b3;
-    margin-bottom:20px;
-}
-
-label{
-    display:block;
-    margin-bottom:5px;
+    margin-top:20px;
+    font-size:60px;
     font-weight:bold;
 }
 
-input, select{
-    width:100%;
-    padding:12px;
-    margin-bottom:15px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    box-sizing:border-box;
-    font-size:16px;
+.header p{
+    margin-top:10px;
+    font-size:22px;
 }
+
+/* LANGUAGE */
+
+.language-box{
+    margin-top:25px;
+}
+
+.language-box select{
+    padding:10px 20px;
+    border:none;
+    border-radius:8px;
+    font-size:18px;
+}
+
+/* LOGIN CARD */
+
+.container{
+    width:92%;
+    max-width:500px;
+    background:white;
+    margin:40px auto;
+    padding:40px 30px;
+    border-radius:25px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+.container h2{
+    text-align:center;
+    color:#0056b3;
+    font-size:50px;
+    margin-bottom:35px;
+}
+
+/* FORM */
+
+label{
+    display:block;
+    margin-bottom:10px;
+    margin-top:25px;
+    font-size:28px;
+    font-weight:bold;
+}
+
+input,
+select{
+    width:100%;
+    padding:22px;
+    border:2px solid #dcdcdc;
+    border-radius:15px;
+    font-size:24px;
+}
+
+/* BUTTON */
 
 .login-btn{
     width:100%;
-    padding:12px;
-    background:#0056d6;
-    color:white;
+    padding:22px;
+    margin-top:35px;
     border:none;
-    border-radius:8px;
-    font-size:18px;
+    border-radius:15px;
+    background:#005eff;
+    color:white;
+    font-size:32px;
     cursor:pointer;
+    font-weight:bold;
 }
 
 .login-btn:hover{
-    background:#0045aa;
+    background:#0046c7;
 }
 
-.or{
+/* REGISTER */
+
+.register-link{
     text-align:center;
-    margin:20px 0;
-    color:gray;
+    margin-top:30px;
 }
 
-.signup-btn{
-    width:100%;
-    padding:12px;
-    background:#28a745;
-    color:white;
-    border:none;
-    border-radius:8px;
-    font-size:18px;
-    cursor:pointer;
+.register-link a{
+    text-decoration:none;
+    color:#005eff;
+    font-size:24px;
+    font-weight:bold;
 }
 
-.signup-btn:hover{
-    background:#218838;
-}
+/* FOOTER */
 
 .footer{
     background:#0056b3;
     color:white;
     text-align:center;
-    padding:15px;
+    padding:25px;
     margin-top:40px;
+    font-size:18px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .logo{
+        width:160px;
+        height:160px;
+    }
+
+    .header h1{
+        font-size:48px;
+    }
+
+    .header p{
+        font-size:18px;
+    }
+
+    .container h2{
+        font-size:42px;
+    }
+
+    label{
+        font-size:22px;
+    }
+
+    input,
+    select{
+        font-size:20px;
+        padding:18px;
+    }
+
+    .login-btn{
+        font-size:28px;
+    }
+
 }
 
 </style>
@@ -128,11 +189,12 @@ input, select{
 
 <body>
 
+<!-- HEADER -->
+
 <div class="header">
 
     <img src="{{ url_for('static', filename='logo.jpeg') }}"
-         alt="RuralCareHub Logo"
-         class="logo">
+    class="logo">
 
     <h1 id="title">
         RuralCareHub
@@ -142,37 +204,72 @@ input, select{
         Connecting Communities to Health
     </p>
 
+    <div class="language-box">
+
+        <select id="languageSelect"
+        onchange="changeLanguage()">
+
+            <option value="en">English</option>
+            <option value="hi">Hindi</option>
+            <option value="te">Telugu</option>
+
+        </select>
+
+    </div>
+
 </div>
 
-<div class="login-box">
+<!-- LOGIN CARD -->
+
+<div class="container">
 
     <h2 id="login-title">
         User Login
     </h2>
 
-    <form action="/login" method="POST" onsubmit="saveLanguageBeforeLogin()">
+    <form action="/login" method="POST">
 
         <label id="email-label">
             Email Address
         </label>
 
         <input type="email"
-               name="email"
-               placeholder="Enter your email"
-               required>
+        name="email"
+        placeholder="Enter your email"
+        required>
 
         <label id="password-label">
             Password
         </label>
 
         <input type="password"
-               name="password"
-               placeholder="Enter your password"
-               required>
+        name="password"
+        placeholder="Enter your password"
+        required>
+
+        <label id="role-label">
+            Select Role
+        </label>
+
+        <select name="role" required>
+
+            <option value="patient">
+                Patient
+            </option>
+
+            <option value="doctor">
+                Doctor
+            </option>
+
+            <option value="admin">
+                Admin
+            </option>
+
+        </select>
 
         <button type="submit"
-                class="login-btn"
-                id="login-btn">
+        class="login-btn"
+        id="login-btn">
 
             Login
 
@@ -180,44 +277,20 @@ input, select{
 
     </form>
 
-    <div style="margin-bottom:15px; text-align:center;">
+    <div class="register-link">
 
-        <select id="languageSelect"
-                onchange="changeLanguage()">
+        <a href="/register"
+        id="register-link">
 
-            <option value="en">
-                English
-            </option>
+            Create New Account
 
-            <option value="te">
-                Telugu
-            </option>
-
-            <option value="hi">
-                Hindi
-            </option>
-
-        </select>
+        </a>
 
     </div>
-
-    <div class="or">
-        OR
-    </div>
-
-    <a href="/register">
-
-        <button type="button"
-                class="signup-btn"
-                id="signup-btn">
-
-            Sign Up
-
-        </button>
-
-    </a>
 
 </div>
+
+<!-- FOOTER -->
 
 <div class="footer">
 
@@ -226,11 +299,11 @@ input, select{
     </p>
 
     <p>
-        Email: support@ruralcarehub.com
+        support@ruralcarehub.com
     </p>
 
     <p>
-        © 2026 RuralCareHub. All Rights Reserved.
+        © 2026 RuralCareHub
     </p>
 
 </div>
@@ -239,108 +312,90 @@ input, select{
 
 const translations = {
 
-    en: {
+en: {
 
-        title: "RuralCareHub",
+title:"RuralCareHub",
+subtitle:"Connecting Communities to Health",
+loginTitle:"User Login",
+email:"Email Address",
+password:"Password",
+role:"Select Role",
+login:"Login",
+register:"Create New Account"
 
-        subtitle: "Connecting Communities to Health",
+},
 
-        loginTitle: "User Login",
+hi: {
 
-        email: "Email Address",
+title:"रूरलकेयरहब",
+subtitle:"समुदायों को स्वास्थ्य से जोड़ना",
+loginTitle:"यूज़र लॉगिन",
+email:"ईमेल पता",
+password:"पासवर्ड",
+role:"भूमिका चुनें",
+login:"लॉगिन",
+register:"नया अकाउंट बनाएं"
 
-        password: "Password",
+},
 
-        login: "Login",
+te: {
 
-        signup: "Sign Up"
+title:"రూరల్ కేర్ హబ్",
+subtitle:"సమాజాలను ఆరోగ్యంతో కలుపుతోంది",
+loginTitle:"వినియోగదారు లాగిన్",
+email:"ఈమెయిల్ చిరునామా",
+password:"పాస్‌వర్డ్",
+role:"పాత్రను ఎంచుకోండి",
+login:"లాగిన్",
+register:"కొత్త ఖాతా సృష్టించండి"
 
-    },
-
-    hi: {
-
-        title: "रूरलकेयरहब",
-
-        subtitle: "समुदाय को स्वास्थ्य से जोड़ना",
-
-        loginTitle: "यूज़र लॉगिन",
-
-        email: "ईमेल पता",
-
-        password: "पासवर्ड",
-
-        login: "लॉगिन",
-
-        signup: "साइन अप"
-
-    },
-
-    te: {
-
-        title: "రూరల్ కేర్ హబ్",
-
-        subtitle: "సమాజాలను ఆరోగ్యంతో కలుపుతోంది",
-
-        loginTitle: "వినియోగదారు లాగిన్",
-
-        email: "ఈమెయిల్ చిరునామా",
-
-        password: "పాస్‌వర్డ్",
-
-        login: "లాగిన్",
-
-        signup: "సైన్ అప్"
-
-    }
+}
 
 };
 
-function changeLanguage() {
+function changeLanguage(){
 
-    let lang =
-    document.getElementById("languageSelect").value;
+let lang =
+document.getElementById("languageSelect").value;
 
-    document.getElementById("title").innerText =
-    translations[lang].title;
+localStorage.setItem("language", lang);
 
-    document.getElementById("subtitle").innerText =
-    translations[lang].subtitle;
+document.getElementById("title").innerText =
+translations[lang].title;
 
-    document.getElementById("login-title").innerText =
-    translations[lang].loginTitle;
+document.getElementById("subtitle").innerText =
+translations[lang].subtitle;
 
-    document.getElementById("email-label").innerText =
-    translations[lang].email;
+document.getElementById("login-title").innerText =
+translations[lang].loginTitle;
 
-    document.getElementById("password-label").innerText =
-    translations[lang].password;
+document.getElementById("email-label").innerText =
+translations[lang].email;
 
-    document.getElementById("login-btn").innerText =
-    translations[lang].login;
+document.getElementById("password-label").innerText =
+translations[lang].password;
 
-    document.getElementById("signup-btn").innerText =
-    translations[lang].signup;
+document.getElementById("role-label").innerText =
+translations[lang].role;
 
-    localStorage.setItem("language", lang);
-}
-function saveLanguageBeforeLogin(){
+document.getElementById("login-btn").innerText =
+translations[lang].login;
 
-    let lang =
-    document.getElementById("languageSelect").value;
-
-    localStorage.setItem("language", lang);
+document.getElementById("register-link").innerText =
+translations[lang].register;
 
 }
 
-window.onload = function() {
+window.onload = function(){
 
-    let savedLang =
-    localStorage.getItem("language") || "en";
+let savedLang =
+localStorage.getItem("language") || "en";
 
-    document.getElementById("languageSelect").value =
-    savedLang;
+document.getElementById("languageSelect").value =
+savedLang;
 
-    changeLanguage();
+changeLanguage();
+
 };
 
 </script>

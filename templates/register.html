@@ -1,77 +1,138 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-    <title>
-        Register - RuralCareHub
-    </title>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <style>
+<title>Register - RuralCareHub</title>
 
-        body{
-            font-family:Arial, sans-serif;
-            background:#f4f7fb;
-        }
+<style>
 
-        .container{
-            width:450px;
-            margin:40px auto;
-            background:white;
-            padding:30px;
-            border-radius:10px;
-            box-shadow:0 3px 10px rgba(0,0,0,0.1);
-        }
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#eef5fb;
+}
 
-        h2{
-            text-align:center;
-            color:#0077cc;
-        }
+.header{
+    background:linear-gradient(to right,#0056b3,#00a2ff);
+    color:white;
+    text-align:center;
+    padding:25px;
+}
 
-        label{
-            font-weight:bold;
-        }
+.logo{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+}
 
-        input, textarea, select{
-            width:100%;
-            padding:10px;
-            margin-top:5px;
-            margin-bottom:15px;
-            border:1px solid #ccc;
-            border-radius:5px;
-            box-sizing:border-box;
-        }
+.container{
+    width:450px;
+    max-width:90%;
+    background:white;
+    margin:40px auto;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
 
-        button{
-            width:100%;
-            padding:12px;
-            background:#28a745;
-            color:white;
-            border:none;
-            border-radius:5px;
-            cursor:pointer;
-            font-size:16px;
-        }
+.container h2{
+    text-align:center;
+    color:#0056b3;
+}
 
-        button:hover{
-            background:#218838;
-        }
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:5px;
+    font-weight:bold;
+}
 
-        .back{
-            text-align:center;
-            margin-top:15px;
-        }
+input, textarea, select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+    box-sizing:border-box;
+}
 
-        .back a{
-            text-decoration:none;
-            color:#0077cc;
-        }
+.register-btn{
+    width:100%;
+    padding:14px;
+    margin-top:25px;
+    border:none;
+    border-radius:8px;
+    background:#28a745;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
 
-    </style>
+.register-btn:hover{
+    background:#1f8a38;
+}
+
+.login-link{
+    text-align:center;
+    margin-top:20px;
+}
+
+.login-link a{
+    text-decoration:none;
+    color:#007bff;
+    font-weight:bold;
+}
+
+.footer{
+    background:#0056b3;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+
+.language-box{
+    text-align:center;
+    margin-top:15px;
+}
+
+.language-box select{
+    width:200px;
+}
+
+@media(max-width:768px){
+
+.container{
+    width:90%;
+}
+
+}
+
+</style>
 
 </head>
 
 <body>
+
+<div class="header">
+
+    <img src="{{ url_for('static', filename='logo.jpeg') }}"
+         class="logo">
+
+    <h1 id="title">
+        RuralCareHub
+    </h1>
+
+    <p id="subtitle">
+        Connecting Communities to Health
+    </p>
+
+</div>
 
 <div class="container">
 
@@ -79,22 +140,14 @@
         User Registration
     </h2>
 
-    <div style="text-align:center; margin-bottom:20px;">
+    <div class="language-box">
 
         <select id="languageSelect"
                 onchange="changeLanguage()">
 
-            <option value="en">
-                English
-            </option>
-
-            <option value="te">
-                Telugu
-            </option>
-
-            <option value="hi">
-                Hindi
-            </option>
+            <option value="en">English</option>
+            <option value="hi">Hindi</option>
+            <option value="te">Telugu</option>
 
         </select>
 
@@ -124,13 +177,13 @@
             Phone Number
         </label>
 
-        <input type="tel"
+        <input type="text"
                name="phone"
                placeholder="Enter Phone Number"
                required>
 
         <label id="address-label">
-            Village / Address
+            Address
         </label>
 
         <textarea rows="3"
@@ -148,16 +201,8 @@
                placeholder="Enter Password"
                required>
 
-        <label id="confirm-label">
-            Confirm Password
-        </label>
-
-        <input type="password"
-               name="confirm_password"
-               placeholder="Confirm Password"
-               required>
-
         <button type="submit"
+                class="register-btn"
                 id="register-btn">
 
             Register
@@ -166,13 +211,32 @@
 
     </form>
 
-    <div class="back">
+    <div class="login-link">
 
-        <a href="/login">
-            Back to Login
+        <a href="/login"
+           id="login-link">
+
+           Back to Login
+
         </a>
 
     </div>
+
+</div>
+
+<div class="footer">
+
+    <p>
+        Emergency Number: 108
+    </p>
+
+    <p>
+        support@ruralcarehub.com
+    </p>
+
+    <p>
+        © 2026 RuralCareHub
+    </p>
 
 </div>
 
@@ -180,110 +244,130 @@
 
 const translations = {
 
-    en: {
+en: {
 
-        title: "User Registration",
+title:"RuralCareHub",
 
-        name: "Full Name",
+subtitle:"Connecting Communities to Health",
 
-        email: "Email Address",
+registerTitle:"User Registration",
 
-        phone: "Phone Number",
+name:"Full Name",
 
-        address: "Village / Address",
+email:"Email Address",
 
-        password: "Password",
+phone:"Phone Number",
 
-        confirm: "Confirm Password",
+address:"Address",
 
-        register: "Register"
+password:"Password",
 
-    },
+register:"Register",
 
-    te: {
+login:"Back to Login"
 
-        title: "వినియోగదారు నమోదు",
+},
 
-        name: "పూర్తి పేరు",
+hi: {
 
-        email: "ఈమెయిల్ చిరునామా",
+title:"रूरलकेयरहब",
 
-        phone: "ఫోన్ నంబర్",
+subtitle:"समुदायों को स्वास्थ्य से जोड़ना",
 
-        address: "గ్రామం / చిరునామా",
+registerTitle:"यूज़र रजिस्ट्रेशन",
 
-        password: "పాస్‌వర్డ్",
+name:"पूरा नाम",
 
-        confirm: "పాస్‌వర్డ్ నిర్ధారించండి",
+email:"ईमेल पता",
 
-        register: "నమోదు"
+phone:"फोन नंबर",
 
-    },
+address:"पता",
 
-    hi: {
+password:"पासवर्ड",
 
-        title: "यूज़र पंजीकरण",
+register:"रजिस्टर",
 
-        name: "पूरा नाम",
+login:"लॉगिन पर वापस जाएं"
 
-        email: "ईमेल पता",
+},
 
-        phone: "फ़ोन नंबर",
+te: {
 
-        address: "गांव / पता",
+title:"రూరల్ కేర్ హబ్",
 
-        password: "पासवर्ड",
+subtitle:"సమాజాలను ఆరోగ్యంతో కలుపుతోంది",
 
-        confirm: "पासवर्ड पुष्टि करें",
+registerTitle:"వినియోగదారు నమోదు",
 
-        register: "रजिस्टर"
+name:"పూర్తి పేరు",
 
-    }
+email:"ఈమెయిల్ చిరునామా",
+
+phone:"ఫోన్ నంబర్",
+
+address:"చిరునామా",
+
+password:"పాస్‌వర్డ్",
+
+register:"రిజిస్టర్",
+
+login:"లాగిన్‌కు తిరిగి వెళ్ళండి"
+
+}
 
 };
 
 function changeLanguage(){
 
-    let lang =
-    document.getElementById("languageSelect").value;
+let lang =
+document.getElementById("languageSelect").value;
 
-    document.getElementById("register-title").innerText =
-    translations[lang].title;
+localStorage.setItem("language", lang);
 
-    document.getElementById("name-label").innerText =
-    translations[lang].name;
+document.getElementById("title").innerText =
+translations[lang].title;
 
-    document.getElementById("email-label").innerText =
-    translations[lang].email;
+document.getElementById("subtitle").innerText =
+translations[lang].subtitle;
 
-    document.getElementById("phone-label").innerText =
-    translations[lang].phone;
+document.getElementById("register-title").innerText =
+translations[lang].registerTitle;
 
-    document.getElementById("address-label").innerText =
-    translations[lang].address;
+document.getElementById("name-label").innerText =
+translations[lang].name;
 
-    document.getElementById("password-label").innerText =
-    translations[lang].password;
+document.getElementById("email-label").innerText =
+translations[lang].email;
 
-    document.getElementById("confirm-label").innerText =
-    translations[lang].confirm;
+document.getElementById("phone-label").innerText =
+translations[lang].phone;
 
-    document.getElementById("register-btn").innerText =
-    translations[lang].register;
+document.getElementById("address-label").innerText =
+translations[lang].address;
 
-    localStorage.setItem("language", lang);
+document.getElementById("password-label").innerText =
+translations[lang].password;
+
+document.getElementById("register-btn").innerText =
+translations[lang].register;
+
+document.getElementById("login-link").innerText =
+translations[lang].login;
+
 }
 
 window.onload = function(){
 
-    let savedLang =
-    localStorage.getItem("language") || "en";
+let savedLang =
+localStorage.getItem("language") || "en";
 
-    document.getElementById("languageSelect").value =
-    savedLang;
+document.getElementById("languageSelect").value =
+savedLang;
 
-    changeLanguage();
-}
+changeLanguage();
+
+};
 
 </script>
 
