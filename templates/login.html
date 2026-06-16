@@ -215,6 +215,7 @@ select{
         </label>
 
         <input type="email"
+               name="email"
                placeholder="Enter your email"
                required>
 
@@ -223,6 +224,7 @@ select{
         </label>
 
         <input type="password"
+               name="password"
                placeholder="Enter your password"
                required>
 
@@ -230,17 +232,17 @@ select{
             Select Role
         </label>
 
-        <select required>
+        <select name="role" required>
 
-            <option>
+            <option value="patient">
                 Patient
             </option>
 
-            <option>
+            <option value="doctor">
                 Doctor
             </option>
 
-            <option>
+            <option value="admin">
                 Admin
             </option>
 

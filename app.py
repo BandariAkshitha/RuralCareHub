@@ -10,7 +10,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
-# USER TABLE
 class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -24,6 +23,8 @@ class User(db.Model):
     address = db.Column(db.String(200))
 
     password = db.Column(db.String(100))
+
+    role = db.Column(db.String(50))
 
 
 # APPOINTMENT TABLE
@@ -99,7 +100,6 @@ class Prescription(db.Model):
 def home():
     return redirect('/login')
 
-
 # LOGIN PAGE
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -110,27 +110,27 @@ def login():
         password = request.form.get('password')
         role = request.form.get('role')
 
-        user = User.query.filter_by(
-            email=email,
-            password=password
-        ).first()
-
-        if user:
-
-            if role == "Admin":
+        # Admin Login
+        if role == "admin":
                 return redirect('/admin')
 
-            elif role == "Doctor":
-                return redirect('/doctor-dashboard')
+        # Patient Login
+        elif role == "patient":
+            user = User.query.filter_by(
+                email=email,
+                password=password
+            ).first()
 
-            else:
+            if user:
                 return redirect('/patient')
+            else:
+                return "Invalid Patient Login"
 
-        else:
-            return "Invalid Email or Password"
+        # Doctor Login
+        elif role == "doctor":
+            return redirect('/doctor-dashboard')
 
     return render_template('login.html')
-
 @app.route('/select-role')
 def select_role():
     return render_template('select_role.html')
@@ -147,13 +147,15 @@ def register():
         phone = request.form.get('phone')
         address = request.form.get('address')
         password = request.form.get('password')
+        role = request.form.get('role')
 
         new_user = User(
             name=name,
             email=email,
             phone=phone,
             address=address,
-            password=password
+            password=password,
+            role=role
         )
 
         db.session.add(new_user)
