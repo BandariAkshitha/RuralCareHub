@@ -1,282 +1,155 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Prescriptions - RuralCareHub</title>
 
-<title>Prescriptions</title>
+    <style>
+        body{
+            font-family:Arial,sans-serif;
+            background:#f4f7fb;
+            margin:0;
+        }
 
-<style>
+        .header{
+            background:#0077cc;
+            color:white;
+            text-align:center;
+            padding:20px;
+        }
 
-body{
-    margin:0;
-    font-family:Arial;
-    background:#f4f7fa;
-    padding:30px;
-}
+        .language{
+            text-align:right;
+            margin:20px;
+        }
 
-.header{
-    background:linear-gradient(to right,#0052d4,#00c6ff);
-    color:white;
-    text-align:center;
-    padding:20px;
-    border-radius:12px;
-}
+        table{
+            width:90%;
+            margin:30px auto;
+            border-collapse:collapse;
+            background:white;
+        }
 
-form{
-    background:white;
-    padding:25px;
-    border-radius:12px;
-    margin-top:30px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
+        th,td{
+            border:1px solid #ddd;
+            padding:12px;
+            text-align:center;
+        }
 
-input{
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    margin-bottom:20px;
-    border:1px solid #ccc;
-    border-radius:8px;
-}
+        th{
+            background:#0077cc;
+            color:white;
+        }
 
-button{
-    background:#0052d4;
-    color:white;
-    padding:12px 20px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-}
+        tr:nth-child(even){
+            background:#f2f2f2;
+        }
 
-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:30px;
-    background:white;
-}
-
-th,td{
-    border:1px solid #ddd;
-    padding:15px;
-    text-align:center;
-}
-
-th{
-    background:#0052d4;
-    color:white;
-}
-
-.back-btn{
-    display:inline-block;
-    margin-top:20px;
-    background:#0052d4;
-    color:white;
-    padding:10px 20px;
-    text-decoration:none;
-    border-radius:8px;
-}
-
-</style>
+        .back{
+            display:block;
+            width:150px;
+            margin:20px auto;
+            text-align:center;
+            padding:10px;
+            background:#28a745;
+            color:white;
+            text-decoration:none;
+            border-radius:5px;
+        }
+    </style>
 
 </head>
 
 <body>
 
 <div class="header">
-
-<h1 id="title">
-Prescriptions
-</h1>
-
-<p id="subtitle">
-Manage Patient Prescriptions
-</p>
-
-<select id="languageSelect"
-onchange="changeLanguage()">
-
-<option value="en">English</option>
-<option value="hi">Hindi</option>
-<option value="te">Telugu</option>
-
-</select>
-
+    <h1 id="title">Patient Prescriptions</h1>
 </div>
 
-<form method="POST">
-
-<input type="text"
-name="patient_name"
-id="patient-input"
-placeholder="Patient Name"
-required>
-
-<input type="text"
-name="medicine"
-id="medicine-input"
-placeholder="Medicine"
-required>
-
-<input type="text"
-name="dosage"
-id="dosage-input"
-placeholder="Dosage"
-required>
-
-<button type="submit"
-id="save-btn">
-
-Save Prescription
-
-</button>
-
-</form>
+<div class="language">
+    <select id="language" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="te">తెలుగు</option>
+    </select>
+</div>
 
 <table>
 
 <tr>
-
-<th id="patient-head">
-Patient
-</th>
-
-<th id="medicine-head">
-Medicine
-</th>
-
-<th id="dosage-head">
-Dosage
-</th>
-
+    <th id="patient">Patient</th>
+    <th id="doctor">Doctor</th>
+    <th id="symptoms">Symptoms</th>
+    <th id="medicine">Medicine</th>
+    <th id="dosage">Dosage</th>
 </tr>
 
-{% for prescription in prescriptions %}
+{% for p in prescriptions %}
 
 <tr>
-
-<td>{{ prescription.patient_name }}</td>
-
-<td>{{ prescription.medicine }}</td>
-
-<td>{{ prescription.dosage }}</td>
-
+    <td>{{ p.patient_name }}</td>
+    <td>{{ p.doctor_name }}</td>
+    <td>{{ p.symptoms }}</td>
+    <td>{{ p.medicine }}</td>
+    <td>{{ p.dosage }}</td>
 </tr>
 
 {% endfor %}
 
 </table>
 
-<a href="/doctor"
-class="back-btn"
-id="back-btn">
-
-Back to Dashboard
-
+<a href="/patient" class="back" id="back">
+    Back
 </a>
 
 <script>
 
-const translations = {
+const translations={
 
 en:{
-title:"Prescriptions",
-subtitle:"Manage Patient Prescriptions",
-patientPlaceholder:"Patient Name",
-medicinePlaceholder:"Medicine",
-dosagePlaceholder:"Dosage",
-save:"Save Prescription",
+title:"Patient Prescriptions",
 patient:"Patient",
+doctor:"Doctor",
+symptoms:"Symptoms",
 medicine:"Medicine",
 dosage:"Dosage",
-back:"Back to Dashboard"
+back:"Back"
 },
 
 hi:{
-title:"दवाइयाँ",
-subtitle:"मरीज की दवाइयों का प्रबंधन",
-patientPlaceholder:"मरीज का नाम",
-medicinePlaceholder:"दवा",
-dosagePlaceholder:"खुराक",
-save:"दवा सेव करें",
-patient:"मरीज",
+title:"रोगी की पर्चियाँ",
+patient:"रोगी",
+doctor:"डॉक्टर",
+symptoms:"लक्षण",
 medicine:"दवा",
 dosage:"खुराक",
-back:"डैशबोर्ड पर वापस जाएं"
+back:"वापस"
 },
 
 te:{
-title:"ఔషధాలు",
-subtitle:"రోగి మందులను నిర్వహించండి",
-patientPlaceholder:"రోగి పేరు",
-medicinePlaceholder:"మందు",
-dosagePlaceholder:"మోతాదు",
-save:"ఔషధాన్ని సేవ్ చేయండి",
+title:"రోగి ప్రిస్క్రిప్షన్లు",
 patient:"రోగి",
+doctor:"వైద్యుడు",
+symptoms:"లక్షణాలు",
 medicine:"మందు",
 dosage:"మోతాదు",
-back:"డాష్‌బోర్డ్‌కు తిరిగి వెళ్ళు"
+back:"వెనక్కి"
 }
 
 };
-
-function applyLanguage(){
-
-let lang =
-localStorage.getItem("language") || "en";
-
-document.getElementById("title").innerText =
-translations[lang].title;
-
-document.getElementById("subtitle").innerText =
-translations[lang].subtitle;
-
-document.getElementById("patient-input").placeholder =
-translations[lang].patientPlaceholder;
-
-document.getElementById("medicine-input").placeholder =
-translations[lang].medicinePlaceholder;
-
-document.getElementById("dosage-input").placeholder =
-translations[lang].dosagePlaceholder;
-
-document.getElementById("save-btn").innerText =
-translations[lang].save;
-
-document.getElementById("patient-head").innerText =
-translations[lang].patient;
-
-document.getElementById("medicine-head").innerText =
-translations[lang].medicine;
-
-document.getElementById("dosage-head").innerText =
-translations[lang].dosage;
-
-document.getElementById("back-btn").innerText =
-translations[lang].back;
-
-}
 
 function changeLanguage(){
 
-let lang =
-document.getElementById("languageSelect").value;
+let lang=document.getElementById("language").value;
 
-localStorage.setItem("language", lang);
-
-applyLanguage();
+document.getElementById("title").innerText=translations[lang].title;
+document.getElementById("patient").innerText=translations[lang].patient;
+document.getElementById("doctor").innerText=translations[lang].doctor;
+document.getElementById("symptoms").innerText=translations[lang].symptoms;
+document.getElementById("medicine").innerText=translations[lang].medicine;
+document.getElementById("dosage").innerText=translations[lang].dosage;
+document.getElementById("back").innerText=translations[lang].back;
 
 }
-
-window.onload = function(){
-
-let savedLang =
-localStorage.getItem("language") || "en";
-
-document.getElementById("languageSelect").value =
-savedLang;
-
-applyLanguage();
-
-};
 
 </script>
 

@@ -101,6 +101,10 @@ Date
 Time
 </th>
 
+<th id="symptoms-head">
+Symptoms
+</th>
+
 </tr>
 
 {% for appointment in appointments %}
@@ -114,6 +118,8 @@ Time
 <td>{{ appointment.appointment_date }}</td>
 
 <td>{{ appointment.appointment_time }}</td>
+
+<td>{{ appointment.symptoms }}</td>
 
 </tr>
 
@@ -140,6 +146,7 @@ title:"Doctor Appointments",
 subtitle:"View Patient Appointments",
 patient:"Patient Name",
 doctor:"Doctor Name",
+symptoms:"Symptoms",
 date:"Date",
 time:"Time",
 back:"Back to Dashboard"
@@ -150,6 +157,7 @@ title:"डॉक्टर अपॉइंटमेंट्स",
 subtitle:"मरीज अपॉइंटमेंट देखें",
 patient:"मरीज का नाम",
 doctor:"डॉक्टर का नाम",
+symptoms:"लक्षण",
 date:"तारीख",
 time:"समय",
 back:"डैशबोर्ड पर वापस जाएं"
@@ -160,6 +168,7 @@ title:"డాక్టర్ అపాయింట్‌మెంట్లు",
 subtitle:"రోగి అపాయింట్‌మెంట్లు చూడండి",
 patient:"రోగి పేరు",
 doctor:"డాక్టర్ పేరు",
+symptoms:"లక్షణాలు",
 date:"తేదీ",
 time:"సమయం",
 back:"డాష్‌బోర్డ్‌కు తిరిగి వెళ్ళు"
@@ -188,6 +197,9 @@ translations[lang].date;
 
 document.getElementById("time-head").innerText =
 translations[lang].time;
+
+document.getElementById("symptoms-head").innerText =
+translations[lang].symptoms;
 
 document.getElementById("back-btn").innerText =
 translations[lang].back;

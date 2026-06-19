@@ -233,61 +233,38 @@
 
         </div>
 
-    </div>
-
     <div class="record-card">
 
-        <h3 id="checkup-title">
-            Recent Checkup
-        </h3>
-
-        <p>
-
-            <span id="date-label">
-                📅 Date:
-            </span>
-
-            {{ record.checkup_date }}
-
-        </p>
-
-        <p>
-
-            <span id="doctor-label">
-                👨‍⚕️ Doctor:
-            </span>
-
-            <span id="doctor-name">
-                {{ record.doctor }}
-            </span>
-
-        </p>
-
-        <p>
-
-            <span id="status-label">
-                🟢 Status:
-            </span>
-
-            <span id="status-text"
-                  class="healthy-status">
-
-                {{ record.status }}
-
-            </span>
-
-        </p>
-
-    </div>
+    <h3>Patient Details</h3>
 
     <div style="text-align:center;">
+        <img src="{{ url_for('static', filename='patient.png') }}" class="profile-pic">
+    </div>
 
-        <button class="download-btn">
-            onclick="downloadReport()">
+    <p><strong>👤 Name:</strong> {{ session['username'] }}</p>
+<p><strong>🧑 Age:</strong> 21</p>
+<p><strong>🩸 Blood Group:</strong> O+</p>
+<p><strong>📋 Medical History:</strong> General Health Checkup Completed</p>
+<p><strong>👨‍⚕️ Doctor:</strong> {{ record.doctor }}</p>
+<p><strong>📅 Date:</strong> {{ record.date }}</p>
+<p><strong>⏰ Time:</strong> {{ record.time }}</p>
 
-            Download Report
+<div class="record-card">
 
-        </button>
+    <h3>Recent Checkup</h3>
+
+    <p><strong>📅 Date:</strong> 19-06-2026</p>
+
+    <p><strong>👨‍⚕️ Doctor:</strong> Dr. Ravi Kumar</p>
+
+    <p><strong>🟢 Status:</strong> Healthy</p>
+
+</div>
+
+    <div style="text-align:center;">
+<button class="download-btn" onclick="downloadReport()">
+    Download Report
+</button>
 
     </div>
 

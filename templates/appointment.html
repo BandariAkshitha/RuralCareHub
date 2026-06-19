@@ -3,87 +3,82 @@
 
 <head>
 
-    <title>
-        Appointment Booking - RuralCareHub
-    </title>
+<title>Appointment Booking - RuralCareHub</title>
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
+<style>
 
-        body{
-            font-family:Arial, sans-serif;
-            background:#f4f7fb;
-            margin:0;
-        }
+body{
+font-family:Arial,sans-serif;
+background:#f4f7fb;
+margin:0;
+}
 
-        .header{
-            background:#0077cc;
-            color:white;
-            text-align:center;
-            padding:20px;
-        }
+.header{
+background:#0077cc;
+color:white;
+text-align:center;
+padding:20px;
+}
 
-        .container{
-            width:50%;
-            margin:30px auto;
-            background:white;
-            padding:30px;
-            border-radius:10px;
-            box-shadow:0 3px 10px rgba(0,0,0,0.1);
-        }
+.container{
+width:50%;
+margin:30px auto;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
 
-        label{
-            font-weight:bold;
-        }
+label{
+font-weight:bold;
+}
 
-        input, select{
-            width:100%;
-            padding:10px;
-            margin-top:5px;
-            margin-bottom:15px;
-            border:1px solid #ccc;
-            border-radius:5px;
-            box-sizing:border-box;
-        }
+input,select{
+width:100%;
+padding:10px;
+margin-top:5px;
+margin-bottom:15px;
+border:1px solid #ccc;
+border-radius:5px;
+box-sizing:border-box;
+}
 
-        .btn{
-            width:100%;
-            padding:12px;
-            background:#28a745;
-            color:white;
-            border:none;
-            border-radius:5px;
-            cursor:pointer;
-            font-size:16px;
-        }
+.btn{
+width:100%;
+padding:12px;
+background:#28a745;
+color:white;
+border:none;
+border-radius:5px;
+font-size:16px;
+cursor:pointer;
+}
 
-        .btn:hover{
-            background:#218838;
-        }
+.btn:hover{
+background:#218838;
+}
 
-        .back-btn{
-            display:block;
-            width:150px;
-            text-align:center;
-            margin:20px auto;
-            padding:10px;
-            background:#0077cc;
-            color:white;
-            text-decoration:none;
-            border-radius:5px;
-        }
+.back-btn{
+display:block;
+width:150px;
+margin:20px auto;
+padding:10px;
+text-align:center;
+background:#0077cc;
+color:white;
+text-decoration:none;
+border-radius:5px;
+}
 
-        @media(max-width:768px){
+@media(max-width:768px){
+.container{
+width:90%;
+}
+}
 
-            .container{
-                width:90%;
-                padding:20px;
-            }
-        }
-
-    </style>
+</style>
 
 </head>
 
@@ -91,196 +86,164 @@
 
 <div class="header">
 
-    <h1 id="title">
-        Appointment Booking
-    </h1>
+<h1 id="title">Appointment Booking</h1>
 
-    <br>
+<select id="languageSelect" onchange="changeLanguage()">
 
-    <select id="languageSelect"
-            onchange="changeLanguage()">
+<option value="en">English</option>
+<option value="te">Telugu</option>
+<option value="hi">Hindi</option>
 
-        <option value="en">
-            English
-        </option>
-
-        <option value="te">
-            Telugu
-        </option>
-
-        <option value="hi">
-            Hindi
-        </option>
-
-    </select>
+</select>
 
 </div>
 
 <div class="container">
 
-    <form action="/appointment"
-          method="POST">
+<form action="/appointment" method="POST">
 
-        <label id="patient-label">
-            Patient Name
-        </label>
+<label id="patient-label">Patient Name</label>
 
-        <input type="text"
-               name="patient_name"
-               placeholder="Enter Patient Name"
-               required>
+<input type="text" name="patient_name" placeholder="Enter Patient Name" required>
 
-        <label id="doctor-label">
-            Select Doctor
-        </label>
+<label id="symptoms-label">Symptoms</label>
 
-        <select name="doctor_name"
-                required>
+<select id="symptomSelect" name="symptoms" onchange="selectDoctor()" required>
 
-            <option id="doc1">
-                Dr. Ravi Kumar
-            </option>
+<option value="">Select Symptoms</option>
+<option value="Fever">Fever</option>
+<option value="Cold">Cold</option>
+<option value="Cough">Cough</option>
+<option value="Headache">Headache</option>
+<option value="Body Pain">Body Pain</option>
+<option value="Stomach Pain">Stomach Pain</option>
 
-            <option id="doc2">
-                Dr. Priya Sharma
-            </option>
+</select>
 
-            <option id="doc3">
-                Dr. Suresh Reddy
-            </option>
+<label id="doctor-label">Doctor</label>
 
-        </select>
+<select id="doctorSelect" name="doctor_name" required>
 
-        <label id="date-label">
-            Appointment Date
-        </label>
+<option value="Dr. Ravi Kumar">Dr. Ravi Kumar</option>
+<option value="Dr. Priya Sharma">Dr. Priya Sharma</option>
+<option value="Dr. Suresh Reddy">Dr. Suresh Reddy</option>
 
-        <input type="date"
-               name="appointment_date"
-               required>
+</select>
 
-        <label id="time-label">
-            Appointment Time
-        </label>
+<label id="date-label">Appointment Date</label>
 
-        <input type="time"
-               name="appointment_time"
-               required>
+<input type="date" name="appointment_date" required>
 
-        <button type="submit"
-                class="btn"
-                id="book-btn">
+<label id="time-label">Appointment Time</label>
 
-            Book Appointment
+<input type="time" name="appointment_time" required>
 
-        </button>
+<button class="btn" id="book-btn" type="submit">
 
-    </form>
+Book Appointment
+
+</button>
+
+</form>
 
 </div>
 
-<a href="/patient"
-   class="back-btn"
-   id="back-btn">
+<a href="/patient" class="back-btn" id="back-btn">
 
-    Back
+Back
 
 </a>
 
 <script>
 
-const translations = {
+function selectDoctor(){
 
-    en:{
-        title:"Appointment Booking",
-        patient:"Patient Name",
-        doctor:"Select Doctor",
-        date:"Appointment Date",
-        time:"Appointment Time",
-        book:"Book Appointment",
-        back:"Back",
+let symptom=document.getElementById("symptomSelect").value;
 
-        doc1:"Dr. Ravi Kumar",
-        doc2:"Dr. Priya Sharma",
-        doc3:"Dr. Suresh Reddy"
-    },
+let doctor=document.getElementById("doctorSelect");
 
-    te:{
-        title:"అపాయింట్మెంట్ బుకింగ్",
-        patient:"రోగి పేరు",
-        doctor:"డాక్టర్ ఎంచుకోండి",
-        date:"అపాయింట్మెంట్ తేదీ",
-        time:"అపాయింట్మెంట్ సమయం",
-        book:"అపాయింట్మెంట్ బుక్ చేయండి",
-        back:"వెనక్కి",
+if(symptom=="Fever"||symptom=="Cold"||symptom=="Cough"){
 
-        doc1:"డా. రవి కుమార్",
-        doc2:"డా. ప్రియా శర్మ",
-        doc3:"డా. సురేష్ రెడ్డి"
-    },
+doctor.value="Dr. Ravi Kumar";
 
-    hi:{
-        title:"अपॉइंटमेंट बुकिंग",
-        patient:"मरीज का नाम",
-        doctor:"डॉक्टर चुनें",
-        date:"अपॉइंटमेंट तिथि",
-        time:"अपॉइंटमेंट समय",
-        book:"अपॉइंटमेंट बुक करें",
-        back:"वापस",
+}
 
-        doc1:"डॉ. रवि कुमार",
-        doc2:"डॉ. प्रिया शर्मा",
-        doc3:"डॉ. सुरेश रेड्डी"
-    }
+else if(symptom=="Headache"){
+
+doctor.value="Dr. Priya Sharma";
+
+}
+
+else if(symptom=="Body Pain"||symptom=="Stomach Pain"){
+
+doctor.value="Dr. Suresh Reddy";
+
+}
+
+}
+
+const translations={
+
+en:{
+title:"Appointment Booking",
+patient:"Patient Name",
+symptoms:"Symptoms",
+doctor:"Doctor",
+date:"Appointment Date",
+time:"Appointment Time",
+book:"Book Appointment",
+back:"Back"
+},
+
+te:{
+title:"అపాయింట్మెంట్ బుకింగ్",
+patient:"రోగి పేరు",
+symptoms:"లక్షణాలు",
+doctor:"డాక్టర్",
+date:"అపాయింట్మెంట్ తేదీ",
+time:"అపాయింట్మెంట్ సమయం",
+book:"అపాయింట్మెంట్ బుక్ చేయండి",
+back:"వెనక్కి"
+},
+
+hi:{
+title:"अपॉइंटमेंट बुकिंग",
+patient:"मरीज का नाम",
+symptoms:"लक्षण",
+doctor:"डॉक्टर",
+date:"अपॉइंटमेंट तिथि",
+time:"अपॉइंटमेंट समय",
+book:"अपॉइंटमेंट बुक करें",
+back:"वापस"
+}
+
 };
 
 function changeLanguage(){
 
-    let lang =
-    document.getElementById("languageSelect").value;
+let lang=document.getElementById("languageSelect").value;
 
-    document.getElementById("title").innerText =
-    translations[lang].title;
+document.getElementById("title").innerHTML=translations[lang].title;
+document.getElementById("patient-label").innerHTML=translations[lang].patient;
+document.getElementById("symptoms-label").innerHTML=translations[lang].symptoms;
+document.getElementById("doctor-label").innerHTML=translations[lang].doctor;
+document.getElementById("date-label").innerHTML=translations[lang].date;
+document.getElementById("time-label").innerHTML=translations[lang].time;
+document.getElementById("book-btn").innerHTML=translations[lang].book;
+document.getElementById("back-btn").innerHTML=translations[lang].back;
 
-    document.getElementById("patient-label").innerText =
-    translations[lang].patient;
+localStorage.setItem("language",lang);
 
-    document.getElementById("doctor-label").innerText =
-    translations[lang].doctor;
-
-    document.getElementById("date-label").innerText =
-    translations[lang].date;
-
-    document.getElementById("time-label").innerText =
-    translations[lang].time;
-
-    document.getElementById("book-btn").innerText =
-    translations[lang].book;
-
-    document.getElementById("back-btn").innerText =
-    translations[lang].back;
-
-    document.getElementById("doc1").innerText =
-    translations[lang].doc1;
-
-    document.getElementById("doc2").innerText =
-    translations[lang].doc2;
-
-    document.getElementById("doc3").innerText =
-    translations[lang].doc3;
-
-    localStorage.setItem("language",lang);
 }
 
-window.onload = function(){
+window.onload=function(){
 
-    let savedLanguage =
-    localStorage.getItem("language") || "en";
+let lang=localStorage.getItem("language")||"en";
 
-    document.getElementById("languageSelect").value =
-    savedLanguage;
+document.getElementById("languageSelect").value=lang;
 
-    changeLanguage();
+changeLanguage();
+
 }
 
 </script>

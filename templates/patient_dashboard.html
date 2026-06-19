@@ -229,6 +229,14 @@ id="symptom-card">
 
 </a>
 
+<a href="/prescriptions"
+class="card"
+id="prescription-card">
+
+💊 Prescriptions
+
+</a>
+
 </div>
 
 <footer>
@@ -259,7 +267,8 @@ notifications:"Notifications",
 voice:"Voice Assistant",
 language:"Language Support",
 profile:"Profile",
-symptom:"Symptom Checker"
+symptom:"Symptom Checker",
+prescription:"Prescriptions"
 },
 
 hi: {
@@ -275,7 +284,8 @@ notifications:"सूचनाएं",
 voice:"वॉइस असिस्टेंट",
 language:"भाषा समर्थन",
 profile:"प्रोफाइल",
-symptom:"लक्षण जांच"
+symptom:"लक्षण जांच",
+prescription:"दवाइयों का पर्चा"
 },
 
 te: {
@@ -291,7 +301,8 @@ notifications:"నోటిఫికేషన్స్",
 voice:"వాయిస్ అసిస్టెంట్",
 language:"భాషా మద్దతు",
 profile:"ప్రొఫైల్",
-symptom:"లక్షణాల పరిశీలన"
+symptom:"లక్షణాల పరిశీలన",
+prescription:"ప్రిస్క్రిప్షన్లు"
 }
 
 };
@@ -339,6 +350,9 @@ document.getElementById("profile-card").innerText =
 
 document.getElementById("symptom-card").innerText =
 "🩺 " + translations[lang].symptom;
+
+document.getElementById("prescription-card").innerText =
+"💊 " + translations[lang].prescription;
 
 }
 

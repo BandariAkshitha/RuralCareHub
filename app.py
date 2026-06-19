@@ -39,6 +39,8 @@ class Appointment(db.Model):
     appointment_date = db.Column(db.String(50))
 
     appointment_time = db.Column(db.String(50))
+    
+    symptoms = db.Column(db.String(500))
 
 
 # HEALTH RECORD TABLE
@@ -94,6 +96,23 @@ class Prescription(db.Model):
 
     dosage = db.Column(db.String(100))
 
+    symptoms = db.Column(db.String(500))
+
+def get_medicine(symptoms):
+    symptoms = symptoms.lower()
+
+    if "fever" in symptoms:
+        return "Paracetamol"
+    elif "cold" in symptoms:
+        return "Cetirizine"
+    elif "headache" in symptoms:
+        return "Dolo 650"
+    elif "cough" in symptoms:
+        return "Benadryl Syrup"
+    elif "stomach" in symptoms or "stomach pain" in symptoms:
+        return "Pantoprazole"
+    else:
+        return "Consult Doctor"
 
 # HOME PAGE
 @app.route('/')
@@ -229,33 +248,28 @@ def appointment():
     if request.method == 'POST':
 
         patient_name = request.form['patient_name']
-
-        doctor_name = request.form['doctor_name']
-
+        symptoms = request.form['symptoms']
         appointment_date = request.form['appointment_date']
-
         appointment_time = request.form['appointment_time']
 
+        # Automatic doctor selection
+        doctor_name = request.form.get("doctor_name")
+
         new_appointment = Appointment(
-
             patient_name=patient_name,
-
             doctor_name=doctor_name,
-
+            symptoms=symptoms,
             appointment_date=appointment_date,
-
             appointment_time=appointment_time
-
         )
 
         db.session.add(new_appointment)
-
         db.session.commit()
+        
 
-        return redirect('/patient')
+        return redirect('/appointments')
 
     return render_template('appointment.html')
-
 
 # PATIENT RECORDS
 @app.route('/patients')
@@ -287,9 +301,9 @@ def records():
             "doctor":
             latest_appointment.doctor_name,
 
-            "disease":"Fever and Cold",
+            "disease": latest_appointment.symptoms,
 
-            "medicine":"Paracetamol",
+            "medicine": get_medicine(latest_appointment.symptoms),
 
             "date":
             latest_appointment.appointment_date
@@ -444,39 +458,57 @@ def appointments():
 
 
 # PRESCRIPTIONS
-@app.route('/prescriptions', methods=['GET','POST'])
+@app.route('/prescriptions')
 def prescriptions():
 
-    if request.method == 'POST':
+    appointments = Appointment.query.all()
 
-        patient_name = request.form['patient_name']
+    prescription_list = []
 
-        medicine = request.form['medicine']
+    for appointment in appointments:
 
-        dosage = request.form['dosage']
+        symptoms = appointment.symptoms.lower()
 
-        new_prescription = Prescription(
+        if "fever" in symptoms:
+            medicine = "Paracetamol"
+            dosage = "1 Tablet - Twice Daily"
 
-            patient_name=patient_name,
+        elif "cold" in symptoms:
+            medicine = "Cetirizine"
+            dosage = "1 Tablet - Night"
 
-            medicine=medicine,
+        elif "headache" in symptoms:
+            medicine = "Dolo 650"
+            dosage = "1 Tablet - After Food"
 
-            dosage=dosage
+        elif "cough" in symptoms:
+            medicine = "Benadryl Syrup"
+            dosage = "10 ml - Twice Daily"
 
-        )
+        elif "stomach pain" in symptoms:
+            medicine = "Pantoprazole"
+            dosage = "1 Tablet - Before Breakfast"
 
-        db.session.add(new_prescription)
+        elif "body pain" in symptoms:
+            medicine = "Aceclofenac"
+            dosage = "1 Tablet - After Food"
 
-        db.session.commit()
+        else:
+            medicine = "Consult Doctor"
+            dosage = "As Directed"
 
-    prescriptions = Prescription.query.all()
+        prescription_list.append({
+            "patient_name": appointment.patient_name,
+            "doctor_name": appointment.doctor_name,
+            "symptoms": appointment.symptoms,
+            "medicine": medicine,
+            "dosage": dosage
+        })
 
     return render_template(
-        'prescriptions.html',
-        prescriptions=prescriptions
+        "prescriptions.html",
+        prescriptions=prescription_list
     )
-
-
 # PATIENT HISTORY
 @app.route('/history')
 def history():
@@ -488,40 +520,31 @@ def history():
     if latest_appointment:
 
         record = {
-
-            "patient_name":
-            latest_appointment.patient_name,
-
-            "doctor":
-            latest_appointment.doctor_name,
-
-            "date":
-            latest_appointment.appointment_date,
-
-            "time":
-            latest_appointment.appointment_time
-
+            "patient_name": latest_appointment.patient_name,
+            "doctor": latest_appointment.doctor_name,
+            "date": latest_appointment.appointment_date,
+            "time": latest_appointment.appointment_time,
+            "age": "21",
+            "blood_group": "O+",
+            "history": "General Health Checkup"
         }
 
     else:
 
         record = {
-
-            "patient_name":"No Patient",
-
-            "doctor":"-",
-
-            "date":"-",
-
-            "time":"-"
-
+            "patient_name": "No Patient",
+            "doctor": "-",
+            "date": "-",
+            "time": "-",
+            "age": "-",
+            "blood_group": "-",
+            "history": "-"
         }
 
     return render_template(
         'patient_history.html',
         record=record
     )
-
 
 # AVAILABILITY STATUS
 @app.route('/availability')
