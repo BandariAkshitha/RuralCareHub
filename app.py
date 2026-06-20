@@ -41,6 +41,9 @@ class Appointment(db.Model):
     appointment_time = db.Column(db.String(50))
     
     symptoms = db.Column(db.String(500))
+    
+    age = db.Column(db.String(10))
+    blood_group = db.Column(db.String(10))
 
 
 # HEALTH RECORD TABLE
@@ -251,17 +254,21 @@ def appointment():
         symptoms = request.form['symptoms']
         appointment_date = request.form['appointment_date']
         appointment_time = request.form['appointment_time']
+        age = request.form['age']
+        blood_group = request.form['blood_group']
 
         # Automatic doctor selection
         doctor_name = request.form.get("doctor_name")
 
         new_appointment = Appointment(
-            patient_name=patient_name,
-            doctor_name=doctor_name,
-            symptoms=symptoms,
-            appointment_date=appointment_date,
-            appointment_time=appointment_time
-        )
+    patient_name=patient_name,
+    doctor_name=doctor_name,
+    symptoms=symptoms,
+    appointment_date=appointment_date,
+    appointment_time=appointment_time,
+    age=age,
+    blood_group=blood_group
+)
 
         db.session.add(new_appointment)
         db.session.commit()
@@ -524,8 +531,8 @@ def history():
             "doctor": latest_appointment.doctor_name,
             "date": latest_appointment.appointment_date,
             "time": latest_appointment.appointment_time,
-            "age": "21",
-            "blood_group": "O+",
+            "age": latest_appointment.age,
+            "blood_group": latest_appointment.blood_group,
             "history": "General Health Checkup"
         }
 

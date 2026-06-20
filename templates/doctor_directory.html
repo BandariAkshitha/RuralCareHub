@@ -69,24 +69,25 @@
 </div>
 
 <div class="container">
+<div class="doctor-card">
+    <h3 id="doc1-name">Dr. Ravi Kumar</h3>
+    <p id="doc1-specialization">General Physician</p>
+    <p id="city1">Hyderabad</p>
+    <button onclick="bookAppointment('Dr. Ravi Kumar')">Book Appointment</button>
+</div>
+<div class="doctor-card">
+    <h3 id="doc2-name">Dr. Priya Sharma</h3>
+    <p id="doc2-specialization">Cardiologist</p>
+    <p id="city2">Hyderabad</p>
+    <button onclick="bookAppointment('Dr. Priya Sharma')">Book Appointment</button>
+</div>
 
-    <div class="doctor-card">
-        <h3 id="doc1-name">Dr. Ravi Kumar</h3>
-        <p id="doc1-specialization">General Physician</p>
-        <p id="city1">Hyderabad</p>
-    </div>
-
-    <div class="doctor-card">
-        <h3 id="doc2-name">Dr. Priya Sharma</h3>
-        <p id="doc2-specialization">Cardiologist</p>
-        <p id="city2">Hyderabad</p>
-    </div>
-
-    <div class="doctor-card">
-        <h3 id="doc3-name">Dr. Suresh Reddy</h3>
-        <p id="doc3-specialization">Pediatrician</p>
-        <p id="city3">Hyderabad</p>
-    </div>
+<div class="doctor-card">
+    <h3 id="doc3-name">Dr. Suresh Reddy</h3>
+    <p id="doc3-specialization">Pediatrician</p>
+    <p id="city3">Hyderabad</p>
+    <button onclick="bookAppointment('Dr. Suresh Reddy')">Book Appointment</button>
+</div>
 
 </div>
 
@@ -187,8 +188,20 @@ window.onload = function(){
     changeLanguage();
 }
 
+function bookAppointment(doctorName) {
+
+    localStorage.setItem(
+        "appointmentNotification",
+        "Your appointment with " + doctorName + " has been confirmed."
+    );
+
+    alert("Appointment booked successfully!");
+
+    window.location.href = "/notifications";
+}
+
 
 </script>
 
 </body>
-</html>
+</html>+

@@ -242,8 +242,8 @@
     </div>
 
     <p><strong>👤 Name:</strong> {{ session['username'] }}</p>
-<p><strong>🧑 Age:</strong> 21</p>
-<p><strong>🩸 Blood Group:</strong> O+</p>
+<p><strong>🧑 Age:</strong> {{ record.age }}</p>
+<p><strong>🩸 Blood Group:</strong> {{ record.blood_group }}</p>
 <p><strong>📋 Medical History:</strong> General Health Checkup Completed</p>
 <p><strong>👨‍⚕️ Doctor:</strong> {{ record.doctor }}</p>
 <p><strong>📅 Date:</strong> {{ record.date }}</p>
@@ -253,9 +253,9 @@
 
     <h3>Recent Checkup</h3>
 
-    <p><strong>📅 Date:</strong> 19-06-2026</p>
+    <p><strong>📅 Date:</strong> {{ record.date }}</p>
 
-    <p><strong>👨‍⚕️ Doctor:</strong> Dr. Ravi Kumar</p>
+    <p><strong>👨‍⚕️ Doctor:</strong> {{ record.doctor }}</p>
 
     <p><strong>🟢 Status:</strong> Healthy</p>
 
