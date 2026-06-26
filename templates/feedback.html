@@ -1,285 +1,210 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Feedback Management</title>
+<title>Patient Feedback - RuralCareHub</title>
 
 <style>
 
 body{
     margin:0;
-    font-family:Arial;
+    font-family:Arial,sans-serif;
     background:#f4f7fa;
 }
 
-/* HEADER */
-
-.header{
-    background:linear-gradient(to right,#0052d4,#00c6ff);
-    color:white;
-    text-align:center;
-    padding:30px;
-}
-
-.header h1{
-    margin:0;
-    font-size:42px;
-}
-
-.header p{
-    margin-top:10px;
-}
-
-/* LANGUAGE */
-
-select{
-    padding:10px;
-    border:none;
-    border-radius:8px;
-    margin-top:15px;
-}
-
-/* CONTAINER */
-
-.container{
-    width:80%;
-    margin:40px auto;
-}
-
-/* SEARCH */
-
-.search-box{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:10px;
-    margin-bottom:25px;
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
-
-/* FEEDBACK CARD */
-
-.feedback-card{
+.top-bar{
+    display:flex;
+    justify-content:flex-end;
+    padding:15px;
     background:white;
-    padding:25px;
-    margin-bottom:20px;
-    border-radius:15px;
-    box-shadow:0 0 15px rgba(0,0,0,0.1);
-    transition:0.3s;
 }
 
-.feedback-card:hover{
-    transform:translateY(-5px);
-}
-
-.feedback-card h3{
-    color:#00a2ff;
-    margin-bottom:10px;
-}
-
-/* RATING */
-
-.rating span{
-    font-size:28px;
-    cursor:pointer;
-    opacity:0.3;
-}
-
-/* BUTTONS */
-
-.btn{
-    padding:10px 18px;
+.dark-btn{
+    padding:10px 15px;
     border:none;
     border-radius:8px;
+    background:black;
     color:white;
     cursor:pointer;
-    font-weight:bold;
-    margin-top:10px;
     margin-right:10px;
 }
 
-.delete-btn{
-    background:#dc3545;
+.container{
+    width:50%;
+    margin:30px auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,.2);
+}
+
+h2{
+    text-align:center;
+    color:#0052d4;
+}
+
+label{
+    font-weight:bold;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:12px;
+    margin-top:8px;
+    margin-bottom:20px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:16px;
+}
+
+textarea{
+    resize:none;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#0052d4;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#003ea8;
 }
 
 .back-btn{
-    background:#007bff;
+    display:block;
+    text-align:center;
     text-decoration:none;
-    display:inline-block;
+    background:#28a745;
+    color:white;
+    padding:12px;
+    border-radius:8px;
+    margin-top:20px;
+    font-weight:bold;
 }
 
-/* FOOTER */
+.back-btn:hover{
+    background:#1f7d34;
+}
 
-footer{
-    background:#0052d4;
-    color:white;
+.message{
+    color:green;
     text-align:center;
-    padding:15px;
-    margin-top:40px;
+    font-weight:bold;
+}
+
+.dark-mode{
+    background:#121212;
+    color:white;
+}
+
+.dark-mode .container{
+    background:#1f1f1f;
+    color:white;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<!-- HEADER -->
+<div class="top-bar">
 
-<div class="header">
+<button onclick="toggleDarkMode()" class="dark-btn">
+🌙 Dark Mode
+</button>
 
-<h1 id="title">Feedback Management</h1>
-
-<p id="subtitle">
-Patient & Doctor Feedback Panel
-</p>
-
-<select id="languageSelect"
-onchange="changeLanguage()">
-
+<select id="languageSelect" onchange="changeLanguage()">
 <option value="en">English</option>
 <option value="hi">हिंदी</option>
 <option value="te">తెలుగు</option>
-
 </select>
 
 </div>
 
-<!-- MAIN -->
-
 <div class="container">
 
-<input type="text"
-class="search-box"
-id="searchInput"
-placeholder="Search Feedback..."
-onkeyup="searchFeedback()">
+<h2 id="title">Patient Feedback</h2>
 
-<!-- FEEDBACK 1 -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<p class="message">{{ message }}</p>
+{% endfor %}
+{% endif %}
+{% endwith %}
 
-<div class="feedback-card">
+<form action="/submit_feedback" method="POST">
 
-<h3 id="patientFeedbackTitle">
-Patient Feedback
-</h3>
+<label id="nameLabel">Patient Name</label>
+<input type="text" name="name" required>
 
-<div class="rating">
+<label id="ratingLabel">Rating</label>
 
-<span onclick="rate(this,1)">⭐</span>
-<span onclick="rate(this,2)">⭐</span>
-<span onclick="rate(this,3)">⭐</span>
-<span onclick="rate(this,4)">⭐</span>
-<span onclick="rate(this,5)">⭐</span>
+<select name="rating" required>
+<option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+<option value="4">⭐⭐⭐⭐ Good</option>
+<option value="3">⭐⭐⭐ Average</option>
+<option value="2">⭐⭐ Poor</option>
+<option value="1">⭐ Very Poor</option>
+</select>
 
-</div>
+<label id="commentLabel">Comments</label>
 
-<p>
-Excellent healthcare service and quick response.
-</p>
+<textarea name="comment" rows="5" required></textarea>
 
-<button class="btn delete-btn"
-onclick="deleteFeedback(this)">
-Delete
+<button type="submit" id="submitBtn">
+Submit Feedback
 </button>
 
-</div>
+</form>
 
-<!-- FEEDBACK 2 -->
-
-<div class="feedback-card">
-
-<h3 id="doctorFeedbackTitle">
-Doctor Feedback
-</h3>
-
-<div class="rating">
-
-<span onclick="rate(this,1)">⭐</span>
-<span onclick="rate(this,2)">⭐</span>
-<span onclick="rate(this,3)">⭐</span>
-<span onclick="rate(this,4)">⭐</span>
-<span onclick="rate(this,5)">⭐</span>
-
-</div>
-
-<p>
-System is easy to use and appointments are managed well.
-</p>
-
-<button class="btn delete-btn"
-onclick="deleteFeedback(this)">
-Delete
-</button>
-
-</div>
-
-<!-- BACK BUTTON -->
-
-<a href="/admin"
-class="btn back-btn"
-id="backBtn">
-
+<a href="/admin_dashboard" class="back-btn" id="backBtn">
 ⬅ Back to Dashboard
-
 </a>
 
 </div>
 
-<!-- FOOTER -->
-
-<footer>
-
-<p>
-Emergency Number: 108 |
-Email: support@ruralcarehub.com
-</p>
-
-<p>
-© 2026 RuralCareHub
-</p>
-
-</footer>
-
-<!-- JAVASCRIPT -->
-
 <script>
 
-const translations = {
+const translations={
 
 en:{
-title:"Feedback Management",
-subtitle:"Patient & Doctor Feedback Panel",
-patient:"Patient Feedback",
-doctor:"Doctor Feedback",
-back:"Back to Dashboard"
+title:"Patient Feedback",
+name:"Patient Name",
+rating:"Rating",
+comment:"Comments",
+submit:"Submit Feedback",
+back:"⬅ Back to Dashboard"
 },
 
 hi:{
-title:"फीडबैक प्रबंधन",
-subtitle:"रोगी और डॉक्टर फीडबैक पैनल",
-patient:"रोगी फीडबैक",
-doctor:"डॉक्टर फीडबैक",
-back:"डैशबोर्ड पर वापस जाएं"
+title:"रोगी फीडबैक",
+name:"रोगी का नाम",
+rating:"रेटिंग",
+comment:"टिप्पणी",
+submit:"फीडबैक जमा करें",
+back:"⬅ डैशबोर्ड पर वापस जाएँ"
 },
 
 te:{
-title:"ఫీడ్‌బ్యాక్ నిర్వహణ",
-subtitle:"రోగి & డాక్టర్ ఫీడ్‌బ్యాక్ ప్యానెల్",
-patient:"రోగి ఫీడ్‌బ్యాక్",
-doctor:"డాక్టర్ ఫీడ్‌బ్యాక్",
-back:"డాష్‌బోర్డ్‌కు వెళ్ళు"
+title:"రోగి అభిప్రాయం",
+name:"రోగి పేరు",
+rating:"రేటింగ్",
+comment:"వ్యాఖ్య",
+submit:"ఫీడ్‌బ్యాక్ పంపండి",
+back:"⬅ డాష్‌బోర్డ్‌కు తిరిగి వెళ్ళండి"
 }
 
 };
 
 function changeLanguage(){
 
-let lang =
-document.getElementById("languageSelect").value;
+let lang=document.getElementById("languageSelect").value;
 
 localStorage.setItem("language",lang);
 
@@ -289,96 +214,35 @@ applyLanguage(lang);
 
 function applyLanguage(lang){
 
-document.getElementById("title").innerHTML =
-translations[lang].title;
+document.getElementById("title").innerHTML=translations[lang].title;
 
-document.getElementById("subtitle").innerHTML =
-translations[lang].subtitle;
+document.getElementById("nameLabel").innerHTML=translations[lang].name;
 
-document.getElementById("patientFeedbackTitle").innerHTML =
-translations[lang].patient;
+document.getElementById("ratingLabel").innerHTML=translations[lang].rating;
 
-document.getElementById("doctorFeedbackTitle").innerHTML =
-translations[lang].doctor;
+document.getElementById("commentLabel").innerHTML=translations[lang].comment;
 
-document.getElementById("backBtn").innerHTML =
-"⬅ " + translations[lang].back;
+document.getElementById("submitBtn").innerHTML=translations[lang].submit;
+
+document.getElementById("backBtn").innerHTML=translations[lang].back;
 
 }
 
-/* SEARCH */
+window.onload=function(){
 
-function searchFeedback(){
+let lang=localStorage.getItem("language")||"en";
 
-let input =
-document.getElementById("searchInput").value.toLowerCase();
+document.getElementById("languageSelect").value=lang;
 
-let cards =
-document.getElementsByClassName("feedback-card");
-
-for(let i=0;i<cards.length;i++){
-
-let text =
-cards[i].innerText.toLowerCase();
-
-if(text.includes(input)){
-
-cards[i].style.display = "block";
-
-}else{
-
-cards[i].style.display = "none";
+applyLanguage(lang);
 
 }
 
-}
+function toggleDarkMode(){
+
+document.body.classList.toggle("dark-mode");
 
 }
-
-/* DELETE */
-
-function deleteFeedback(button){
-
-button.parentElement.remove();
-
-}
-
-/* STAR RATING */
-
-function rate(element,value){
-
-let stars =
-element.parentElement.children;
-
-for(let i=0;i<stars.length;i++){
-
-if(i < value){
-
-stars[i].style.opacity = "1";
-
-}else{
-
-stars[i].style.opacity = "0.3";
-
-}
-
-}
-
-}
-
-/* LOAD LANGUAGE */
-
-window.onload = function(){
-
-let savedLang =
-localStorage.getItem("language") || "en";
-
-document.getElementById("languageSelect").value =
-savedLang;
-
-applyLanguage(savedLang);
-
-};
 
 </script>
 

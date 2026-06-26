@@ -236,6 +236,9 @@ id="prescription-card">
 💊 Prescriptions
 
 </a>
+<a href="/feedback" class="card" id="feedback-card">
+    ⭐ Feedback
+</a>
 
 </div>
 
@@ -269,6 +272,7 @@ language:"Language Support",
 profile:"Profile",
 symptom:"Symptom Checker",
 prescription:"Prescriptions"
+feedback:"Feedback"
 },
 
 hi: {
@@ -286,6 +290,7 @@ language:"भाषा समर्थन",
 profile:"प्रोफाइल",
 symptom:"लक्षण जांच",
 prescription:"दवाइयों का पर्चा"
+feedback:"प्रतिक्रिया"
 },
 
 te: {
@@ -303,6 +308,7 @@ language:"భాషా మద్దతు",
 profile:"ప్రొఫైల్",
 symptom:"లక్షణాల పరిశీలన",
 prescription:"ప్రిస్క్రిప్షన్లు"
+feedback:"అభిప్రాయం"
 }
 
 };
@@ -353,6 +359,9 @@ document.getElementById("symptom-card").innerText =
 
 document.getElementById("prescription-card").innerText =
 "💊 " + translations[lang].prescription;
+
+document.getElementById("feedback-card").innerText =
+"⭐ " + translations[lang].feedback;
 
 }
 

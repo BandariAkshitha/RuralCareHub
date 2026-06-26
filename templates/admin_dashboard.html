@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <title>Admin Dashboard - RuralCareHub</title>
 
 <style>
@@ -68,6 +67,15 @@ body{
     transform:translateY(-5px);
 }
 
+.feedback-box{
+    background:white;
+    padding:15px;
+    margin:15px auto;
+    width:80%;
+    border-radius:10px;
+    box-shadow:0 2px 5px gray;
+}
+
 footer{
     background:#0052d4;
     color:white;
@@ -91,7 +99,8 @@ footer{
     color:white;
 }
 
-.dark-mode .card{
+.dark-mode .card,
+.dark-mode .feedback-box{
     background:#1f1f1f;
     color:white;
 }
@@ -112,47 +121,24 @@ footer{
 🌙 Dark Mode
 </button>
 
-<a href="/login"
-class="logout-btn"
-id="logout-btn">
-
+<a href="/login" class="logout-btn" id="logout-btn">
 Logout
-
 </a>
 
 </div>
 
 <div class="header">
 
-<img src="{{ url_for('static', filename='logo.jpeg') }}"
-class="logo">
+<img src="{{ url_for('static', filename='logo.jpeg') }}" class="logo">
 
-<h1 id="dashboard-title">
+<h1 id="dashboard-title">Admin Dashboard</h1>
 
-Admin Dashboard
+<p id="subtitle">Healthcare System Management</p>
 
-</h1>
-
-<p id="subtitle">
-
-Healthcare System Management
-
-</p>
-
-<select id="languageSelect"
-onchange="changeLanguage()"
-style="
-padding:10px;
-border-radius:8px;
-margin-top:15px;
-font-size:16px;
-border:none;
-">
+<select id="languageSelect" onchange="changeLanguage()" style="padding:10px;border-radius:8px;margin-top:15px;font-size:16px;border:none;">
 
 <option value="en">English</option>
-
 <option value="hi">हिंदी</option>
-
 <option value="te">తెలుగు</option>
 
 </select>
@@ -161,71 +147,55 @@ border:none;
 
 <div class="dashboard-grid">
 
-<a href="/manage-doctors"
-class="card"
-id="doctors-card">
-
+<a href="/manage-doctors" class="card" id="doctors-card">
 👨‍⚕️ Manage Doctors
-
 </a>
 
-<a href="/manage-patients"
-class="card"
-id="patients-card">
-
+<a href="/manage-patients" class="card" id="patients-card">
 🧑 Manage Patients
-
 </a>
 
-<a href="/manage-appointments"
-class="card"
-id="appointments-card">
-
+<a href="/manage-appointments" class="card" id="appointments-card">
 📅 Manage Appointments
-
 </a>
 
-<a href="/reports"
-class="card"
-id="reports-card">
-
+<a href="/reports" class="card" id="reports-card">
 📊 Reports & Analytics
-
 </a>
 
-<a href="/settings"
-class="card"
-id="settings-card">
-
+<a href="/settings" class="card" id="settings-card">
 ⚙️ System Settings
-
 </a>
 
-<a href="/feedback"
-class="card"
-id="feedback-card">
-
+<a href="/feedback" class="card" id="feedback-card">
 💬 Feedback Management
-
 </a>
 
-<a href="/verification"
-class="card"
-id="verification-card">
-
+<a href="/verification" class="card" id="verification-card">
 ✅ User Verification
-
 </a>
 
-<a href="/database"
-class="card"
-id="database-card">
-
+<a href="/database" class="card" id="database-card">
 🗄️ Database Monitoring
-
 </a>
 
 </div>
+
+<hr>
+
+<h2 style="text-align:center;color:#0052d4;">Patient Feedback</h2>
+
+{% if feedbacks %}
+    {% for feedback in feedbacks %}
+    <div class="feedback-box">
+        <p><strong>Name:</strong> {{ feedback.name }}</p>
+        <p><strong>Rating:</strong> ⭐ {{ feedback.rating }}/5</p>
+        <p><strong>Comment:</strong> {{ feedback.comment }}</p>
+    </div>
+    {% endfor %}
+{% else %}
+    <p style="text-align:center;">No feedback submitted yet.</p>
+{% endif %}
 
 <footer>
 
@@ -241,155 +211,75 @@ Email: support@ruralcarehub.com
 <script>
 
 const translations = {
-
-    en: {
-
-        dashboard: "Admin Dashboard",
-
-        subtitle: "Healthcare System Management",
-
-        doctors: "Manage Doctors",
-
-        patients: "Manage Patients",
-
-        appointments: "Manage Appointments",
-
-        reports: "Reports & Analytics",
-
-        settings: "System Settings",
-
-        feedback: "Feedback Management",
-
-        verification: "User Verification",
-
-        database: "Database Monitoring",
-
-        logout: "Logout"
-
+    en:{
+        dashboard:"Admin Dashboard",
+        subtitle:"Healthcare System Management",
+        doctors:"Manage Doctors",
+        patients:"Manage Patients",
+        appointments:"Manage Appointments",
+        reports:"Reports & Analytics",
+        settings:"System Settings",
+        feedback:"Feedback Management",
+        verification:"User Verification",
+        database:"Database Monitoring",
+        logout:"Logout"
     },
-
-    hi: {
-
-        dashboard: "एडमिन डैशबोर्ड",
-
-        subtitle: "स्वास्थ्य प्रणाली प्रबंधन",
-
-        doctors: "डॉक्टर प्रबंधन",
-
-        patients: "मरीज प्रबंधन",
-
-        appointments: "अपॉइंटमेंट प्रबंधन",
-
-        reports: "रिपोर्ट और विश्लेषण",
-
-        settings: "सिस्टम सेटिंग्स",
-
-        feedback: "फीडबैक प्रबंधन",
-
-        verification: "यूजर सत्यापन",
-
-        database: "डेटाबेस मॉनिटरिंग",
-
-        logout: "लॉगआउट"
-
+    hi:{
+        dashboard:"एडमिन डैशबोर्ड",
+        subtitle:"स्वास्थ्य प्रणाली प्रबंधन",
+        doctors:"डॉक्टर प्रबंधन",
+        patients:"मरीज प्रबंधन",
+        appointments:"अपॉइंटमेंट प्रबंधन",
+        reports:"रिपोर्ट और विश्लेषण",
+        settings:"सिस्टम सेटिंग्स",
+        feedback:"फीडबैक प्रबंधन",
+        verification:"यूजर सत्यापन",
+        database:"डेटाबेस मॉनिटरिंग",
+        logout:"लॉगआउट"
     },
-
-    te: {
-
-        dashboard: "అడ్మిన్ డాష్‌బోర్డ్",
-
-        subtitle: "ఆరోగ్య వ్యవస్థ నిర్వహణ",
-
-        doctors: "డాక్టర్ల నిర్వహణ",
-
-        patients: "రోగుల నిర్వహణ",
-
-        appointments: "అపాయింట్‌మెంట్ నిర్వహణ",
-
-        reports: "రిపోర్ట్స్ & విశ్లేషణ",
-
-        settings: "సిస్టమ్ సెట్టింగ్స్",
-
-        feedback: "ఫీడ్‌బ్యాక్ నిర్వహణ",
-
-        verification: "యూజర్ వెరిఫికేషన్",
-
-        database: "డేటాబేస్ మానిటరింగ్",
-
-        logout: "లాగౌట్"
-
+    te:{
+        dashboard:"అడ్మిన్ డాష్‌బోర్డ్",
+        subtitle:"ఆరోగ్య వ్యవస్థ నిర్వహణ",
+        doctors:"డాక్టర్ల నిర్వహణ",
+        patients:"రోగుల నిర్వహణ",
+        appointments:"అపాయింట్‌మెంట్ నిర్వహణ",
+        reports:"రిపోర్ట్స్ & విశ్లేషణ",
+        settings:"సిస్టమ్ సెట్టింగ్స్",
+        feedback:"ఫీడ్‌బ్యాక్ నిర్వహణ",
+        verification:"యూజర్ వెరిఫికేషన్",
+        database:"డేటాబేస్ మానిటరింగ్",
+        logout:"లాగౌట్"
     }
-
 };
-
 
 function changeLanguage(){
-
-    let lang =
-    document.getElementById("languageSelect").value;
-
-    localStorage.setItem("language", lang);
-
+    let lang=document.getElementById("languageSelect").value;
+    localStorage.setItem("language",lang);
     applyLanguage(lang);
-
 }
-
 
 function applyLanguage(lang){
-
-    document.getElementById("dashboard-title").innerHTML =
-    translations[lang].dashboard;
-
-    document.getElementById("subtitle").innerHTML =
-    translations[lang].subtitle;
-
-    document.getElementById("doctors-card").innerHTML =
-    "👨‍⚕️ " + translations[lang].doctors;
-
-    document.getElementById("patients-card").innerHTML =
-    "🧑 " + translations[lang].patients;
-
-    document.getElementById("appointments-card").innerHTML =
-    "📅 " + translations[lang].appointments;
-
-    document.getElementById("reports-card").innerHTML =
-    "📊 " + translations[lang].reports;
-
-    document.getElementById("settings-card").innerHTML =
-    "⚙️ " + translations[lang].settings;
-
-    document.getElementById("feedback-card").innerHTML =
-    "💬 " + translations[lang].feedback;
-
-    document.getElementById("verification-card").innerHTML =
-    "✅ " + translations[lang].verification;
-
-    document.getElementById("database-card").innerHTML =
-    "🗄️ " + translations[lang].database;
-
-    document.getElementById("logout-btn").innerHTML =
-    translations[lang].logout;
-
+    document.getElementById("dashboard-title").innerHTML=translations[lang].dashboard;
+    document.getElementById("subtitle").innerHTML=translations[lang].subtitle;
+    document.getElementById("doctors-card").innerHTML="👨‍⚕️ "+translations[lang].doctors;
+    document.getElementById("patients-card").innerHTML="🧑 "+translations[lang].patients;
+    document.getElementById("appointments-card").innerHTML="📅 "+translations[lang].appointments;
+    document.getElementById("reports-card").innerHTML="📊 "+translations[lang].reports;
+    document.getElementById("settings-card").innerHTML="⚙️ "+translations[lang].settings;
+    document.getElementById("feedback-card").innerHTML="💬 "+translations[lang].feedback;
+    document.getElementById("verification-card").innerHTML="✅ "+translations[lang].verification;
+    document.getElementById("database-card").innerHTML="🗄️ "+translations[lang].database;
+    document.getElementById("logout-btn").innerHTML=translations[lang].logout;
 }
 
-
-window.onload = function(){
-
-    let savedLang =
-    localStorage.getItem("language") || "en";
-
-    document.getElementById("languageSelect").value =
-    savedLang;
-
+window.onload=function(){
+    let savedLang=localStorage.getItem("language") || "en";
+    document.getElementById("languageSelect").value=savedLang;
     applyLanguage(savedLang);
-
-};
-
+}
 
 function toggleDarkMode(){
-
     document.body.classList.toggle("dark-mode");
-
 }
 
 </script>

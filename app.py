@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.secret_key = "ruralcarehub123"
 
 # DATABASE CONFIGURATION
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ruralcarehub.db'
@@ -189,7 +190,10 @@ def register():
 # ADMIN DASHBOARD
 @app.route('/admin')
 def admin():
-    return render_template('admin_dashboard.html')
+    return render_template(
+        'admin_dashboard.html',
+        feedbacks=feedbacks
+    )
 
 
 # DOCTOR DASHBOARD
@@ -671,9 +675,26 @@ def settings():
 
 
 # FEEDBACK
+feedbacks = []
+
 @app.route('/feedback')
 def feedback():
-    return render_template('feedback.html')
+    return render_template('feedback.html', feedbacks=feedbacks)
+
+@app.route('/submit_feedback', methods=['POST'])
+def submit_feedback():
+    name = request.form.get("name")
+    rating = request.form.get("rating")
+    comment = request.form.get("comment")
+
+    feedbacks.append({
+        "name": name,
+        "rating": rating,
+        "comment": comment
+    })
+
+    flash("Feedback submitted successfully!")
+    return redirect(url_for("feedback"))
 
 
 # VERIFICATION
