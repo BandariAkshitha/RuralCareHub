@@ -56,7 +56,6 @@
             border-radius:5px;
         }
     </style>
-
 </head>
 
 <body>
@@ -84,7 +83,6 @@
 </tr>
 
 {% for p in prescriptions %}
-
 <tr>
     <td>{{ p.patient_name }}</td>
     <td>{{ p.doctor_name }}</td>
@@ -92,18 +90,15 @@
     <td>{{ p.medicine }}</td>
     <td>{{ p.dosage }}</td>
 </tr>
-
 {% endfor %}
 
 </table>
 
-<a href="/patient" class="back" id="back">
-    Back
-</a>
+<a href="/patient" class="back" id="back">Back</a>
 
 <script>
 
-const translations={
+const translations = {
 
 en:{
 title:"Patient Prescriptions",
@@ -137,18 +132,28 @@ back:"వెనక్కి"
 
 };
 
+// CHANGE LANGUAGE
 function changeLanguage(){
 
-let lang=document.getElementById("language").value;
+let lang = document.getElementById("language").value;
 
-document.getElementById("title").innerText=translations[lang].title;
-document.getElementById("patient").innerText=translations[lang].patient;
-document.getElementById("doctor").innerText=translations[lang].doctor;
-document.getElementById("symptoms").innerText=translations[lang].symptoms;
-document.getElementById("medicine").innerText=translations[lang].medicine;
-document.getElementById("dosage").innerText=translations[lang].dosage;
-document.getElementById("back").innerText=translations[lang].back;
+document.getElementById("title").innerText = translations[lang].title;
+document.getElementById("patient").innerText = translations[lang].patient;
+document.getElementById("doctor").innerText = translations[lang].doctor;
+document.getElementById("symptoms").innerText = translations[lang].symptoms;
+document.getElementById("medicine").innerText = translations[lang].medicine;
+document.getElementById("dosage").innerText = translations[lang].dosage;
+document.getElementById("back").innerText = translations[lang].back;
 
+// SAVE LANGUAGE
+localStorage.setItem("lang", lang);
+}
+
+// AUTO LOAD SAVED LANGUAGE
+window.onload = function(){
+    let lang = localStorage.getItem("lang") || "en";
+    document.getElementById("language").value = lang;
+    changeLanguage();
 }
 
 </script>

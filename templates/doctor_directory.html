@@ -34,6 +34,15 @@
             color:#0077cc;
         }
 
+        button{
+            padding:8px 12px;
+            background:#0077cc;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
         .back-btn{
             display:block;
             width:150px;
@@ -54,154 +63,105 @@
 
     <h1 id="title">Doctor Directory</h1>
 
-    <br>
-
     <select id="languageSelect" onchange="changeLanguage()">
-
         <option value="en">English</option>
-
         <option value="hi">Hindi</option>
-
         <option value="te">Telugu</option>
-
     </select>
 
 </div>
 
 <div class="container">
-<div class="doctor-card">
-    <h3 id="doc1-name">Dr. Ravi Kumar</h3>
-    <p id="doc1-specialization">General Physician</p>
-    <p id="city1">Hyderabad</p>
-    <button onclick="bookAppointment('Dr. Ravi Kumar')">Book Appointment</button>
-</div>
-<div class="doctor-card">
-    <h3 id="doc2-name">Dr. Priya Sharma</h3>
-    <p id="doc2-specialization">Cardiologist</p>
-    <p id="city2">Hyderabad</p>
-    <button onclick="bookAppointment('Dr. Priya Sharma')">Book Appointment</button>
-</div>
 
-<div class="doctor-card">
-    <h3 id="doc3-name">Dr. Suresh Reddy</h3>
-    <p id="doc3-specialization">Pediatrician</p>
-    <p id="city3">Hyderabad</p>
-    <button onclick="bookAppointment('Dr. Suresh Reddy')">Book Appointment</button>
-</div>
+<!-- DOCTOR LIST -->
+<div id="doctorList"></div>
 
 </div>
 
-<a href="/patient" class="back-btn" id="back-btn">Back</a>
+<a href="/patient" class="back-btn" id="back">Back</a>
+
 <script>
 
+const doctors = [
+    ["Dr. Ravi Kumar","डॉ. रवि कुमार","డా. రవి కుమార్","General Physician","सामान्य चिकित्सक","సాధారణ వైద్యుడు","Hyderabad","हैदराबाद","హైదరాబాద్"],
+    ["Dr. Priya Sharma","डॉ. प्रिया शर्मा","డా. ప్రియా శర్మ","Cardiologist","हृदय रोग विशेषज्ञ","హృదయ నిపుణుడు","Hyderabad","हैदराबाद","హైదరాబాద్"],
+    ["Dr. Suresh Reddy","डॉ. सुरेश रेड्डी","డా. సురేష్ రెడ్డి","Pediatrician","बाल रोग विशेषज्ञ","శిశు వైద్యుడు","Hyderabad","हैदराबाद","హైదరాబాద్"],
+    ["Dr. Anjali Mehta","डॉ. अंजलि मेहता","డా. అంజలి మేథా","Dermatologist","त्वचा विशेषज्ञ","చర్మ వైద్యుడు","Vijayawada","विजयवाड़ा","విజయవాడ"],
+    ["Dr. Kiran Rao","डॉ. किरण राव","డా. కిరణ్ రావు","Orthopedic Surgeon","हड्डी रोग विशेषज्ञ","ఎముకల వైద్యుడు","Guntur","गुंटूर","గుంటూరు"],
+    ["Dr. Nandini Iyer","डॉ. नंदिनी अय्यर","డా. నందిని అయ్యర్","Gynecologist","स्त्री रोग विशेषज्ञ","స్త్రీ వైద్యుడు","Visakhapatnam","विशाखापत्तनम","విశాఖపట్నం"],
+    ["Dr. Arjun Reddy","डॉ. अर्जुन रेड्डी","డా. అర్జున్ రెడ్డి","Neurologist","तंत्रिका विशेषज्ञ","నరాల వైద్యుడు","Hyderabad","हैदराबाद","హైదరాబాద్"],
+    ["Dr. Sneha Varma","डॉ. स्नेहा वर्मा","డా. స్నేహా వర్మ","ENT Specialist","कान नाक गला विशेषज्ञ","ENT నిపుణుడు","Tirupati","तिरुपति","తిరుపతి"],
+    ["Dr. Meera Joshi","डॉ. मीरा जोशी","డా. మీరా జోషి","Neurologist","तंत्रिका विशेषज्ञ","నరాల వైద్యుడు","Hyderabad","हैदराबाद","హైదరాబాద్"],
+    ["Dr. Vikram Singh","डॉ. विक्रम सिंह","డా. విక్రమ్ సింగ్","Orthopedic Surgeon","हड्डी रोग विशेषज्ञ","ఎముకల వైద్యుడు","Vijayawada","विजयवाड़ा","విజయవాడ"]
+];
+
 const translations = {
-
     en:{
-    title:"Doctor Directory",
-
-    doc1:"General Physician",
-
-    doc2:"Cardiologist",
-
-    doc3:"Pediatrician",
-
-    doc1name:"Dr. Ravi Kumar",
-
-    doc2name:"Dr. Priya Sharma",
-
-    doc3name:"Dr. Suresh Reddy",
-
-    city:"Hyderabad",
-
-    back:"Back"
-},
-
+        title:"Doctor Directory",
+        back:"Back"
+    },
     hi:{
         title:"डॉक्टर निर्देशिका",
-
-        doc1:"सामान्य चिकित्सक",
-
-        doc2:"हृदय रोग विशेषज्ञ",
-
-        doc3:"बाल रोग विशेषज्ञ",
-
-        city:"हैदराबाद",
-
         back:"वापस"
     },
-
     te:{
         title:"డాక్టర్ డైరెక్టరీ",
-
-        doc1:"సాధారణ వైద్యుడు",
-
-        doc2:"హృదయ నిపుణుడు",
-
-        doc3:"శిశు వైద్యుడు",
-
-        city:"హైదరాబాద్",
-
         back:"వెనక్కి"
     }
 };
 
+function renderDoctors(lang){
+
+    let list = document.getElementById("doctorList");
+    list.innerHTML = "";
+
+    let nameIndex = (lang==="en")?0:(lang==="hi")?1:2;
+    let specIndex = (lang==="en")?3:(lang==="hi")?4:5;
+    let cityIndex = (lang==="en")?6:(lang==="hi")?7:8;
+
+    doctors.forEach(d => {
+
+        list.innerHTML += `
+        <div class="doctor-card">
+            <h3>${d[nameIndex]}</h3>
+            <p>${d[specIndex]}</p>
+            <p>${d[cityIndex]}</p>
+            <button onclick="book('${d[0]}')">Book Appointment</button>
+        </div>
+        `;
+    });
+}
+
 function changeLanguage(){
 
-    let lang =
-    document.getElementById("languageSelect").value;
+    let lang = document.getElementById("languageSelect").value;
 
-    document.getElementById("title").innerText =
-    translations[lang].title;
+    document.getElementById("title").innerText = translations[lang].title;
+    document.getElementById("back").innerText = translations[lang].back;
 
-    document.getElementById("doc1-specialization").innerText =
-    translations[lang].doc1;
+    renderDoctors(lang);
 
-    document.getElementById("doc2-specialization").innerText =
-    translations[lang].doc2;
-
-    document.getElementById("doc3-specialization").innerText =
-    translations[lang].doc3;
-
-    document.getElementById("city1").innerText =
-    translations[lang].city;
-
-    document.getElementById("city2").innerText =
-    translations[lang].city;
-
-    document.getElementById("city3").innerText =
-    translations[lang].city;
-
-    document.getElementById("back-btn").innerText =
-    translations[lang].back;
-
-    localStorage.setItem("language",lang);
+    localStorage.setItem("lang", lang);
 }
 
-window.onload = function(){
-
-    let savedLang =
-    localStorage.getItem("language") || "en";
-
-    document.getElementById("languageSelect").value =
-    savedLang;
-
-    changeLanguage();
-}
-
-function bookAppointment(doctorName) {
+function book(name){
 
     localStorage.setItem(
         "appointmentNotification",
-        "Your appointment with " + doctorName + " has been confirmed."
+        "Your appointment with " + name + " is confirmed."
     );
 
     alert("Appointment booked successfully!");
-
     window.location.href = "/notifications";
 }
 
+window.onload = function(){
+    let lang = localStorage.getItem("lang") || "en";
+    document.getElementById("languageSelect").value = lang;
+    changeLanguage();
+}
 
 </script>
 
 </body>
-</html>+
+</html>

@@ -695,6 +695,12 @@ def submit_feedback():
 
     flash("Feedback submitted successfully!")
     return redirect(url_for("feedback"))
+@app.route('/admin_feedback')
+def admin_feedback():
+    return render_template(
+        'admin_feedback.html',
+        feedbacks=feedbacks
+    )
 
 
 # VERIFICATION
